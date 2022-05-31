@@ -1,3 +1,7 @@
+function showObjectPropertyPath(basePropertyKey, {content, boundProps}) {
+  return boundProps[basePropertyKey] && content[basePropertyKey] && typeof content[basePropertyKey][0] === 'object'
+}
+
 export default {
   editor: {
     label: {
@@ -246,8 +250,7 @@ export default {
       defaultValue: [],
     },
     calendarIdPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.calendars || !content.calendars || (content.calendars && typeof content.calendars[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('calendars', {content, boundProps}),
       label: {
           en: 'Id property',
       },
@@ -263,8 +266,7 @@ export default {
       section: 'settings',
     },
     calendarLabelPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.calendars || !content.calendars || (content.calendars && typeof content.calendars[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('calendars', {content, boundProps}),
       label: {
           en: 'Label property',
       },
@@ -280,8 +282,7 @@ export default {
       section: 'settings',
     },
     calendarColorPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.calendars || !content.calendars || (content.calendars && typeof content.calendars[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('calendars', {content, boundProps}),
       label: {
           en: 'Color property',
       },
@@ -347,8 +348,7 @@ export default {
       ],
     },
     eventStartPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'Start date property',
       },
@@ -364,8 +364,7 @@ export default {
       section: 'settings',
     },
     eventEndPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'End date property',
       },
@@ -381,8 +380,7 @@ export default {
       section: 'settings',
     },
     eventTitlePath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'Title property',
       },
@@ -398,8 +396,7 @@ export default {
       section: 'settings',
     },
     eventContentPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'Content property',
       },
@@ -415,8 +412,7 @@ export default {
       section: 'settings',
     },
     eventAllDayPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'All day property',
       },
@@ -432,8 +428,7 @@ export default {
       section: 'settings',
     },
     eventCalendarPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'Calendar ID property',
       },
@@ -449,8 +444,7 @@ export default {
       section: 'settings',
     },
     eventCategoryPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.events || !content.events || (content.events && typeof content.events[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('events', {content, boundProps}),
       label: {
           en: 'Category name property',
       },
@@ -494,8 +488,7 @@ export default {
       defaultValue: [],
     },
     categoryNamePath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.categories || !content.categories || (content.categories && typeof content.categories[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('categories', {content, boundProps}),
       label: {
           en: 'Name property',
       },
@@ -511,8 +504,7 @@ export default {
       section: 'settings',
     },
     categoryColorPath: {
-      hidden: (content, sidepanelContent, boundProps) =>
-          !boundProps.categories || !content.categories || (content.categories && typeof content.categories[0] !== 'object'),
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('categories', {content, boundProps}),
       label: {
           en: 'Color property',
       },
