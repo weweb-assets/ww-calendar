@@ -24,9 +24,11 @@
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
+/* wwEditor:start */
 import 'vue-cal/dist/i18n/fr.js'
 import 'vue-cal/dist/i18n/es.js'
 import 'vue-cal/dist/i18n/de.js'
+/* wwEditor:end */
 
 export default {
   components: { VueCal },
@@ -146,7 +148,24 @@ export default {
         allDay: event.allDay
       }, domEvent } });
     }
+  },
+  /* wwFront:start */
+  created() {
+    switch (this.content.lang) {
+      case 'fr':
+        import('vue-cal/dist/i18n/fr.js')
+        break;
+      case 'es':
+        import('vue-cal/dist/i18n/es.js')
+        break;
+      case 'de':
+        import('vue-cal/dist/i18n/de.js')
+        break;
+      default:
+        break;
+    }
   }
+  /* wwFront:end */
 };
 </script>
 
