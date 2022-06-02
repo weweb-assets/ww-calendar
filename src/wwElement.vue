@@ -151,18 +151,8 @@ export default {
   },
   /* wwFront:start */
   created() {
-    switch (this.content.lang) {
-      case 'fr':
-        import('vue-cal/dist/i18n/fr.js')
-        break;
-      case 'es':
-        import('vue-cal/dist/i18n/es.js')
-        break;
-      case 'de':
-        import('vue-cal/dist/i18n/de.js')
-        break;
-      default:
-        break;
+    if (this.content.lang !== 'en') {
+      import(`vue-cal/dist/i18n/${this.content.lang}.js`)
     }
   }
   /* wwFront:end */
