@@ -84,7 +84,7 @@ export default {
       return this.content.categories.map((cat, index) => ({
         name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
         color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
-        textColor: wwLib.resolveObjectPropertyPath(cal, this.content.categoryColorTextPath || 'textColor') || null,
+        textColor: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
         class: 'cat-' + index
       }))
     },
