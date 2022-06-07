@@ -223,6 +223,10 @@ export default {
   color: var(--calendar-default-event-text-color);
 }
 
+.vuecal__cell-date {
+  padding: 4px 8px;
+}
+
 .vuecal__event {
   padding: 4px 8px;
   border-radius: 8px;
