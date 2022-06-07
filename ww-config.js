@@ -9,7 +9,7 @@ export default {
       fr: "Calendrier",
     },
     customStylePropertiesOrder: [
-      'defaultEventColor', 
+      'defaultEventColor', 'defaultEventTextColor', 
       'themeColor', ['themeMenuColor', 'themeTitleBarColor', 'themeTodayCellColor', 'themeSelectedCellColor'], 
       'defaultView', ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
       'enableTimelessMode', ['timestep', 'timeStart', 'timeEnd']
@@ -17,7 +17,7 @@ export default {
     customSettingsPropertiesOrder: [
       'lang', 'enableMultiCalendar', 
       'calendars', ['calendarIdPath', 'calendarLabelPath', 'calendarColorPath'],
-      'categories', ['categoryNamePath', 'categoryColorPath'], 
+      'categories', ['categoryNamePath', 'categoryColorPath', 'categoryColorTextPath'], 
       'events', ['eventStartPath', 'eventEndPath', 'eventTitlePath', 'eventContentPath', 'eventAllDayPath', 'eventCalendarPath', 'eventCategoryPath'], 
     ]
   },
@@ -43,6 +43,13 @@ export default {
       },
       type: 'Color',
       default: '#F23636'
+    },
+    defaultEventTextColor: {
+      label: {
+        en: "Default event text color",
+      },
+      type: 'Color',
+      default: '#666'
     },
     themeColor: {
       label: {
@@ -240,7 +247,7 @@ export default {
                         options: { placeholder: 'Label' },
                     },
                     color: {
-                        label: { en: 'Color' },
+                        label: { en: 'Background color' },
                         type: 'Color',
                     },
                 },
@@ -478,9 +485,13 @@ export default {
                       type: 'Text'
                     },
                     color: {
-                        label: { en: 'Color' },
+                        label: { en: 'Background color' },
                         type: 'Color',
                     },
+                    textColor: {
+                      label: { en: 'Text color' },
+                      type: 'Color',
+                  },
                 },
             },
           },
@@ -507,6 +518,22 @@ export default {
       hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('categories', {content, boundProps}),
       label: {
           en: 'Color property',
+      },
+      type: 'ObjectPropertyPath',
+      options: content => {
+          if (!content.categories.length || typeof content.categories[0] !== 'object') {
+              return null;
+          }
+
+          return { object: content.categories[0] };
+      },
+      defaultValue: null,
+      section: 'settings',
+    },
+    categoryColorTextPath: {
+      hidden: (content, sidepanelContent, boundProps) => !showObjectPropertyPath('categories', {content, boundProps}),
+      label: {
+          en: 'Color text property',
       },
       type: 'ObjectPropertyPath',
       options: content => {

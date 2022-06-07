@@ -49,6 +49,7 @@ export default {
         '--calendar-theme-cell-today-color': this.content.themeTodayCellColor,
         '--calendar-theme-cell-selected-color': this.content.themeSelectedCellColor,
         '--calendar-default-event-color': this.content.defaultEventColor || 'unset',
+        '--calendar-default-event-text-color': this.content.defaultEventTextColor || 'unset',
       }
     },
     defaultView() {
@@ -83,13 +84,15 @@ export default {
       return this.content.categories.map((cat, index) => ({
         name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
         color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
+        textColor: wwLib.resolveObjectPropertyPath(cal, this.content.categoryColorTextPath || 'textColor') || null,
         class: 'cat-' + index
       }))
     },
     categoriesStyle() {
       return this.categories.reduce((acc, next, index) => ({
         ...acc,
-        ['--calendar-category-' + index + '-bg-color']: next.color
+        ['--calendar-category-' + index + '-bg-color']: next.color,
+        ['--calendar-category-' + index + '-text-color']: next.textColor
       }), {})
     },
     events() {
@@ -135,7 +138,8 @@ export default {
       if (!isBind)
         this.$emit('update:content:effect', {
             categoryNamePath: null,
-            categoryColorPath: null
+            categoryColorPath: null,
+            categoryColorTextPath: null
         });
     },
     /* wwEditor:end */
@@ -169,6 +173,7 @@ export default {
   --calendar-theme-cell-today-color: #bfbab3;
   --calendar-theme-cell-selected-color: #8f8c89;
   --calendar-default-event-color: rgba(248, 248, 248, 0.8);
+  --calendar-default-event-text-color: #666;
 
   --calendar-split-0-bg-color: unset;
   --calendar-split-1-bg-color: unset;
@@ -191,6 +196,16 @@ export default {
   --calendar-category-7-bg-color: unset;
   --calendar-category-8-bg-color: unset;
   --calendar-category-9-bg-color: unset;
+  --calendar-category-0-text-color: unset;
+  --calendar-category-1-text-color: unset;
+  --calendar-category-2-text-color: unset;
+  --calendar-category-3-text-color: unset;
+  --calendar-category-4-text-color: unset;
+  --calendar-category-5-text-color: unset;
+  --calendar-category-6-text-color: unset;
+  --calendar-category-7-text-color: unset;
+  --calendar-category-8-text-color: unset;
+  --calendar-category-9-text-color: unset;
 }
 
 .vuecal--custom-theme {
@@ -205,6 +220,7 @@ export default {
 
 .calendar-default-event-color {
   background-color: var(--calendar-default-event-color);
+  color: var(--calendar-default-event-text-color);
 }
 
 .vuecal__event {
@@ -213,33 +229,43 @@ export default {
 
   &.cat-0 {
     background-color: var(--calendar-category-0-bg-color);
+    color: var(--calendar-category-0-text-color);
   }
   &.cat-1 {
     background-color: var(--calendar-category-1-bg-color);
+    color: var(--calendar-category-1-text-color);
   }
   &.cat-2 {
     background-color: var(--calendar-category-2-bg-color);
+    color: var(--calendar-category-2-text-color);
   }
   &.cat-3 {
     background-color: var(--calendar-category-3-bg-color);
+    color: var(--calendar-category-3-text-color);
   }
   &.cat-4 {
     background-color: var(--calendar-category-4-bg-color);
+    color: var(--calendar-category-4-text-color);
   }
   &.cat-5 {
     background-color: var(--calendar-category-5-bg-color);
+    color: var(--calendar-category-5-text-color);
   }
   &.cat-6 {
     background-color: var(--calendar-category-6-bg-color);
+    color: var(--calendar-category-6-text-color);
   }
   &.cat-7 {
     background-color: var(--calendar-category-7-bg-color);
+    color: var(--calendar-category-7-text-color);
   }
   &.cat-8 {
     background-color: var(--calendar-category-8-bg-color);
+    color: var(--calendar-category-8-text-color);
   }
   &.cat-9 {
     background-color: var(--calendar-category-9-bg-color);
+    color: var(--calendar-category-9-text-color);
   }
 }
 
