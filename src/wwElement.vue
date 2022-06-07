@@ -9,7 +9,7 @@
     :split-days="calendars"
     :showAllDayEvents="content.showAllDayEvents"
     :events-count-on-year-view="content.showCountOnYearView"
-    :locale="content.lang"
+    :locale="currentLang"
     :class="content.themeColor"
     :style="{...customColorTheme, ...calendarsStyle, ...categoriesStyle}"
     :time="!content.enableTimelessMode"
@@ -39,6 +39,9 @@ export default {
     /* wwEditor:end */
   },
   computed: {
+    currentLang() {
+      return ['fr', 'sp', 'de'].includes(this.content.lang) ? this.content.lang : 'en'
+    },
     customColorTheme() {
       return {
         '--calendar-theme-menu-color': this.content.themeMenuColor,
@@ -151,7 +154,7 @@ export default {
   },
   /* wwFront:start */
   created() {
-    if (this.content.lang !== 'en') {
+    if (this.currentLang !== 'en') {
       import(`vue-cal/dist/i18n/${this.content.lang}.js`)
     }
   }

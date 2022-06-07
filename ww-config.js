@@ -534,7 +534,8 @@ export default {
           {label: 'German', value: 'de'},
         ],
       },
-      defaultValue: 'en'
+      defaultValue: 'en',
+      bindable: true,
     }
   },
 };
