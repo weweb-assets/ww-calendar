@@ -100,8 +100,8 @@ export default {
       const events = this.content.events.map(event => {
         const category = this.categories.find(cat => cat.name === wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category'))
         return {
-          start: wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start') || new Date(),
-          end: wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end') || new Date(),
+          start: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) || new Date(),
+          end: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) || new Date(),
           title: wwLib.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
           content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
           allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
