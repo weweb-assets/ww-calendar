@@ -65,7 +65,8 @@ export default {
       ].filter(view => !!view)
     },
     calendars() {
-      if(!Array.isArray(this.content.calendars)) return []
+      const data = wwLib.wwCollection.getCollectionData(this.content.calendars)
+      if(!Array.isArray(data)) return []
       return this.content.calendars.map((cal, index) => ({
         id: wwLib.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
         label: wwLib.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
@@ -80,7 +81,8 @@ export default {
       }), {})
     },
     categories() {
-      if(!Array.isArray(this.content.categories)) return []
+      const data = wwLib.wwCollection.getCollectionData(this.content.categories)
+      if(!Array.isArray(data)) return []
       return this.content.categories.map((cat, index) => ({
         name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
         color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
@@ -96,8 +98,9 @@ export default {
       }), {})
     },
     events() {
-      if(!Array.isArray(this.content.events)) return []
-      const events = this.content.events.map(event => {
+      const data = wwLib.wwCollection.getCollectionData(this.content.events)
+      if(!Array.isArray(data)) return []
+      const events = data.map(event => {
         const category = this.categories.find(cat => cat.name === wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category'))
         return {
           start: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) || new Date(),
