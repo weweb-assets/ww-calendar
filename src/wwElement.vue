@@ -207,66 +207,73 @@ export default {
   background-color: var(--calendar-default-event-color);
 }
 
-.vuecal__event.cat-0 {
-  background-color: var(--calendar-category-0-bg-color);
-}
-.vuecal__event.cat-1 {
-  background-color: var(--calendar-category-1-bg-color);
-}
-.vuecal__event.cat-2 {
-  background-color: var(--calendar-category-2-bg-color);
-}
-.vuecal__event.cat-3 {
-  background-color: var(--calendar-category-3-bg-color);
-}
-.vuecal__event.cat-4 {
-  background-color: var(--calendar-category-4-bg-color);
-}
-.vuecal__event.cat-5 {
-  background-color: var(--calendar-category-5-bg-color);
-}
-.vuecal__event.cat-6 {
-  background-color: var(--calendar-category-6-bg-color);
-}
-.vuecal__event.cat-7 {
-  background-color: var(--calendar-category-7-bg-color);
-}
-.vuecal__event.cat-8 {
-  background-color: var(--calendar-category-8-bg-color);
-}
-.vuecal__event.cat-9 {
-  background-color: var(--calendar-category-9-bg-color);
+.vuecal__event {
+  padding: 4px 8px;
+  border-radius: 8px;
+
+  &.cat-0 {
+    background-color: var(--calendar-category-0-bg-color);
+  }
+  &.cat-1 {
+    background-color: var(--calendar-category-1-bg-color);
+  }
+  &.cat-2 {
+    background-color: var(--calendar-category-2-bg-color);
+  }
+  &.cat-3 {
+    background-color: var(--calendar-category-3-bg-color);
+  }
+  &.cat-4 {
+    background-color: var(--calendar-category-4-bg-color);
+  }
+  &.cat-5 {
+    background-color: var(--calendar-category-5-bg-color);
+  }
+  &.cat-6 {
+    background-color: var(--calendar-category-6-bg-color);
+  }
+  &.cat-7 {
+    background-color: var(--calendar-category-7-bg-color);
+  }
+  &.cat-8 {
+    background-color: var(--calendar-category-8-bg-color);
+  }
+  &.cat-9 {
+    background-color: var(--calendar-category-9-bg-color);
+  }
 }
 
-.vuecal__cell-split.split-0 {
-  background-color: var(--calendar-split-0-bg-color);
-}
-.vuecal__cell-split.split-1 {
-  background-color: var(--calendar-split-1-bg-color);
-}
-.vuecal__cell-split.split-2 {
-  background-color: var(--calendar-split-2-bg-color);
-}
-.vuecal__cell-split.split-3 {
-  background-color: var(--calendar-split-3-bg-color);
-}
-.vuecal__cell-split.split-4 {
-  background-color: var(--calendar-split-4-bg-color);
-}
-.vuecal__cell-split.split-5 {
-  background-color: var(--calendar-split-5-bg-color);
-}
-.vuecal__cell-split.split-6 {
-  background-color: var(--calendar-split-6-bg-color);
-}
-.vuecal__cell-split.split-7 {
-  background-color: var(--calendar-split-7-bg-color);
-}
-.vuecal__cell-split.split-8 {
-  background-color: var(--calendar-split-8-bg-color);
-}
-.vuecal__cell-split.split-9 {
-  background-color: var(--calendar-split-9-bg-color);
+.vuecal__cell-split {
+  &.split-0 {
+    background-color: var(--calendar-split-0-bg-color);
+  }
+  &.split-1 {
+    background-color: var(--calendar-split-1-bg-color);
+  }
+  &.split-2 {
+    background-color: var(--calendar-split-2-bg-color);
+  }
+  &.split-3 {
+    background-color: var(--calendar-split-3-bg-color);
+  }
+  &.split-4 {
+    background-color: var(--calendar-split-4-bg-color);
+  }
+  &.split-5 {
+    background-color: var(--calendar-split-5-bg-color);
+  }
+  &.split-6 {
+    background-color: var(--calendar-split-6-bg-color);
+  }
+  &.split-7 {
+    background-color: var(--calendar-split-7-bg-color);
+  }
+  &.split-8 {
+    background-color: var(--calendar-split-8-bg-color);
+  }
+  &.split-9 {
+    background-color: var(--calendar-split-9-bg-color);
+  }
 }
 
 </style>
