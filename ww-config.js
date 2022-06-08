@@ -1,5 +1,13 @@
 function showObjectPropertyPath(basePropertyKey, {content, boundProps}) {
-  return boundProps[basePropertyKey] && content[basePropertyKey] && typeof content[basePropertyKey][0] === 'object'
+  return boundProps[basePropertyKey] && content[basePropertyKey] && typeof wwLib.wwCollection.getCollectionData(content[basePropertyKey])[0] === 'object'
+}
+function getObjectPropertyPathOptions(basePropertyKey, {content}) {
+  const data = wwLib.wwCollection.getCollectionData(content[basePropertyKey])
+  if (!data.length || typeof data[0] !== 'object') {
+      return null;
+  }
+
+  return { object: data[0] };
 }
 
 export default {
@@ -262,13 +270,7 @@ export default {
           en: 'Id property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.calendars.length || typeof content.calendars[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.calendars[0] };
-      },
+      options: content => getObjectPropertyPathOptions('calendars', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -278,13 +280,7 @@ export default {
           en: 'Label property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.calendars.length || typeof content.calendars[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.calendars[0] };
-      },
+      options: content => getObjectPropertyPathOptions('calendars', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -294,13 +290,7 @@ export default {
           en: 'Color property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.calendars.length || typeof content.calendars[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.calendars[0] };
-      },
+      options: content => getObjectPropertyPathOptions('calendars', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -360,13 +350,7 @@ export default {
           en: 'Start date property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -376,13 +360,7 @@ export default {
           en: 'End date property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -392,13 +370,7 @@ export default {
           en: 'Title property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -408,13 +380,7 @@ export default {
           en: 'Content property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -424,13 +390,7 @@ export default {
           en: 'All day property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -440,13 +400,7 @@ export default {
           en: 'Calendar ID property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -456,13 +410,7 @@ export default {
           en: 'Category name property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.events.length || typeof content.events[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.events[0] };
-      },
+      options: content => getObjectPropertyPathOptions('events', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -504,13 +452,7 @@ export default {
           en: 'Name property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.categories.length || typeof content.categories[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.categories[0] };
-      },
+      options: content => getObjectPropertyPathOptions('categories', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -520,13 +462,7 @@ export default {
           en: 'Color property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.categories.length || typeof content.categories[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.categories[0] };
-      },
+      options: content => getObjectPropertyPathOptions('categories', {content}),
       defaultValue: null,
       section: 'settings',
     },
@@ -536,13 +472,7 @@ export default {
           en: 'Color text property',
       },
       type: 'ObjectPropertyPath',
-      options: content => {
-          if (!content.categories.length || typeof content.categories[0] !== 'object') {
-              return null;
-          }
-
-          return { object: content.categories[0] };
-      },
+      options: content => getObjectPropertyPathOptions('categories', {content}),
       defaultValue: null,
       section: 'settings',
     },
