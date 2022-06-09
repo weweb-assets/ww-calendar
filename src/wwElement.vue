@@ -9,7 +9,7 @@
     :split-days="calendars"
     :showAllDayEvents="content.showAllDayEvents"
     :events-count-on-year-view="content.showCountOnYearView"
-    :locale="content.lang"
+    :locale="currentLang"
     :class="content.themeColor"
     :style="{...customColorTheme, ...calendarsStyle, ...categoriesStyle}"
     :time="!content.enableTimelessMode"
@@ -24,11 +24,9 @@
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
-/* wwEditor:start */
 import 'vue-cal/dist/i18n/fr.js'
 import 'vue-cal/dist/i18n/es.js'
 import 'vue-cal/dist/i18n/de.js'
-/* wwEditor:end */
 
 export default {
   components: { VueCal },
@@ -39,6 +37,9 @@ export default {
     /* wwEditor:end */
   },
   computed: {
+    currentLang() {
+      return ['fr', 'sp', 'de'].includes(this.content.lang) ? this.content.lang : 'en'
+    },
     customColorTheme() {
       return {
         '--calendar-theme-menu-color': this.content.themeMenuColor,
@@ -46,6 +47,7 @@ export default {
         '--calendar-theme-cell-today-color': this.content.themeTodayCellColor,
         '--calendar-theme-cell-selected-color': this.content.themeSelectedCellColor,
         '--calendar-default-event-color': this.content.defaultEventColor || 'unset',
+        '--calendar-default-event-text-color': this.content.defaultEventTextColor || 'unset',
       }
     },
     defaultView() {
@@ -61,7 +63,8 @@ export default {
       ].filter(view => !!view)
     },
     calendars() {
-      if(!Array.isArray(this.content.calendars)) return []
+      const data = wwLib.wwCollection.getCollectionData(this.content.calendars)
+      if(!Array.isArray(data)) return []
       return this.content.calendars.map((cal, index) => ({
         id: wwLib.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
         label: wwLib.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
@@ -76,26 +79,30 @@ export default {
       }), {})
     },
     categories() {
-      if(!Array.isArray(this.content.categories)) return []
+      const data = wwLib.wwCollection.getCollectionData(this.content.categories)
+      if(!Array.isArray(data)) return []
       return this.content.categories.map((cat, index) => ({
         name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
         color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
+        textColor: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
         class: 'cat-' + index
       }))
     },
     categoriesStyle() {
       return this.categories.reduce((acc, next, index) => ({
         ...acc,
-        ['--calendar-category-' + index + '-bg-color']: next.color
+        ['--calendar-category-' + index + '-bg-color']: next.color,
+        ['--calendar-category-' + index + '-text-color']: next.textColor
       }), {})
     },
     events() {
-      if(!Array.isArray(this.content.events)) return []
-      const events = this.content.events.map(event => {
+      const data = wwLib.wwCollection.getCollectionData(this.content.events)
+      if(!Array.isArray(data)) return []
+      const events = data.map(event => {
         const category = this.categories.find(cat => cat.name === wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category'))
         return {
-          start: wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start') || new Date(),
-          end: wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end') || new Date(),
+          start: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) || new Date(),
+          end: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) || new Date(),
           title: wwLib.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
           content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
           allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
@@ -132,7 +139,8 @@ export default {
       if (!isBind)
         this.$emit('update:content:effect', {
             categoryNamePath: null,
-            categoryColorPath: null
+            categoryColorPath: null,
+            categoryColorTextPath: null
         });
     },
     /* wwEditor:end */
@@ -149,23 +157,6 @@ export default {
       }, domEvent } });
     }
   },
-  /* wwFront:start */
-  created() {
-    switch (this.content.lang) {
-      case 'fr':
-        import('vue-cal/dist/i18n/fr.js')
-        break;
-      case 'es':
-        import('vue-cal/dist/i18n/es.js')
-        break;
-      case 'de':
-        import('vue-cal/dist/i18n/de.js')
-        break;
-      default:
-        break;
-    }
-  }
-  /* wwFront:end */
 };
 </script>
 
@@ -176,6 +167,7 @@ export default {
   --calendar-theme-cell-today-color: #bfbab3;
   --calendar-theme-cell-selected-color: #8f8c89;
   --calendar-default-event-color: rgba(248, 248, 248, 0.8);
+  --calendar-default-event-text-color: #666;
 
   --calendar-split-0-bg-color: unset;
   --calendar-split-1-bg-color: unset;
@@ -198,6 +190,16 @@ export default {
   --calendar-category-7-bg-color: unset;
   --calendar-category-8-bg-color: unset;
   --calendar-category-9-bg-color: unset;
+  --calendar-category-0-text-color: unset;
+  --calendar-category-1-text-color: unset;
+  --calendar-category-2-text-color: unset;
+  --calendar-category-3-text-color: unset;
+  --calendar-category-4-text-color: unset;
+  --calendar-category-5-text-color: unset;
+  --calendar-category-6-text-color: unset;
+  --calendar-category-7-text-color: unset;
+  --calendar-category-8-text-color: unset;
+  --calendar-category-9-text-color: unset;
 }
 
 .vuecal--custom-theme {
@@ -212,68 +214,90 @@ export default {
 
 .calendar-default-event-color {
   background-color: var(--calendar-default-event-color);
+  color: var(--calendar-default-event-text-color);
 }
 
-.vuecal__event.cat-0 {
-  background-color: var(--calendar-category-0-bg-color);
-}
-.vuecal__event.cat-1 {
-  background-color: var(--calendar-category-1-bg-color);
-}
-.vuecal__event.cat-2 {
-  background-color: var(--calendar-category-2-bg-color);
-}
-.vuecal__event.cat-3 {
-  background-color: var(--calendar-category-3-bg-color);
-}
-.vuecal__event.cat-4 {
-  background-color: var(--calendar-category-4-bg-color);
-}
-.vuecal__event.cat-5 {
-  background-color: var(--calendar-category-5-bg-color);
-}
-.vuecal__event.cat-6 {
-  background-color: var(--calendar-category-6-bg-color);
-}
-.vuecal__event.cat-7 {
-  background-color: var(--calendar-category-7-bg-color);
-}
-.vuecal__event.cat-8 {
-  background-color: var(--calendar-category-8-bg-color);
-}
-.vuecal__event.cat-9 {
-  background-color: var(--calendar-category-9-bg-color);
+.vuecal__cell-date {
+  padding: 4px 8px;
 }
 
-.vuecal__cell-split.split-0 {
-  background-color: var(--calendar-split-0-bg-color);
+.vuecal__event {
+  padding: 4px 8px;
+  border-radius: 8px;
+
+  &.cat-0 {
+    background-color: var(--calendar-category-0-bg-color);
+    color: var(--calendar-category-0-text-color);
+  }
+  &.cat-1 {
+    background-color: var(--calendar-category-1-bg-color);
+    color: var(--calendar-category-1-text-color);
+  }
+  &.cat-2 {
+    background-color: var(--calendar-category-2-bg-color);
+    color: var(--calendar-category-2-text-color);
+  }
+  &.cat-3 {
+    background-color: var(--calendar-category-3-bg-color);
+    color: var(--calendar-category-3-text-color);
+  }
+  &.cat-4 {
+    background-color: var(--calendar-category-4-bg-color);
+    color: var(--calendar-category-4-text-color);
+  }
+  &.cat-5 {
+    background-color: var(--calendar-category-5-bg-color);
+    color: var(--calendar-category-5-text-color);
+  }
+  &.cat-6 {
+    background-color: var(--calendar-category-6-bg-color);
+    color: var(--calendar-category-6-text-color);
+  }
+  &.cat-7 {
+    background-color: var(--calendar-category-7-bg-color);
+    color: var(--calendar-category-7-text-color);
+  }
+  &.cat-8 {
+    background-color: var(--calendar-category-8-bg-color);
+    color: var(--calendar-category-8-text-color);
+  }
+  &.cat-9 {
+    background-color: var(--calendar-category-9-bg-color);
+    color: var(--calendar-category-9-text-color);
+  }
 }
-.vuecal__cell-split.split-1 {
-  background-color: var(--calendar-split-1-bg-color);
-}
-.vuecal__cell-split.split-2 {
-  background-color: var(--calendar-split-2-bg-color);
-}
-.vuecal__cell-split.split-3 {
-  background-color: var(--calendar-split-3-bg-color);
-}
-.vuecal__cell-split.split-4 {
-  background-color: var(--calendar-split-4-bg-color);
-}
-.vuecal__cell-split.split-5 {
-  background-color: var(--calendar-split-5-bg-color);
-}
-.vuecal__cell-split.split-6 {
-  background-color: var(--calendar-split-6-bg-color);
-}
-.vuecal__cell-split.split-7 {
-  background-color: var(--calendar-split-7-bg-color);
-}
-.vuecal__cell-split.split-8 {
-  background-color: var(--calendar-split-8-bg-color);
-}
-.vuecal__cell-split.split-9 {
-  background-color: var(--calendar-split-9-bg-color);
+
+.vuecal__cell-split {
+  &.split-0 {
+    background-color: var(--calendar-split-0-bg-color);
+  }
+  &.split-1 {
+    background-color: var(--calendar-split-1-bg-color);
+  }
+  &.split-2 {
+    background-color: var(--calendar-split-2-bg-color);
+  }
+  &.split-3 {
+    background-color: var(--calendar-split-3-bg-color);
+  }
+  &.split-4 {
+    background-color: var(--calendar-split-4-bg-color);
+  }
+  &.split-5 {
+    background-color: var(--calendar-split-5-bg-color);
+  }
+  &.split-6 {
+    background-color: var(--calendar-split-6-bg-color);
+  }
+  &.split-7 {
+    background-color: var(--calendar-split-7-bg-color);
+  }
+  &.split-8 {
+    background-color: var(--calendar-split-8-bg-color);
+  }
+  &.split-9 {
+    background-color: var(--calendar-split-9-bg-color);
+  }
 }
 
 </style>
