@@ -24,11 +24,9 @@
 <script>
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
-/* wwEditor:start */
 import 'vue-cal/dist/i18n/fr.js'
 import 'vue-cal/dist/i18n/es.js'
 import 'vue-cal/dist/i18n/de.js'
-/* wwEditor:end */
 
 export default {
   components: { VueCal },
@@ -159,13 +157,6 @@ export default {
       }, domEvent } });
     }
   },
-  /* wwFront:start */
-  created() {
-    if (this.currentLang !== 'en') {
-      import(`vue-cal/dist/i18n/${this.content.lang}.js`)
-    }
-  }
-  /* wwFront:end */
 };
 </script>
 
