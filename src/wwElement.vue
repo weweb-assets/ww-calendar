@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     currentLang() {
-      return ['fr', 'sp', 'de'].includes(this.content.lang) ? this.content.lang : 'en'
+      return ['fr', 'es', 'de'].includes(this.content.lang) ? this.content.lang : 'en'
     },
     customColorTheme() {
       return {
