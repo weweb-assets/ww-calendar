@@ -65,7 +65,7 @@ export default {
     calendars() {
       const data = wwLib.wwCollection.getCollectionData(this.content.calendars)
       if(!Array.isArray(data)) return []
-      return this.content.calendars.map((cal, index) => ({
+      return data.map((cal, index) => ({
         id: wwLib.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
         label: wwLib.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
         color: wwLib.resolveObjectPropertyPath(cal, this.content.calendarColorPath || 'color') || null,
@@ -81,7 +81,7 @@ export default {
     categories() {
       const data = wwLib.wwCollection.getCollectionData(this.content.categories)
       if(!Array.isArray(data)) return []
-      return this.content.categories.map((cat, index) => ({
+      return data.map((cat, index) => ({
         name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
         color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
         textColor: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
@@ -101,6 +101,7 @@ export default {
       const events = data.map(event => {
         const category = this.categories.find(cat => cat.name === wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category'))
         return {
+          rawEventData: event,
           start: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) || new Date(),
           end: new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) || new Date(),
           title: wwLib.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
@@ -147,7 +148,7 @@ export default {
   },
   methods: {
     handleEventClick(event, domEvent) {
-      this.$emit('trigger-event', { name: 'event:click', event: { event: {
+      this.$emit('trigger-event', { name: 'event:click', event: { rawEventData: event.rawEventData, event: {
         start: event.start,
         end: event.end,
         title: event.title,

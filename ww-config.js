@@ -32,6 +32,7 @@ export default {
   triggerEvents: [
     { name: 'event:click', label: { en: 'On event click' }, event: 
       { 
+        rawEventData: {},
         event: {
           start: '',
           end: '',
