@@ -9,6 +9,6 @@
     "@weweb/cli": "latest"
   },
   "dependencies": {
-    "vue-cal": "^4.2.0"
+    "vue-cal": "4.2.0"
   }
 }
