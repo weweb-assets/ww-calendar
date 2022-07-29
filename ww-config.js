@@ -41,6 +41,17 @@ export default {
           calendar: null,
           allDay: null
         }, 
+        currentView: 'years | year | month | week | day',
+        domEvent: {} 
+      }
+    },
+    { name: 'cell:click', label: { en: 'On cell click' }, event: 
+      { 
+        cell: {
+          datetime: new Date(),
+          calendar: null, 
+        },
+        currentView: 'years | year | month | week | day',
         domEvent: {} 
       }
     },

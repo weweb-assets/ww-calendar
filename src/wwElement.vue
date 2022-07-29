@@ -2,7 +2,7 @@
   <vue-cal 
     :key="content.themeColor + '-' + content.startWeekOnSunday"
     :disable-views="disabledViews" 
-    :active-view="defaultView" 
+    :active-view="content.currentView" 
     :hide-view-selector="disabledViews.length >= 4" 
     :hide-weekends="content.hideWeekends"
     :events="events"
@@ -18,6 +18,8 @@
     :timeTo="content.timeEnd*60"
     :startWeekOnSunday="content.startWeekOnSunday"
     @event-click="handleEventClick"
+    @cell-click="handleCellClick"
+    @view-change="currentView = $event.view"
   />
 </template>
 
@@ -36,6 +38,10 @@ export default {
     wwEditorState: { type: Object, required: true },
     /* wwEditor:end */
   },
+  emits: ['trigger-event', 'update:content:effect'],
+  data: () => ({
+    currentView: null
+  }),
   computed: {
     currentLang() {
       return ['fr', 'es', 'de'].includes(this.content.lang) ? this.content.lang : 'en'
@@ -145,6 +151,12 @@ export default {
         });
     },
     /* wwEditor:end */
+    'content.defaultView': {
+      immediate: true,
+      handler(value) {
+        this.currentView = value
+      }
+    }
   },
   methods: {
     handleEventClick(event, domEvent) {
@@ -155,8 +167,17 @@ export default {
         content: event.content,
         calendar: event.split,
         allDay: event.allDay
-      }, domEvent } });
-    }
+      }, currentView: this.currentView, domEvent } });
+    },
+    handleCellClick(event, domEvent) {
+      const date = 'date' in event ? event.date : event
+      const calendar = 'split' in event ? event.split : null
+      this.$emit('trigger-event', { name: 'cell:click', event: { 
+          cell: { date, calendar },
+          currentView: this.currentView, 
+          domEvent 
+      } });
+    },
   },
 };
 </script>
