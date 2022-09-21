@@ -66,7 +66,7 @@ export default {
                 currentView: 'years | year | month | week | day',
                 domEvent: {},
             },
-            default: true
+            getTestEvent: 'getTestEvent',
         },
         {
             name: 'cell:click',
