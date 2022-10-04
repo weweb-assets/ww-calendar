@@ -39,6 +39,11 @@ export default {
         /* wwEditor:end */
     },
     emits: ['trigger-event', 'update:content:effect'],
+    setup() {
+        const { resolveMappingFormula } = wwLib.wwFormula.useFormula();
+
+        return { resolveMappingFormula };
+    },
     data: () => ({
         currentView: null,
     }),
@@ -72,9 +77,9 @@ export default {
             const data = wwLib.wwCollection.getCollectionData(this.content.calendars);
             if (!Array.isArray(data)) return [];
             return data.map((cal, index) => ({
-                id: wwLib.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
-                label: wwLib.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
-                color: wwLib.resolveObjectPropertyPath(cal, this.content.calendarColorPath || 'color') || null,
+                id: this.resolveMappingFormula(this.content.calendarIdPath, cal, cal.id || ''),
+                label: this.resolveMappingFormula(this.content.calendarLabelPath, cal.label || ''),
+                color: this.resolveMappingFormula(this.content.calendarColorPath, cal.color || null),
                 class: 'split-' + index,
             }));
         },
@@ -91,10 +96,10 @@ export default {
             const data = wwLib.wwCollection.getCollectionData(this.content.categories);
             if (!Array.isArray(data)) return [];
             return data.map((cat, index) => ({
-                name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
-                color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
+                name: this.resolveMappingFormula(this.content.categoryNamePath, cat, cat.name || ''),
+                color: this.resolveMappingFormula(this.content.categoryColorPath, cat, cat.color || null),
                 textColor:
-                    wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
+                    this.resolveMappingFormula(this.content.categoryColorTextPath, cat, cat.textColor || null),
                 class: 'cat-' + index,
             }));
         },
@@ -115,20 +120,18 @@ export default {
                 const category = this.categories.find(
                     cat =>
                         cat.name ===
-                        wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category')
+                        this.resolveMappingFormula(this.content.eventCategoryPath, event, event.category)
                 );
                 return {
                     rawEventData: event,
                     start:
-                        new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) ||
-                        new Date(),
+                        new Date(this.resolveMappingFormula(this.content.eventStartPath, event, event.start || new Date())),
                     end:
-                        new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) ||
-                        new Date(),
-                    title: wwLib.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
-                    content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
-                    allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
-                    split: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                        new Date(this.resolveMappingFormula(this.content.eventEndPath, event, event.end || new Date())),
+                    title: this.resolveMappingFormula(this.content.eventTitlePath, event, event.title || ''),
+                    content: this.resolveMappingFormula(this.content.eventContentPath, event, event.content || ''),
+                    allDay: this.resolveMappingFormula(this.content.eventAllDayPath, event, event.allDay || false),
+                    split: this.resolveMappingFormula(this.content.eventCalendarPath, event, event.calendar || null),
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });

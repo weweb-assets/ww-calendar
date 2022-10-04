@@ -1,17 +1,9 @@
-function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
-    return (
-        boundProps[basePropertyKey] &&
-        content[basePropertyKey] &&
-        typeof wwLib.wwCollection.getCollectionData(content[basePropertyKey])[0] === 'object'
-    );
+function showFormula(basePropertyKey, { content, boundProps }) {
+    return boundProps[basePropertyKey] && content[basePropertyKey];
 }
-function getObjectPropertyPathOptions(basePropertyKey, { content }) {
+function getFormulaOptions(basePropertyKey, { content }) {
     const data = wwLib.wwCollection.getCollectionData(content[basePropertyKey]);
-    if (!data.length || typeof data[0] !== 'object') {
-        return null;
-    }
-
-    return { object: data[0] };
+    return { template: data.length ? data[0] : null };
 }
 
 export default {
@@ -303,34 +295,34 @@ export default {
         },
         calendarIdPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
+                !showFormula('calendars', { content, boundProps }),
             label: {
-                en: 'Id property',
+                en: 'Calendar ID',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
         },
         calendarLabelPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
+                !showFormula('calendars', { content, boundProps }),
             label: {
-                en: 'Label property',
+                en: 'Calendar label',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
         },
         calendarColorPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
+                !showFormula('calendars', { content, boundProps }),
             label: {
-                en: 'Color property',
+                en: 'Calendar color',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
         },
@@ -401,78 +393,78 @@ export default {
         },
         eventStartPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'Start date property',
+                en: 'Event start date',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventEndPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'End date property',
+                en: 'Event End date',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventTitlePath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'Title property',
+                en: 'Event title',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventContentPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'Content property',
+                en: 'Event content',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventAllDayPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'All day property',
+                en: 'Event all day',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventCalendarPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'Calendar ID property',
+                en: 'Event calendar id',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
         eventCategoryPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
+                !showFormula('events', { content, boundProps }),
             label: {
-                en: 'Category name property',
+                en: 'Event category name',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('events', { content }),
             defaultValue: null,
             section: 'settings',
         },
@@ -510,34 +502,34 @@ export default {
         },
         categoryNamePath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
+                !showFormula('categories', { content, boundProps }),
             label: {
-                en: 'Name property',
+                en: 'Category name',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('categories', { content }),
             defaultValue: null,
             section: 'settings',
         },
         categoryColorPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
+                !showFormula('categories', { content, boundProps }),
             label: {
-                en: 'Color property',
+                en: 'Category color',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('categories', { content }),
             defaultValue: null,
             section: 'settings',
         },
         categoryColorTextPath: {
             hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
+                !showFormula('categories', { content, boundProps }),
             label: {
-                en: 'Color text property',
+                en: 'Category text color',
             },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
+            type: 'Formula',
+            options: content => getFormulaOptions('categories', { content }),
             defaultValue: null,
             section: 'settings',
         },
