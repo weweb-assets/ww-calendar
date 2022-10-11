@@ -77,6 +77,7 @@ export default {
                 domEvent: {},
             },
             default: true,
+            getTestEvent: 'getTestEvent',
         },
         {
             name: 'cell:click',

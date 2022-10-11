@@ -204,6 +204,17 @@ export default {
                 },
             });
         },
+        /* wwEditor:start */
+        getTestEvent() {
+            if (!this.events.length) throw new Error('No event found');
+            return {
+                rawEventData: this.events[0].rawEventData,
+                event: this.events[0],
+                currentView: this.currentView,
+                domEvent: {},
+            };
+        },
+        /* wwEditor:end */
     },
 };
 </script>
