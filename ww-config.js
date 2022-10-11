@@ -1,3 +1,13 @@
+const langTooltip = `An array of objects:
+\`\`\`json
+[
+    { label: 'English', value: 'en' },
+    { label: 'French', value: 'fr' },
+    { label: 'Spanish', value: 'es' },
+    { label: 'German', value: 'de' },
+]
+\`\`\` `;
+
 function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
     return (
         boundProps[basePropertyKey] &&
@@ -66,6 +76,7 @@ export default {
                 currentView: 'years | year | month | week | day',
                 domEvent: {},
             },
+            default: true,
             getTestEvent: 'getTestEvent',
         },
         {
@@ -300,6 +311,12 @@ export default {
                 },
             },
             defaultValue: [],
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip: 'An array of objects: `[{}, {}, ...]`',
+            },
+            /* wwEditor:end */
         },
         calendarIdPath: {
             hidden: (content, sidepanelContent, boundProps) =>
@@ -398,6 +415,12 @@ export default {
                     allDay: true,
                 },
             ],
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip: 'An array of objects: `[{}, {}, ...]`',
+            },
+            /* wwEditor:end */
         },
         eventStartPath: {
             hidden: (content, sidepanelContent, boundProps) =>
@@ -507,6 +530,12 @@ export default {
                 },
             },
             defaultValue: [],
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip: 'An array of objects: `[{}, {}, ...]`',
+            },
+            /* wwEditor:end */
         },
         categoryNamePath: {
             hidden: (content, sidepanelContent, boundProps) =>
@@ -558,6 +587,12 @@ export default {
             },
             defaultValue: 'en',
             bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip: langTooltip,
+            },
+            /* wwEditor:end */
         },
     },
 };
