@@ -84,7 +84,7 @@ export default {
             label: { en: 'On cell click' },
             event: {
                 cell: {
-                    datetime: new Date(),
+                    date: new Date(),
                     calendar: null,
                 },
                 currentView: 'years | year | month | week | day',
