@@ -193,7 +193,7 @@ export default {
                 },
             });
         },
-        handleCellClick(event, domEvent) {
+        handleCellClick(event) {
             const date = 'date' in event ? event.date : event;
             const calendar = 'split' in event ? event.split : null;
             this.$emit('trigger-event', {
@@ -201,7 +201,6 @@ export default {
                 event: {
                     cell: { date, calendar },
                     currentView: this.currentView,
-                    domEvent,
                 },
             });
         },
