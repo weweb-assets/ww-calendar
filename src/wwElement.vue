@@ -2,7 +2,7 @@
     <vue-cal
         :key="content.themeColor + '-' + content.startWeekOnSunday"
         :disable-views="disabledViews"
-        :active-view="content.currentView"
+        :active-view="currentView"
         :hide-view-selector="disabledViews.length >= 4"
         :hide-weekends="content.hideWeekends"
         :events="events"
@@ -129,6 +129,7 @@ export default {
                     content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
                     allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
                     split: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                    calendar: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });
@@ -192,7 +193,7 @@ export default {
                 },
             });
         },
-        handleCellClick(event, domEvent) {
+        handleCellClick(event) {
             const date = 'date' in event ? event.date : event;
             const calendar = 'split' in event ? event.split : null;
             this.$emit('trigger-event', {
@@ -200,7 +201,6 @@ export default {
                 event: {
                     cell: { date, calendar },
                     currentView: this.currentView,
-                    domEvent,
                 },
             });
         },
@@ -209,7 +209,14 @@ export default {
             if (!this.events.length) throw new Error('No event found');
             return {
                 rawEventData: this.events[0].rawEventData,
-                event: this.events[0],
+                event: {
+                    start: this.events[0].start,
+                    end: this.events[0].end,
+                    title: this.events[0].title,
+                    content: this.events[0].content,
+                    calendar: this.events[0].split,
+                    allDay: this.events[0].allDay,
+                },
                 currentView: this.currentView,
                 domEvent: {},
             };
