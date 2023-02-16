@@ -120,6 +120,7 @@ export default {
                 ],
             },
             defaultValue: '15px',
+            responsive: true,
         },
         defaultEventTimeSize: {
             type: 'Length',
@@ -132,6 +133,7 @@ export default {
                 ],
             },
             defaultValue: '15px',
+            responsive: true,
         },
         defaultEventContentSize: {
             type: 'Length',
@@ -144,6 +146,7 @@ export default {
                 ],
             },
             defaultValue: '15px',
+            responsive: true,
         },
         themeColor: {
             label: {
