@@ -33,6 +33,9 @@ export default {
         customStylePropertiesOrder: [
             'defaultEventColor',
             'defaultEventTextColor',
+            'defaultEventTitleSize',
+            'defaultEventTimeSize',
+            'defaultEventContentSize',
             'themeColor',
             ['themeMenuColor', 'themeTitleBarColor', 'themeTodayCellColor', 'themeSelectedCellColor'],
             'defaultView',
@@ -105,6 +108,45 @@ export default {
             },
             type: 'Color',
             default: '#666',
+        },
+        defaultEventTitleSize: {
+            type: 'Length',
+            label: { en: 'Default event title font-size' },
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 },
+                ],
+            },
+            defaultValue: '15px',
+            responsive: true,
+        },
+        defaultEventTimeSize: {
+            type: 'Length',
+            label: { en: 'Default event time font-size' },
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 },
+                ],
+            },
+            defaultValue: '15px',
+            responsive: true,
+        },
+        defaultEventContentSize: {
+            type: 'Length',
+            label: { en: 'Default event content font-size' },
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 },
+                ],
+            },
+            defaultValue: '15px',
+            responsive: true,
         },
         themeColor: {
             label: {

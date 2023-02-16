@@ -11,7 +11,7 @@
         :events-count-on-year-view="content.showCountOnYearView"
         :locale="currentLang"
         :class="content.themeColor"
-        :style="{ ...customColorTheme, ...calendarsStyle, ...categoriesStyle }"
+        :style="{ ...customThemeStyle, ...calendarsStyle, ...categoriesStyle }"
         :time="!content.enableTimelessMode"
         :timeStep="content.timestep"
         :timeFrom="content.timeStart * 60"
@@ -46,7 +46,7 @@ export default {
         currentLang() {
             return ['fr', 'es', 'de'].includes(this.content.lang) ? this.content.lang : 'en';
         },
-        customColorTheme() {
+        customThemeStyle() {
             return {
                 '--calendar-theme-menu-color': this.content.themeMenuColor,
                 '--calendar-theme-title-bar-color': this.content.themeTitleBarColor,
@@ -54,6 +54,9 @@ export default {
                 '--calendar-theme-cell-selected-color': this.content.themeSelectedCellColor,
                 '--calendar-default-event-color': this.content.defaultEventColor || 'unset',
                 '--calendar-default-event-text-color': this.content.defaultEventTextColor || 'unset',
+                '--calendar-default-event-title-size': this.content.defaultEventTitleSize || 'unset',
+                '--calendar-default-event-time-size': this.content.defaultEventTimeSize || 'unset',
+                '--calendar-default-event-content-size': this.content.defaultEventContentSize || 'unset',
             };
         },
         defaultView() {
@@ -302,6 +305,16 @@ export default {
 .vuecal__event {
     padding: 4px 8px;
     border-radius: 8px;
+
+    &-title {
+        font-size: var(--calendar-default-event-title-size);
+    }
+    &-time {
+        font-size: var(--calendar-default-event-time-size);
+    }
+    &-content {
+        font-size: var(--calendar-default-event-content-size);
+    }
 
     &.cat-0 {
         background-color: var(--calendar-category-0-bg-color);
