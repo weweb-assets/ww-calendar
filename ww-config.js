@@ -551,7 +551,7 @@ export default {
             options: {
                 item: {
                     type: 'Object',
-                    defaultValue: { name: 'Sport', color: null },
+                    defaultValue: { name: 'Sport', color: '#FFFFFF', textColor: '#000000' },
                     options: {
                         item: {
                             name: {
