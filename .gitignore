@@ -44,3 +44,4 @@ typings/
 # Mac files
 .DS_STORE
 # we only use yarn lock
+.idea
