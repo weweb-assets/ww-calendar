@@ -101,6 +101,14 @@ export default {
             },
             type: 'Color',
             default: '#F23636',
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                cssSupports: 'color',
+                type: 'string',
+                tooltip: 'A string that represents a color code: `"rebeccapurple" | "#00ff00" | "rgb(214, 122, 127)"`',
+            },
+            /* wwEditor:end */
         },
         defaultEventTextColor: {
             label: {
@@ -108,6 +116,7 @@ export default {
             },
             type: 'Color',
             default: '#666',
+            bindable: true,
         },
         defaultEventTitleSize: {
             type: 'Length',
@@ -121,6 +130,7 @@ export default {
             },
             defaultValue: '15px',
             responsive: true,
+            bindable: true,
         },
         defaultEventTimeSize: {
             type: 'Length',
@@ -134,6 +144,7 @@ export default {
             },
             defaultValue: '15px',
             responsive: true,
+            bindable: true,
         },
         defaultEventContentSize: {
             type: 'Length',
@@ -147,6 +158,7 @@ export default {
             },
             defaultValue: '15px',
             responsive: true,
+            bindable: true,
         },
         themeColor: {
             label: {
@@ -162,6 +174,7 @@ export default {
                 ],
             },
             defaultValue: 'vuecal--gray-theme',
+            bindable: true,
         },
         themeMenuColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -170,6 +183,7 @@ export default {
             },
             type: 'Color',
             defaultValue: '#F1B7B7',
+            bindable: true,
         },
         themeTitleBarColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -178,6 +192,7 @@ export default {
             },
             type: 'Color',
             defaultValue: '#F6DFDF',
+            bindable: true,
         },
         themeTodayCellColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -186,6 +201,7 @@ export default {
             },
             type: 'Color',
             defaultValue: '#F0EFEF',
+            bindable: true,
         },
         themeSelectedCellColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -194,6 +210,7 @@ export default {
             },
             type: 'Color',
             defaultValue: '#DED4D4',
+            bindable: true,
         },
         defaultView: {
             label: {
@@ -210,6 +227,7 @@ export default {
                 ],
             },
             defaultValue: 'week',
+            bindable: true,
         },
         enableYearsView: {
             label: {
@@ -217,6 +235,13 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines if the input is required: `true | false',
+            },
+            /* wwEditor:end */
         },
         enableYearView: {
             label: {
@@ -224,6 +249,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
         },
         enableMonthView: {
             label: {
@@ -231,6 +257,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
         },
         enableWeekView: {
             label: {
@@ -238,6 +265,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
         },
         enableDayView: {
             label: {
@@ -245,6 +273,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
         },
         hideWeekends: {
             label: {
@@ -252,6 +281,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
         },
         showAllDayEvents: {
             label: {
@@ -259,6 +289,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
         },
         showCountOnYearView: {
             label: {
@@ -266,6 +297,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
         },
         enableTimelessMode: {
             label: {
@@ -273,6 +305,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
         },
         timestep: {
             hidden: content => content.enableTimelessMode,
@@ -286,6 +319,7 @@ export default {
                 step: 5,
             },
             defaultValue: 30,
+            bindable: true,
         },
         timeStart: {
             hidden: content => content.enableTimelessMode,
@@ -299,6 +333,7 @@ export default {
                 step: 1,
             },
             defaultValue: 8,
+            bindable: true,
         },
         timeEnd: {
             hidden: content => content.enableTimelessMode,
@@ -312,6 +347,7 @@ export default {
                 step: 1,
             },
             defaultValue: 20,
+            bindable: true,
         },
         startWeekOnSunday: {
             label: {
@@ -319,6 +355,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
         },
 
         calendars: {
@@ -366,6 +403,7 @@ export default {
                 en: 'Id property',
             },
             type: 'ObjectPropertyPath',
+            bindable: true,
             options: content => getObjectPropertyPathOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
@@ -377,6 +415,7 @@ export default {
                 en: 'Label property',
             },
             type: 'ObjectPropertyPath',
+            bindable: true,
             options: content => getObjectPropertyPathOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
