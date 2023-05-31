@@ -23,6 +23,7 @@
         :xsmall="content.xsmall"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
+        @view-change="handleViewChange"
         @view-change="currentView = $event.view"
     />
 </template>
@@ -208,6 +209,35 @@ export default {
                 name: 'cell:click',
                 event: {
                     cell: { date, calendar },
+                    currentView: this.currentView,
+                },
+            });
+        },
+
+        /**
+         * Triggers whenever the active view changes. (Day, Week, Month, etc.)
+         *
+         * TS definition:
+         *     EventReadyChanged {
+         *         view: string
+         *         startDate: Date // View start - JS native Date object.
+         *         endDate: Date, // View end - JS native Date object.
+         *         firstCellDate: Date // Month view only, in case cell is out of current month - JS native Date object.
+         *         lastCellDate: Date // Month view only, in case cell is out of current month - JS native Date object.
+         *         outOfScopeEvents: Array<Event> // Month view only, all the events that are out of the current month.
+         *         events: Array<Event> // All the events in the current view.
+         *         week: number // Week number. Only returned if view is 'week'.
+         *     }
+         *
+         * @param event
+         * @see https://antoniandre.github.io/vue-cal/#ex--emitted-events
+         * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
+         */
+        handleViewChange(props = {}) {
+            this.$emit('trigger-event', {
+                name: 'view:change',
+                event: {
+                    ...props,
                     currentView: this.currentView,
                 },
             });
