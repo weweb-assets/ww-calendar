@@ -5,6 +5,7 @@ function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
         typeof wwLib.wwCollection.getCollectionData(content[basePropertyKey])[0] === 'object'
     );
 }
+
 function getObjectPropertyPathOptions(basePropertyKey, { content }) {
     const data = wwLib.wwCollection.getCollectionData(content[basePropertyKey]);
     if (!data.length || typeof data[0] !== 'object') {
@@ -361,13 +362,12 @@ export default {
             label: {
                 en: 'Hide particular days of the week',
             },
-            type: "Array",
+            type: 'Array',
             defaultValue: [],
             bindable: true,
-            section: "settings",
             options: {
                 item: {
-                    type: "TextSelect",
+                    type: 'TextSelect',
                     options: {
                         options: [
                             { label: 'Monday', value: 1 },
@@ -383,9 +383,9 @@ export default {
             },
             /* wwEditor:start */
             bindingValidation: {
-                type: "string",
+                type: 'string',
                 tooltip:
-                  'A number from 1 to 7 for the day of the week, 7 is Sunday',
+                    'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
             },
             /* wwEditor:end */
             responsive: true,
