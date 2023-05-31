@@ -136,7 +136,8 @@ export default {
                     content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
                     allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
                     split: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
-                    calendar: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                    calendar:
+                        wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });
