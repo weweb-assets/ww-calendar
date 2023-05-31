@@ -392,7 +392,35 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'boolean',
-                tooltip: 'A boolean that defines if the 12h format should be used instead of 24h (default): `true | false',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        small: {
+            label: {
+                en: 'If true, days of the week headings will be truncated to 3 letters',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        xsmall: {
+            label: {
+                en: 'If true, days of the week headings will be truncated to 1 letter',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
             },
             /* wwEditor:end */
         },

@@ -19,6 +19,8 @@
         :startWeekOnSunday="content.startWeekOnSunday"
         :hideWeekdays="content.hideWeekdays"
         :twelveHour="content.twelveHour"
+        :small="content.small"
+        :xsmall="content.xsmall"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="currentView = $event.view"
