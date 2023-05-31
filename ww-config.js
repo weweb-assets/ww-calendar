@@ -406,7 +406,7 @@ export default {
         },
         small: {
             label: {
-                en: 'If true, days of the week headings will be truncated to 3 letters',
+                en: 'Short week headings',
             },
             type: 'OnOff',
             defaultValue: false,
@@ -420,7 +420,7 @@ export default {
         },
         xsmall: {
             label: {
-                en: 'If true, days of the week headings will be truncated to 1 letter',
+                en: 'Shorter week headings',
             },
             type: 'OnOff',
             defaultValue: false,
