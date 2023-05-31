@@ -32,9 +32,10 @@ export default {
             'defaultView',
             ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
             'enableTimelessMode',
-            ['timestep', 'timeStart', 'timeEnd'],
-            // I18n
-            ['startWeekOnSunday', 'twelveHour'],
+            ['timestep', 'timeStart', 'timeEnd'], // Steps control
+            ['startWeekOnSunday', 'twelveHour'], // I18n
+            ['hideWeekends', 'hideWeekdays'], // Hide days
+            'showAllDayEvents'
         ],
         customSettingsPropertiesOrder: [
             'lang',
