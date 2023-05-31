@@ -44,8 +44,64 @@ export default {
         currentView: null,
     }),
     computed: {
+        /**
+         * Check if the selected language is supported.
+         * If so, use it. Otherwise, fallback to English.
+         *
+         * @returns {string|string}
+         */
         currentLang() {
-            return ['fr', 'es', 'de'].includes(this.content.lang) ? this.content.lang : 'en';
+            // See https://github.com/antoniandre/vue-cal/blob/b41fcee7909b11d0ed5234684171ae792312367b/src/documentation/index.vue#LL362C1-L404C2
+            const localesList = [
+                { code: 'sq', label: 'Albanian' },
+                { code: 'ar', label: 'Arabic' },
+                { code: 'bn', label: 'Bangla' },
+                { code: 'bs', label: 'Bosnian' },
+                { code: 'bg', label: 'Bulgarian' },
+                { code: 'ca', label: 'Catalan' },
+                { code: 'cs', label: 'Czech' },
+                { code: 'zh-cn', label: 'Chinese (Simplified)' },
+                { code: 'zh-hk', label: 'Chinese (Traditional)' },
+                { code: 'hr', label: 'Croatian' },
+                { code: 'da', label: 'Danish' },
+                { code: 'nl', label: 'Dutch' },
+                { code: 'en', label: 'English' },
+                { code: 'et', label: 'Estonian' },
+                { code: 'fa', label: 'Farsi' },
+                { code: 'fr', label: 'French' },
+                { code: 'ka', label: 'Georgian' },
+                { code: 'de', label: 'German' },
+                { code: 'el', label: 'Greek' },
+                { code: 'he', label: 'Hebrew' },
+                { code: 'hu', label: 'Hungarian' },
+                { code: 'is', label: 'Icelandic' },
+                { code: 'it', label: 'Italian' },
+                { code: 'id', label: 'Indonesian' },
+                { code: 'ja', label: 'Japanese' },
+                { code: 'ko', label: 'Korean' },
+                { code: 'lt', label: 'Lithuanian' },
+                { code: 'mn', label: 'Mongolian' },
+                { code: 'no', label: 'Norwegian' },
+                { code: 'pl', label: 'Polish' },
+                { code: 'pt-br', label: 'Portuguese Brasilian' },
+                { code: 'ro', label: 'Romanian' },
+                { code: 'ru', label: 'Russian' },
+                { code: 'sr', label: 'Serbian' },
+                { code: 'sk', label: 'Slovak' },
+                { code: 'sl', label: 'Slovenian' },
+                { code: 'es', label: 'Spanish' },
+                { code: 'sv', label: 'Swedish' },
+                { code: 'tr', label: 'Turkish' },
+                { code: 'uk', label: 'Ukrainian' },
+                { code: 'vi', label: 'Vietnamese' }
+            ];
+            const selectedLocale = localesList.find((supportedLocaleObj) => supportedLocaleObj.code === this.content.lang);
+
+            if (selectedLocale && selectedLocale.hasOwnProperty('code')) {
+                return selectedLocale.code;
+            } else {
+                return 'en';
+            }
         },
         customThemeStyle() {
             return {
