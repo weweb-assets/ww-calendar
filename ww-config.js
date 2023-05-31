@@ -361,25 +361,33 @@ export default {
             label: {
                 en: 'Hide particular days of the week',
             },
-            type: 'TextSelect',
+            type: "Array",
             defaultValue: [],
             bindable: true,
-
-            // TODO I couldn't find any "good" way to display a multi-select list of choices
-            //  So, I ended up doing it this way, but it doesn't allow multi-selection
-            //  The only way to achieve something akin to "multi-select" is to use bind a value (array of integers)
-            //  I'm not sure what's the most efficient way to document this for the end-users
+            section: "settings",
             options: {
-                options: [
-                    { label: 'Monday', value: 1 },
-                    { label: 'Tuesday', value: 2 },
-                    { label: 'Wednesday', value: 3 },
-                    { label: 'Thursday', value: 4 },
-                    { label: 'Friday', value: 5 },
-                    { label: 'Saturday', value: 6 },
-                    { label: 'Sunday', value: 7 },
-                ],
+                item: {
+                    type: "TextSelect",
+                    options: {
+                        options: [
+                            { label: 'Monday', value: 1 },
+                            { label: 'Tuesday', value: 2 },
+                            { label: 'Wednesday', value: 3 },
+                            { label: 'Thursday', value: 4 },
+                            { label: 'Friday', value: 5 },
+                            { label: 'Saturday', value: 6 },
+                            { label: 'Sunday', value: 7 },
+                        ],
+                    },
+                },
             },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: "string",
+                tooltip:
+                  'A number from 1 to 7 for the day of the week, 7 is Sunday',
+            },
+            /* wwEditor:end */
             responsive: true,
         },
         twelveHour: {
