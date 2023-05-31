@@ -405,33 +405,27 @@ export default {
             },
             /* wwEditor:end */
         },
-        small: {
+        daySize: {
             label: {
-                en: 'Short week headings',
+                en: 'Size of the day headings',
             },
-            type: 'OnOff',
-            defaultValue: false,
+            type: 'TextSelect',
+            options: {
+                options: [
+                    { label: 'Normal', value: null },
+                    { label: '3 characters', value: 'small' },
+                    { label: '1 character', value: 'xsmall' },
+                ],
+            },
+            defaultValue: null,
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {
-                type: 'boolean',
-                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+                type: 'string',
+                tooltip: 'A string that defines what option is applied: `null | small | xsmall',
             },
             /* wwEditor:end */
-        },
-        xsmall: {
-            label: {
-                en: 'Shorter week headings',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'A boolean that defines whether the option is applied: `true | false',
-            },
-            /* wwEditor:end */
+            responsive: true,
         },
 
         calendars: {
