@@ -357,6 +357,31 @@ export default {
             defaultValue: false,
             bindable: true,
         },
+        hideWeekdays: {
+            label: {
+                en: 'Hide particular days of the week',
+            },
+            type: 'TextSelect',
+            defaultValue: [],
+            bindable: true,
+
+            // TODO I couldn't find any "good" way to display a multi-select list of choices
+            //  So, I ended up doing it this way, but it doesn't allow multi-selection
+            //  The only way to achieve something akin to "multi-select" is to use bind a value (array of integers)
+            //  I'm not sure what's the most efficient way to document this for the end-users
+            options: {
+                options: [
+                    {label: 'Monday', value: 1},
+                    {label: 'Tuesday', value: 2},
+                    {label: 'Wednesday', value: 3},
+                    {label: 'Thursday', value: 4},
+                    {label: 'Friday', value: 5},
+                    {label: 'Saturday', value: 6},
+                    {label: 'Sunday', value: 7},
+                ],
+            },
+            responsive: true,
+        },
 
         calendars: {
             section: 'settings',

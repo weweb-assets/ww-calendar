@@ -17,6 +17,7 @@
         :timeFrom="content.timeStart * 60"
         :timeTo="content.timeEnd * 60"
         :startWeekOnSunday="content.startWeekOnSunday"
+        :hideWeekdays="content.hideWeekdays"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="currentView = $event.view"
