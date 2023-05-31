@@ -93,6 +93,14 @@ export default {
                 currentView: 'years | year | month | week | day',
             },
         },
+        {
+            name: 'view:change',
+            label: { en: 'On view change' },
+            event: {
+                // TODO Check, not sure what should be defined here, see handleViewChange
+                currentView: 'years | year | month | week | day',
+            },
+        },
     ],
     properties: {
         defaultEventColor: {
