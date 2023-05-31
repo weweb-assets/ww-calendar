@@ -382,6 +382,20 @@ export default {
             },
             responsive: true,
         },
+        twelveHour: {
+            label: {
+                en: 'Use 12h format',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines if the 12h format should be used instead of 24h (default): `true | false',
+            },
+            /* wwEditor:end */
+        },
 
         calendars: {
             section: 'settings',
