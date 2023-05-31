@@ -1,13 +1,3 @@
-const langTooltip = `An array of objects:
-\`\`\`json
-[
-    { label: 'English', value: 'en' },
-    { label: 'French', value: 'fr' },
-    { label: 'Spanish', value: 'es' },
-    { label: 'German', value: 'de' },
-]
-\`\`\` `;
-
 function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
     return (
         boundProps[basePropertyKey] &&
@@ -42,6 +32,8 @@ export default {
             ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
             'enableTimelessMode',
             ['timestep', 'timeStart', 'timeEnd'],
+            // I18n
+            ['startWeekOnSunday', 'twelveHour'],
         ],
         customSettingsPropertiesOrder: [
             'lang',
@@ -752,8 +744,8 @@ export default {
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {
-                type: 'array',
-                tooltip: langTooltip,
+                type: 'string',
+                tooltip: `The value that references the language. Example: "en", "fr". See https://antoniandre.github.io/vue-cal/#ex--internationalization for a full list of all supported languages.`,
             },
             /* wwEditor:end */
         },
