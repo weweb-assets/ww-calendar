@@ -24,7 +24,6 @@
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
-        @view-change="currentView = $event.view"
     />
 </template>
 
