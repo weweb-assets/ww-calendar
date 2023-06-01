@@ -30,10 +30,17 @@
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
-import 'vue-cal/dist/i18n/en.es.js';
-import 'vue-cal/dist/i18n/fr.es.js';
-import 'vue-cal/dist/i18n/es.es.js';
-import 'vue-cal/dist/i18n/de.es.js';
+import * as lang_en from 'vue-cal/dist/i18n/en.es.js';
+import * as lang_fr from 'vue-cal/dist/i18n/fr.es.js';
+import * as lang_es from 'vue-cal/dist/i18n/es.es.js';
+import * as lang_de from 'vue-cal/dist/i18n/de.es.js';
+
+const locales = {
+    lang_en,
+    lang_fr,
+    lang_es,
+    lang_de,
+};
 
 export default {
     components: { VueCal },
@@ -102,9 +109,9 @@ export default {
             const selectedLocale = localesList.find((supportedLocaleObj) => supportedLocaleObj.code === this.content.lang);
 
             if (selectedLocale && selectedLocale.hasOwnProperty('code')) {
-                return selectedLocale.code;
+                return locales[`lang_${selectedLocale.code}`];
             } else {
-                return 'en';
+                return locales[`lang_en`];
             }
         },
         customThemeStyle() {
