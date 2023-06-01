@@ -30,16 +30,16 @@
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
-import * as lang_en from 'vue-cal/dist/i18n/en.es.js';
-import * as lang_fr from 'vue-cal/dist/i18n/fr.es.js';
-import * as lang_es from 'vue-cal/dist/i18n/es.es.js';
-import * as lang_de from 'vue-cal/dist/i18n/de.es.js';
+import * as locale_en from 'vue-cal/dist/i18n/en.es.js';
+import * as locale_fr from 'vue-cal/dist/i18n/fr.es.js';
+import * as locale_es from 'vue-cal/dist/i18n/es.es.js';
+import * as locale_de from 'vue-cal/dist/i18n/de.es.js';
 
 const locales = {
-    lang_en,
-    lang_fr,
-    lang_es,
-    lang_de,
+    locale_en,
+    locale_fr,
+    locale_es,
+    locale_de,
 };
 
 export default {
@@ -63,12 +63,24 @@ export default {
          * @see https://github.com/antoniandre/vue-cal/blob/b41fcee7909b11d0ed5234684171ae792312367b/src/documentation/index.vue#LL362C1-L404C2 List of all supported locales
          */
         currentLang() {
-            const selectedLocale = locales.find((supportedLocaleObj, key) => key === this.content.lang);
-
-            if (selectedLocale) {
-                return selectedLocale;
+            if (typeof this.content.lang === 'object') {
+                // Object provided, use it as-it (allows locale override, custom locale, etc.)
+                // See https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json
+                return this.content.lang;
             } else {
-                return locales[`lang_en`];
+                // [0]: locale prefixed with "locale_"
+                // [1]: locales as object
+                const selectedLocale = Object.entries(locales).find((locale, index) => {
+                    const key = locale[0].replace('locale_', '');
+                    console.log(key, this.content.lang);
+                    return key === this.content.lang;
+                });
+
+                if (selectedLocale && selectedLocale.length) {
+                    return selectedLocale[1];
+                } else {
+                    return locales[`locale_en`];
+                }
             }
         },
         customThemeStyle() {

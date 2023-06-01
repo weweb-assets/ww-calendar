@@ -737,7 +737,7 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: `Either the identifier of the language, or a JS object. Example: "en", "fr". See https://antoniandre.github.io/vue-cal/#ex--internationalization for a full list of all supported languages.`,
+                tooltip: `Either the identifier of the language, or a JS object. Example: "en", "fr". See https://antoniandre.github.io/vue-cal/#ex--internationalization for a full list of all supported languages. See https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json for providing a JS object.`,
             },
             /* wwEditor:end */
         },
