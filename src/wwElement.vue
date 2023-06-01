@@ -30,6 +30,10 @@
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
+import 'vue-cal/dist/i18n/en.es.js';
+import 'vue-cal/dist/i18n/fr.es.js';
+import 'vue-cal/dist/i18n/es.es.js';
+import 'vue-cal/dist/i18n/de.es.js';
 
 export default {
     components: { VueCal },
