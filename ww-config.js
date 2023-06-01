@@ -176,7 +176,6 @@ export default {
                 ],
             },
             defaultValue: 'vuecal--gray-theme',
-            bindable: true,
         },
         themeMenuColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -473,7 +472,6 @@ export default {
                 en: 'Id property',
             },
             type: 'ObjectPropertyPath',
-            bindable: true,
             options: content => getObjectPropertyPathOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
@@ -485,7 +483,6 @@ export default {
                 en: 'Label property',
             },
             type: 'ObjectPropertyPath',
-            bindable: true,
             options: content => getObjectPropertyPathOptions('calendars', { content }),
             defaultValue: null,
             section: 'settings',
