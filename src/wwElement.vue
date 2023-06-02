@@ -72,7 +72,6 @@ export default {
                 // [1]: locales as object
                 const selectedLocale = Object.entries(locales).find((locale, index) => {
                     const key = locale[0].replace('locale_', '');
-                    console.log(key, this.content.lang);
                     return key === this.content.lang;
                 });
 
