@@ -91,8 +91,14 @@ export default {
             name: 'view:change',
             label: { en: 'On view change' },
             event: {
-                // TODO Check, not sure what should be defined here, see handleViewChange
-                currentView: 'years | year | month | week | day',
+                view: 'years | year | month | week | day',
+                startDate: null,
+                endDate: null,
+                firstCellDate: null,
+                lastCellDate: null,
+                outOfScopeEvents: [],
+                events: [],
+                week: 1
             },
         },
     ],

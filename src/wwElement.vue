@@ -265,12 +265,14 @@ export default {
          * @see https://antoniandre.github.io/vue-cal/#ex--emitted-events
          * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
          */
-        handleViewChange(props = {}) {
+        handleViewChange(event) {
+            // Update the current active view
+            this.currentView = event.view;
+
             this.$emit('trigger-event', {
                 name: 'view:change',
                 event: {
-                    ...props,
-                    currentView: this.currentView,
+                    ...(event || {}),
                 },
             });
         },
