@@ -60,12 +60,12 @@ export default {
          * If so, use it. Otherwise, fallback to English.
          *
          * @returns {string|string}
+         * @see https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json Example of custom locale (as object)
          * @see https://github.com/antoniandre/vue-cal/blob/b41fcee7909b11d0ed5234684171ae792312367b/src/documentation/index.vue#LL362C1-L404C2 List of all supported locales
          */
         currentLang() {
-            if (typeof this.content.lang === 'object') {
+            if (this.content.lang && typeof this.content.lang === 'object') {
                 // Object provided, use it as-it (allows locale override, custom locale, etc.)
-                // See https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json
                 return this.content.lang;
             } else {
                 // [0]: locale prefixed with "locale_"
