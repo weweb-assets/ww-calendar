@@ -389,7 +389,7 @@ export default {
             },
             /* wwEditor:start */
             bindingValidation: {
-                type: 'string',
+                type: 'array',
                 tooltip:
                     'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
             },
