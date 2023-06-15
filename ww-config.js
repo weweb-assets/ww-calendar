@@ -460,6 +460,21 @@ export default {
             /* wwEditor:end */
             responsive: true,
         },
+        selectedDate: { // TODO Improve it by adding 2-way bindings
+            label: {
+                en: 'Selected date',
+            },
+            type: 'Text',
+            defaultValue: '',
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string. You can also provide a native Javascript Date object.`,
+            },
+            /* wwEditor:end */
+            responsive: true,
+        },
 
         calendars: {
             section: 'settings',
