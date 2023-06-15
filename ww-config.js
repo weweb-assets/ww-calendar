@@ -35,7 +35,7 @@ export default {
             ['timestep', 'timeStart', 'timeEnd'], // Steps control
             ['startWeekOnSunday', 'twelveHour'], // I18n
             ['hideWeekends', 'hideWeekdays'], // Hide days
-            'showAllDayEvents'
+            ['watchRealTime', 'showAllDayEvents']
         ],
         customSettingsPropertiesOrder: [
             'lang',
@@ -402,6 +402,20 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        watchRealTime: {
+            label: {
+                en: 'Update current time every minute',
+            },
+            type: 'OnOff',
+            defaultValue: true,
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {

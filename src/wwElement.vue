@@ -21,6 +21,7 @@
         :twelveHour="content.twelveHour"
         :small="content.daySize === 'small'"
         :xsmall="content.daySize === 'xsmall'"
+        :watchRealTime="content.watchRealTime"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
