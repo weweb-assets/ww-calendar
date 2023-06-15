@@ -594,20 +594,22 @@ export default {
             },
             defaultValue: [
                 {
-                    start: '2022-01-01 12:00',
-                    end: '2022-01-01 14:00',
+                    // Add 2h event today
+                    start: `${new Date().toISOString().split('T')[0]} 12:00`,
+                    end: `${new Date().toISOString().split('T')[0]} 14:00`,
                     title: 'My first event',
                     content: 'Content of my first event',
                     calendar: null,
-                    category: null,
+                    category: 'Sport',
                 },
                 {
-                    start: '2022-01-02',
-                    end: '2022-01-02',
-                    title: 'My second event',
+                    // Add all day event yesterday
+                    start: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                    end: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                    title: 'My second event (all day)',
                     content: 'Content of my second event',
                     calendar: null,
-                    category: null,
+                    category: 'Health',
                     allDay: true,
                 },
             ],
@@ -725,7 +727,18 @@ export default {
                     },
                 },
             },
-            defaultValue: [],
+            defaultValue: [
+                {
+                    name: 'Sport',
+                    color: '#FFA500',
+                    textColor: '#FFFFFF',
+                },
+                {
+                    name: 'Health',
+                    color: 'green',
+                    textColor: '#FFFFFF',
+                },
+            ],
             /* wwEditor:start */
             bindingValidation: {
                 type: 'array',
