@@ -35,7 +35,7 @@ export default {
             ['timestep', 'timeStart', 'timeEnd'], // Steps control
             ['startWeekOnSunday', 'twelveHour'], // I18n
             ['hideWeekends', 'hideWeekdays'], // Hide days
-            ['watchRealTime', 'showAllDayEvents']
+            ['watchRealTime', 'todayButton', 'showAllDayEvents']
         ],
         customSettingsPropertiesOrder: [
             'lang',
@@ -416,6 +416,20 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        todayButton: {
+            label: {
+                en: 'Add "Today" button',
+            },
+            type: 'OnOff',
+            defaultValue: false,
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {

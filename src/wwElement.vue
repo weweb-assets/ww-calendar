@@ -22,6 +22,7 @@
         :small="content.daySize === 'small'"
         :xsmall="content.daySize === 'xsmall'"
         :watchRealTime="content.watchRealTime"
+        :todayButton="content.todayButton"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
