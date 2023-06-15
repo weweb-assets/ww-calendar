@@ -455,7 +455,7 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'A string that defines what option is applied: `null | small | xsmall',
+                tooltip: 'A string that defines what option is applied: `null | small | xsmall`',
             },
             /* wwEditor:end */
             responsive: true,
