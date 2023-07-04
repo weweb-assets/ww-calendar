@@ -32,11 +32,12 @@ export default {
             ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
             'enableTimelessMode',
             ['timestep', 'timeStart', 'timeEnd'],
-            ['startWeekOnSunday', 'twelveHour'], // I18n
-            ['hideWeekends', 'hideWeekdays'], // Hide days
+            ['startWeekOnSunday', 'twelveHour'],
+            ['hideWeekends', 'hideWeekdays'],
             ['watchRealTime', 'todayButton', 'showAllDayEvents']
         ],
         customSettingsPropertiesOrder: [
+            'selectedDate',
             'lang',
             'enableMultiCalendar',
             'calendars',
@@ -474,6 +475,7 @@ export default {
             responsive: true,
         },
         selectedDate: {
+            section: 'settings',
             label: {
                 en: 'Selected date',
             },
@@ -483,10 +485,9 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string. You can also provide a native Javascript Date object.`,
+                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string.`
             },
             /* wwEditor:end */
-            responsive: true,
         },
         calendars: {
             section: 'settings',
