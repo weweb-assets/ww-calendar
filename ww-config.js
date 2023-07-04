@@ -473,7 +473,7 @@ export default {
             /* wwEditor:end */
             responsive: true,
         },
-        selectedDate: { // TODO Improve it by adding 2-way bindings
+        selectedDate: {
             label: {
                 en: 'Selected date',
             },

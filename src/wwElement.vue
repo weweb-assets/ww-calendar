@@ -23,7 +23,7 @@
         :xsmall="content.daySize === 'xsmall'"
         :watchRealTime="content.watchRealTime"
         :todayButton="content.todayButton"
-        :selectedDate="content.selectedDate"
+        :selectedDate="internalSelectedDate"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
@@ -56,6 +56,16 @@ export default {
         /* wwEditor:end */
     },
     emits: ['trigger-event', 'update:content:effect'],
+    setup(props) {
+        const { value: selectedDate, setValue: setSelectedDate } = wwLib.wwVariable.useComponentVariable({
+            uid: props.uid,
+            name: 'selectedDate',
+            type: 'string',
+            defaultValue: props.content.selectedDate || '',
+        });
+
+        return { selectedDate, setSelectedDate }
+    },
     data: () => ({
         currentView: null,
     }),
@@ -166,6 +176,14 @@ export default {
             });
             return events;
         },
+        internalSelectedDate: {
+            get() {
+                return this.selectedDate
+            },
+            set(value) {
+                if (value !== this.selectedDate) this.setSelectedDate(value)
+            }
+        }
     },
     watch: {
         /* wwEditor:start */
@@ -204,6 +222,9 @@ export default {
                 this.currentView = value;
             },
         },
+        'content.selectedDate'(value) {
+            this.internalSelectedDate = value
+        }
     },
     methods: {
         handleEventClick(event, domEvent) {
