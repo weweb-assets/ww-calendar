@@ -453,14 +453,14 @@ export default {
         },
         daySize: {
             label: {
-                en: 'Size of the day headings',
+                en: 'Header Format',
             },
             type: 'TextSelect',
             options: {
                 options: [
                     { label: 'Normal', value: null },
-                    { label: '3 characters', value: 'small' },
-                    { label: '1 character', value: 'xsmall' },
+                    { label: 'Short', value: 'small' },
+                    { label: 'Minimal', value: 'xsmall' },
                 ],
             },
             defaultValue: null,
