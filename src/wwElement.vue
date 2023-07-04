@@ -17,18 +17,35 @@
         :timeFrom="content.timeStart * 60"
         :timeTo="content.timeEnd * 60"
         :startWeekOnSunday="content.startWeekOnSunday"
+        :hideWeekdays="content.hideWeekdays"
+        :twelveHour="content.twelveHour"
+        :small="content.daySize === 'small'"
+        :xsmall="content.daySize === 'xsmall'"
+        :watchRealTime="content.watchRealTime"
+        :todayButton="content.todayButton"
+        :selectedDate="content.selectedDate"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
-        @view-change="currentView = $event.view"
+        @view-change="handleViewChange"
     />
 </template>
 
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
-import 'vue-cal/dist/i18n/fr.js';
-import 'vue-cal/dist/i18n/es.js';
-import 'vue-cal/dist/i18n/de.js';
+import * as en from 'vue-cal/dist/i18n/en.es.js';
+import * as fr from 'vue-cal/dist/i18n/fr.es.js';
+import * as es from 'vue-cal/dist/i18n/es.es.js';
+import * as de from 'vue-cal/dist/i18n/de.es.js';
+import * as pt from 'vue-cal/dist/i18n/pt-br.es.js';
+
+const locales = {
+    'en': en,
+    'fr': fr,
+    'es': es,
+    'de': de,
+    'pt-br': pt
+};
 
 export default {
     components: { VueCal },
@@ -43,8 +60,19 @@ export default {
         currentView: null,
     }),
     computed: {
+        /**
+         * Check if the selected language is supported.
+         * If so, use it. Otherwise, fallback to English.
+         *
+         * @returns {string|string}
+         * @see https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json Example of custom locale (as object)
+         * @see https://github.com/antoniandre/vue-cal/blob/b41fcee7909b11d0ed5234684171ae792312367b/src/documentation/index.vue#LL362C1-L404C2 List of all supported locales
+         */
         currentLang() {
-            return ['fr', 'es', 'de'].includes(this.content.lang) ? this.content.lang : 'en';
+             // allows locale override
+            if (this.content.lang && typeof this.content.lang === 'object') return this.content.lang;
+            const selectedLocale = locales[this.content.lang]
+            return selectedLocale || locales.en
         },
         customThemeStyle() {
             return {
@@ -204,6 +232,35 @@ export default {
                 event: {
                     cell: { date, calendar },
                     currentView: this.currentView,
+                },
+            });
+        },
+        /**
+         * Triggers whenever the active view changes. (Day, Week, Month, etc.)
+         *
+         * TS definition:
+         *     EventReadyChanged {
+         *         view: string
+         *         startDate: Date // View start - JS native Date object.
+         *         endDate: Date, // View end - JS native Date object.
+         *         firstCellDate: Date // Month view only, in case cell is out of current month - JS native Date object.
+         *         lastCellDate: Date // Month view only, in case cell is out of current month - JS native Date object.
+         *         outOfScopeEvents: Array<Event> // Month view only, all the events that are out of the current month.
+         *         events: Array<Event> // All the events in the current view.
+         *         week: number // Week number. Only returned if view is 'week'.
+         *     }
+         *
+         * @param event
+         * @see https://antoniandre.github.io/vue-cal/#ex--emitted-events
+         * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
+         */
+         handleViewChange(event) {
+            // Update the current active view
+            this.currentView = event.view;
+            this.$emit('trigger-event', {
+                name: 'view:change',
+                event: {
+                    ...(event || {}),
                 },
             });
         },
