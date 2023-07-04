@@ -100,14 +100,20 @@ export default {
                 en: 'Default event color',
             },
             type: 'Color',
-            default: '#F23636',
+            classes: true,
+            states: true,
+            responsive: true,
+            bindable: true,
         },
         defaultEventTextColor: {
             label: {
                 en: 'Default event text color',
             },
             type: 'Color',
-            default: '#666',
+            classes: true,
+            states: true,
+            responsive: true,
+            bindable: true,
         },
         defaultEventTitleSize: {
             type: 'Length',
@@ -119,8 +125,10 @@ export default {
                     { value: 'rem', label: 'rem', min: 1, max: 50 },
                 ],
             },
-            defaultValue: '15px',
+            classes: true,
+            states: true,
             responsive: true,
+            bindable: true,
         },
         defaultEventTimeSize: {
             type: 'Length',
@@ -132,8 +140,10 @@ export default {
                     { value: 'rem', label: 'rem', min: 1, max: 50 },
                 ],
             },
-            defaultValue: '15px',
+            classes: true,
+            states: true,
             responsive: true,
+            bindable: true,
         },
         defaultEventContentSize: {
             type: 'Length',
@@ -145,8 +155,10 @@ export default {
                     { value: 'rem', label: 'rem', min: 1, max: 50 },
                 ],
             },
-            defaultValue: '15px',
+            classes: true,
+            states: true,
             responsive: true,
+            bindable: true,
         },
         themeColor: {
             label: {
@@ -162,6 +174,9 @@ export default {
                 ],
             },
             defaultValue: 'vuecal--gray-theme',
+            classes: true,
+            states: true,
+            responsive: true,
         },
         themeMenuColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -169,7 +184,9 @@ export default {
                 en: 'Views menu',
             },
             type: 'Color',
-            defaultValue: '#F1B7B7',
+            classes: true,
+            states: true,
+            responsive: true,
         },
         themeTitleBarColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -177,7 +194,9 @@ export default {
                 en: 'Title bar',
             },
             type: 'Color',
-            defaultValue: '#F6DFDF',
+            classes: true,
+            states: true,
+            responsive: true,
         },
         themeTodayCellColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -185,7 +204,9 @@ export default {
                 en: 'Today cell',
             },
             type: 'Color',
-            defaultValue: '#F0EFEF',
+            classes: true,
+            states: true,
+            responsive: true,
         },
         themeSelectedCellColor: {
             hidden: content => content.themeColor !== 'vuecal--custom-theme',
@@ -193,7 +214,9 @@ export default {
                 en: 'Selected cell',
             },
             type: 'Color',
-            defaultValue: '#DED4D4',
+            classes: true,
+            states: true,
+            responsive: true,
         },
         defaultView: {
             label: {
