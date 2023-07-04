@@ -465,6 +465,9 @@ export default {
                 ],
             },
             defaultValue: null,
+            classes: true,
+            states: true,
+            responsive: true,
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -472,7 +475,6 @@ export default {
                 tooltip: 'A string that defines what option is applied: `null | small | xsmall`',
             },
             /* wwEditor:end */
-            responsive: true,
         },
         selectedDate: {
             section: 'settings',
