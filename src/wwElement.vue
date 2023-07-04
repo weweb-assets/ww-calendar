@@ -51,6 +51,7 @@ const locales = {
 export default {
     components: { VueCal },
     props: {
+        uid: { type: String, required: true },
         content: { type: Object, required: true },
         /* wwEditor:start */
         wwEditorState: { type: Object, required: true },
