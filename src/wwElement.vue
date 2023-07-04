@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { computed } from 'vue';
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
 import * as en from 'vue-cal/dist/i18n/en.es.js';
@@ -61,7 +62,7 @@ export default {
             uid: props.uid,
             name: 'selectedDate',
             type: 'string',
-            defaultValue: props.content.selectedDate || '',
+            defaultValue: computed(() => String(props.content.selectedDate || '')),
         });
 
         return { selectedDate, setSelectedDate }
