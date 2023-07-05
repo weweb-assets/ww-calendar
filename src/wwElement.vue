@@ -23,7 +23,7 @@
         :xsmall="content.daySize === 'xsmall'"
         :watchRealTime="content.watchRealTime"
         :todayButton="content.todayButton"
-        :selectedDate="internalSelectedDate"
+        v-model:selectedDate="internalSelectedDate"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
