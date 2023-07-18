@@ -1,6 +1,6 @@
 <template>
     <vue-cal
-        :key="content.themeColor + '-' + content.startWeekOnSunday"
+        :key="content.themeColor + '-' + content.startWeekOnSunday + '-' + content.watchRealTime"
         :disable-views="disabledViews"
         :active-view="currentView"
         :hide-view-selector="disabledViews.length >= 4"

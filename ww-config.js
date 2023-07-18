@@ -429,7 +429,7 @@ export default {
                 en: 'Update current time every minute',
             },
             type: 'OnOff',
-            defaultValue: true,
+            defaultValue: false,
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {
