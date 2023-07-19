@@ -1,13 +1,3 @@
-const langTooltip = `An array of objects:
-\`\`\`json
-[
-    { label: 'English', value: 'en' },
-    { label: 'French', value: 'fr' },
-    { label: 'Spanish', value: 'es' },
-    { label: 'German', value: 'de' },
-]
-\`\`\` `;
-
 function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
     return (
         boundProps[basePropertyKey] &&
@@ -42,8 +32,12 @@ export default {
             ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
             'enableTimelessMode',
             ['timestep', 'timeStart', 'timeEnd'],
+            ['startWeekOnSunday', 'twelveHour'],
+            ['hideWeekends', 'hideWeekdays'],
+            ['watchRealTime', 'todayButton', 'showAllDayEvents']
         ],
         customSettingsPropertiesOrder: [
+            'selectedDate',
             'lang',
             'enableMultiCalendar',
             'calendars',
@@ -93,6 +87,20 @@ export default {
                 currentView: 'years | year | month | week | day',
             },
         },
+        {
+            name: 'view:change',
+            label: { en: 'On view change' },
+            event: {
+                view: 'years | year | month | week | day',
+                startDate: null,
+                endDate: null,
+                firstCellDate: null,
+                lastCellDate: null,
+                outOfScopeEvents: [],
+                events: [],
+                week: 1
+            },
+        },
     ],
     properties: {
         defaultEventColor: {
@@ -104,6 +112,13 @@ export default {
             states: true,
             responsive: true,
             bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                cssSupports: 'color',
+                type: 'string',
+                tooltip: 'A string that represents a color code: `"rebeccapurple" | "#00ff00" | "rgb(214, 122, 127)"`',
+            },
+            /* wwEditor:end */
         },
         defaultEventTextColor: {
             label: {
@@ -114,6 +129,13 @@ export default {
             states: true,
             responsive: true,
             bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                cssSupports: 'color',
+                type: 'string',
+                tooltip: 'A string that represents a color code: `"rebeccapurple" | "#00ff00" | "rgb(214, 122, 127)"`',
+            },
+            /* wwEditor:end */
         },
         defaultEventTitleSize: {
             type: 'Length',
@@ -240,6 +262,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true
         },
         enableYearView: {
             label: {
@@ -247,6 +270,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true
         },
         enableMonthView: {
             label: {
@@ -254,6 +278,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true
         },
         enableWeekView: {
             label: {
@@ -261,6 +286,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true
         },
         enableDayView: {
             label: {
@@ -268,6 +294,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
+            bindable: true
         },
         hideWeekends: {
             label: {
@@ -275,6 +302,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true
         },
         showAllDayEvents: {
             label: {
@@ -282,6 +310,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true
         },
         showCountOnYearView: {
             label: {
@@ -289,6 +318,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true
         },
         enableTimelessMode: {
             label: {
@@ -296,6 +326,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true
         },
         timestep: {
             hidden: content => content.enableTimelessMode,
@@ -309,6 +340,7 @@ export default {
                 step: 5,
             },
             defaultValue: 30,
+            bindable: true
         },
         timeStart: {
             hidden: content => content.enableTimelessMode,
@@ -322,6 +354,7 @@ export default {
                 step: 1,
             },
             defaultValue: 8,
+            bindable: true
         },
         timeEnd: {
             hidden: content => content.enableTimelessMode,
@@ -335,6 +368,7 @@ export default {
                 step: 1,
             },
             defaultValue: 20,
+            bindable: true
         },
         startWeekOnSunday: {
             label: {
@@ -342,8 +376,121 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
+            bindable: true
         },
-
+        hideWeekdays: {
+            label: {
+                en: 'Hide particular days of the week',
+            },
+            type: 'Array',
+            defaultValue: [],
+            bindable: true,
+            options: {
+                item: {
+                    type: 'TextSelect',
+                    options: {
+                        options: [
+                            { label: 'Monday', value: 1 },
+                            { label: 'Tuesday', value: 2 },
+                            { label: 'Wednesday', value: 3 },
+                            { label: 'Thursday', value: 4 },
+                            { label: 'Friday', value: 5 },
+                            { label: 'Saturday', value: 6 },
+                            { label: 'Sunday', value: 7 },
+                        ],
+                    },
+                },
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'array',
+                tooltip:
+                    'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
+            },
+            /* wwEditor:end */
+            responsive: true,
+        },
+        twelveHour: {
+            label: {
+                en: 'Use 12h format',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        watchRealTime: {
+            label: {
+                en: 'Update current time every minute',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        todayButton: {
+            label: {
+                en: 'Add "Today" button',
+            },
+            type: 'OnOff',
+            defaultValue: false,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+            },
+            /* wwEditor:end */
+        },
+        daySize: {
+            label: {
+                en: 'Header Format',
+            },
+            type: 'TextSelect',
+            options: {
+                options: [
+                    { label: 'Normal', value: null },
+                    { label: 'Short', value: 'small' },
+                    { label: 'Minimal', value: 'xsmall' },
+                ],
+            },
+            defaultValue: null,
+            classes: true,
+            states: true,
+            responsive: true,
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'A string that defines what option is applied: `null | small | xsmall`',
+            },
+            /* wwEditor:end */
+        },
+        selectedDate: {
+            section: 'settings',
+            label: {
+                en: 'Selected date',
+            },
+            type: 'Text',
+            defaultValue: '',
+            bindable: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string.`
+            },
+            /* wwEditor:end */
+        },
         calendars: {
             section: 'settings',
             label: {
@@ -462,20 +609,21 @@ export default {
             },
             defaultValue: [
                 {
-                    start: '2022-01-01 12:00',
-                    end: '2022-01-01 14:00',
+                    // Add 2h event today
+                    start: `${new Date().toISOString().split('T')[0]} 12:00`,
+                    end: `${new Date().toISOString().split('T')[0]} 14:00`,
                     title: 'My first event',
                     content: 'Content of my first event',
                     calendar: null,
-                    category: null,
+                    category: 'Sport',
                 },
                 {
-                    start: '2022-01-02',
-                    end: '2022-01-02',
+                    start: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                    end: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
                     title: 'My second event',
                     content: 'Content of my second event',
                     calendar: null,
-                    category: null,
+                    category: 'Health',
                     allDay: true,
                 },
             ],
@@ -593,7 +741,18 @@ export default {
                     },
                 },
             },
-            defaultValue: [],
+            defaultValue: [
+                {
+                    name: 'Sport',
+                    color: '#FFA500',
+                    textColor: '#FFFFFF',
+                },
+                {
+                    name: 'Health',
+                    color: 'green',
+                    textColor: '#FFFFFF',
+                },
+            ],
             /* wwEditor:start */
             bindingValidation: {
                 type: 'array',
@@ -647,14 +806,15 @@ export default {
                     { label: 'French', value: 'fr' },
                     { label: 'Spanish', value: 'es' },
                     { label: 'German', value: 'de' },
+                    { label: 'Portuguese Brasilian', value: 'pt-br' },
                 ],
             },
             defaultValue: 'en',
             bindable: true,
             /* wwEditor:start */
             bindingValidation: {
-                type: 'array',
-                tooltip: langTooltip,
+                type: 'string',
+                tooltip: `Either the identifier of the language, or a JS object. Example: "en", "fr". See https://antoniandre.github.io/vue-cal/#ex--internationalization for a full list of all supported languages. See https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json for providing a JS object.`,
             },
             /* wwEditor:end */
         },
