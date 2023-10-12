@@ -14,6 +14,5 @@
     "@vue/eslint-config-prettier": "^6.0.0"
   },
   "dependencies": {
-    "vue-cal": "4.8.1"
   }
 }

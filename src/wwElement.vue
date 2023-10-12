@@ -32,13 +32,13 @@
 
 <script>
 import { computed } from 'vue';
-import VueCal from 'vue-cal';
-import 'vue-cal/dist/vuecal.css';
-import * as en from 'vue-cal/dist/i18n/en.es.js';
-import * as fr from 'vue-cal/dist/i18n/fr.es.js';
-import * as es from 'vue-cal/dist/i18n/es.es.js';
-import * as de from 'vue-cal/dist/i18n/de.es.js';
-import * as pt from 'vue-cal/dist/i18n/pt-br.es.js';
+import VueCal from './vue-cal/vue-cal.es.js';
+import './vue-cal/vuecal.css';
+import * as en from './vue-cal/i18n/en.es.js';
+import * as fr from './vue-cal/i18n/fr.es.js';
+import * as es from './vue-cal/i18n/es.es.js';
+import * as de from './vue-cal/i18n/de.es.js';
+import * as pt from './vue-cal/i18n/pt-br.es.js';
 
 const locales = {
     'en': en,
