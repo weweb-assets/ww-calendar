@@ -236,7 +236,9 @@ export default {
                     rawEventData: event.rawEventData,
                     event: {
                         start: event.start,
+                        startISO: event.start.toISOString(),
                         end: event.end,
+                        endISO: event.end.toISOString(),
                         title: event.title,
                         content: event.content,
                         calendar: event.split,
@@ -253,7 +255,7 @@ export default {
             this.$emit('trigger-event', {
                 name: 'cell:click',
                 event: {
-                    cell: { date, calendar },
+                    cell: { date, dateISO: date.toISOString(), calendar },
                     currentView: this.currentView,
                 },
             });

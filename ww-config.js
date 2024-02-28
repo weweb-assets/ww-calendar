@@ -63,8 +63,10 @@ export default {
             event: {
                 rawEventData: {},
                 event: {
-                    start: '',
-                    end: '',
+                    start: new Date(),
+                    startISO: '2024-01-01T12:00:00.000Z',
+                    end: new Date(),
+                    endISO: '2024-01-01T14:00:00.000Z',
                     title: '',
                     content: '',
                     calendar: null,
@@ -82,6 +84,7 @@ export default {
             event: {
                 cell: {
                     date: new Date(),
+                    dateISO: '2024-01-01T12:00:00.000Z',
                     calendar: null,
                 },
                 currentView: 'years | year | month | week | day',
