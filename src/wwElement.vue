@@ -296,7 +296,9 @@ export default {
                 rawEventData: this.events[0].rawEventData,
                 event: {
                     start: this.events[0].start,
+                    startISO: this.events[0].start.toISOString(),
                     end: this.events[0].end,
+                    endISO: this.events[0].end.toISOString(),
                     title: this.events[0].title,
                     content: this.events[0].content,
                     calendar: this.events[0].split,
