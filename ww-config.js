@@ -28,13 +28,15 @@ export default {
             'defaultEventContentSize',
             'themeColor',
             ['themeMenuColor', 'themeTitleBarColor', 'themeTodayCellColor', 'themeSelectedCellColor'],
+            'fontFamily',
+            'fontWeight',
             'defaultView',
             ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
             'enableTimelessMode',
             ['timestep', 'timeStart', 'timeEnd'],
             ['startWeekOnSunday', 'twelveHour'],
             ['hideWeekends', 'hideWeekdays'],
-            ['watchRealTime', 'todayButton', 'showAllDayEvents']
+            ['watchRealTime', 'todayButton', 'showAllDayEvents'],
         ],
         customSettingsPropertiesOrder: [
             'selectedDate',
@@ -101,7 +103,7 @@ export default {
                 lastCellDate: null,
                 outOfScopeEvents: [],
                 events: [],
-                week: 1
+                week: 1,
             },
         },
     ],
@@ -243,6 +245,34 @@ export default {
             states: true,
             responsive: true,
         },
+        fontFamily: {
+            type: 'FontFamily',
+            label: {
+                en: 'Font Family',
+            },
+        },
+        fontWeight: {
+            label: {
+                en: 'Font weight',
+                fr: 'Graisse',
+            },
+            type: 'TextSelect',
+            options: {
+                options: [
+                    { value: null, label: { en: 'Default' } },
+                    { value: 100, label: { en: '100 - Thin' } },
+                    { value: 200, label: { en: '200 - Extra Light' } },
+                    { value: 300, label: { en: '300 - Light' } },
+                    { value: 400, label: { en: '400 - Normal' } },
+                    { value: 500, label: { en: '500 - Medium' } },
+                    { value: 600, label: { en: '600 - Semi Bold' } },
+                    { value: 700, label: { en: '700 - Bold' } },
+                    { value: 800, label: { en: '800 - Extra Bold' } },
+                    { value: 900, label: { en: '900 - Black' } },
+                ],
+            },
+            defaultValue: null,
+        },
         defaultView: {
             label: {
                 en: 'Default view',
@@ -265,7 +295,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
-            bindable: true
+            bindable: true,
         },
         enableYearView: {
             label: {
@@ -273,7 +303,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
-            bindable: true
+            bindable: true,
         },
         enableMonthView: {
             label: {
@@ -281,7 +311,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
-            bindable: true
+            bindable: true,
         },
         enableWeekView: {
             label: {
@@ -289,7 +319,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
-            bindable: true
+            bindable: true,
         },
         enableDayView: {
             label: {
@@ -297,7 +327,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: true,
-            bindable: true
+            bindable: true,
         },
         hideWeekends: {
             label: {
@@ -305,7 +335,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
-            bindable: true
+            bindable: true,
         },
         showAllDayEvents: {
             label: {
@@ -313,7 +343,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
-            bindable: true
+            bindable: true,
         },
         showCountOnYearView: {
             label: {
@@ -321,7 +351,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
-            bindable: true
+            bindable: true,
         },
         enableTimelessMode: {
             label: {
@@ -329,7 +359,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
-            bindable: true
+            bindable: true,
         },
         timestep: {
             hidden: content => content.enableTimelessMode,
@@ -343,7 +373,7 @@ export default {
                 step: 5,
             },
             defaultValue: 30,
-            bindable: true
+            bindable: true,
         },
         timeStart: {
             hidden: content => content.enableTimelessMode,
@@ -357,7 +387,7 @@ export default {
                 step: 1,
             },
             defaultValue: 8,
-            bindable: true
+            bindable: true,
         },
         timeEnd: {
             hidden: content => content.enableTimelessMode,
@@ -371,7 +401,7 @@ export default {
                 step: 1,
             },
             defaultValue: 20,
-            bindable: true
+            bindable: true,
         },
         startWeekOnSunday: {
             label: {
@@ -379,7 +409,7 @@ export default {
             },
             type: 'OnOff',
             defaultValue: false,
-            bindable: true
+            bindable: true,
         },
         hideWeekdays: {
             label: {
@@ -407,8 +437,7 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'array',
-                tooltip:
-                    'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
+                tooltip: 'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
             },
             /* wwEditor:end */
             responsive: true,
@@ -490,7 +519,7 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string.`
+                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string.`,
             },
             /* wwEditor:end */
         },
@@ -621,8 +650,8 @@ export default {
                     category: 'Sport',
                 },
                 {
-                    start: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-                    end: new Date(Date.now() - (1 * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+                    start: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    end: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
                     title: 'My second event',
                     content: 'Content of my second event',
                     calendar: null,

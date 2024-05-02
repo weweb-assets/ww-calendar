@@ -41,11 +41,11 @@ import * as de from './vue-cal/i18n/de.es.js';
 import * as pt from './vue-cal/i18n/pt-br.es.js';
 
 const locales = {
-    'en': en,
-    'fr': fr,
-    'es': es,
-    'de': de,
-    'pt-br': pt
+    en: en,
+    fr: fr,
+    es: es,
+    de: de,
+    'pt-br': pt,
 };
 
 export default {
@@ -66,7 +66,7 @@ export default {
             defaultValue: computed(() => String(props.content.selectedDate || '')),
         });
 
-        return { selectedDate, setSelectedDate }
+        return { selectedDate, setSelectedDate };
     },
     data: () => ({
         currentView: null,
@@ -81,13 +81,15 @@ export default {
          * @see https://github.com/antoniandre/vue-cal/blob/b41fcee7909b11d0ed5234684171ae792312367b/src/documentation/index.vue#LL362C1-L404C2 List of all supported locales
          */
         currentLang() {
-             // allows locale override
+            // allows locale override
             if (this.content.lang && typeof this.content.lang === 'object') return this.content.lang;
-            const selectedLocale = locales[this.content.lang]
-            return selectedLocale || locales.en
+            const selectedLocale = locales[this.content.lang];
+            return selectedLocale || locales.en;
         },
         customThemeStyle() {
             return {
+                '--calendar-font-family': this.content.fontFamily || 'unset',
+                '--calendar-font-weight': this.content.fontWeight || 100,
                 '--calendar-theme-menu-color': this.content.themeMenuColor,
                 '--calendar-theme-title-bar-color': this.content.themeTitleBarColor,
                 '--calendar-theme-cell-today-color': this.content.themeTodayCellColor,
@@ -172,7 +174,8 @@ export default {
                     content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
                     allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
                     split: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
-                    calendar: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                    calendar:
+                        wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });
@@ -180,12 +183,12 @@ export default {
         },
         internalSelectedDate: {
             get() {
-                return this.selectedDate
+                return this.selectedDate;
             },
             set(value) {
-                if (value !== this.selectedDate) this.setSelectedDate(value)
-            }
-        }
+                if (value !== this.selectedDate) this.setSelectedDate(value);
+            },
+        },
     },
     watch: {
         /* wwEditor:start */
@@ -225,8 +228,8 @@ export default {
             },
         },
         'content.selectedDate'(value) {
-            this.internalSelectedDate = value
-        }
+            this.internalSelectedDate = value;
+        },
     },
     methods: {
         handleEventClick(event, domEvent) {
@@ -279,7 +282,7 @@ export default {
          * @see https://antoniandre.github.io/vue-cal/#ex--emitted-events
          * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
          */
-         handleViewChange(event) {
+        handleViewChange(event) {
             // Update the current active view
             this.currentView = event.view;
             this.$emit('trigger-event', {
@@ -315,6 +318,8 @@ export default {
 
 <style lang="scss">
 :root {
+    --calendar-font-family: unset;
+    --calendar-font-weight: 100;
     --calendar-theme-menu-color: #dd932c;
     --calendar-theme-title-bar-color: #fad198;
     --calendar-theme-cell-today-color: #bfbab3;
@@ -353,6 +358,11 @@ export default {
     --calendar-category-7-text-color: unset;
     --calendar-category-8-text-color: unset;
     --calendar-category-9-text-color: unset;
+}
+
+.vuecal {
+    font-family: var(--calendar-font-family);
+    font-weight: var(--calendar-font-weight);
 }
 
 .vuecal--custom-theme {
