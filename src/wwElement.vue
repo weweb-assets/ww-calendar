@@ -186,7 +186,8 @@ export default {
                 return this.selectedDate;
             },
             set(value) {
-                if (value !== this.selectedDate) this.setSelectedDate(value);
+                const dateString = this.formatDate(value);
+                if (dateString !== this.selectedDate) this.setSelectedDate(dateString);
             },
         },
     },
@@ -312,6 +313,10 @@ export default {
             };
         },
         /* wwEditor:end */
+        formatDate(date) {
+            const _date = new Date(date)
+            return _date.getFullYear() + '-' + String(_date.getMonth() + 1).padStart(2, '0') + '-' + String(_date.getDate()).padStart(2, '0')
+        }
     },
 };
 </script>
