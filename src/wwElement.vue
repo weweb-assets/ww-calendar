@@ -114,12 +114,12 @@ export default {
             ].filter(view => !!view);
         },
         calendars() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.calendars);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.calendars);
             if (!Array.isArray(data)) return [];
             return data.map((cal, index) => ({
-                id: wwLib.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
-                label: wwLib.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
-                color: wwLib.resolveObjectPropertyPath(cal, this.content.calendarColorPath || 'color') || null,
+                id: wwLib.wwUtils.resolveObjectPropertyPath(cal, this.content.calendarIdPath || 'id') || '',
+                label: wwLib.wwUtils.resolveObjectPropertyPath(cal, this.content.calendarLabelPath || 'label') || '',
+                color: wwLib.wwUtils.resolveObjectPropertyPath(cal, this.content.calendarColorPath || 'color') || null,
                 class: 'split-' + index,
             }));
         },
@@ -133,13 +133,13 @@ export default {
             );
         },
         categories() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.categories);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.categories);
             if (!Array.isArray(data)) return [];
             return data.map((cat, index) => ({
-                name: wwLib.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
-                color: wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
+                name: wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
+                color: wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
                 textColor:
-                    wwLib.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
+                    wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
                 class: 'cat-' + index,
             }));
         },
@@ -154,28 +154,28 @@ export default {
             );
         },
         events() {
-            const data = wwLib.wwCollection.getCollectionData(this.content.events);
+            const data = wwLib.wwUtils.getDataFromCollection(this.content.events);
             if (!Array.isArray(data)) return [];
             const events = data.map(event => {
                 const category = this.categories.find(
                     cat =>
                         cat.name ===
-                        wwLib.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category')
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCategoryPath || 'category')
                 );
                 return {
                     rawEventData: event,
                     start:
-                        new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) ||
+                        new Date(wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) ||
                         new Date(),
                     end:
-                        new Date(wwLib.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) ||
+                        new Date(wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) ||
                         new Date(),
-                    title: wwLib.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
-                    content: wwLib.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
-                    allDay: wwLib.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
-                    split: wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                    title: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
+                    content: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
+                    allDay: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
+                    split: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
                     calendar:
-                        wwLib.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });
@@ -186,7 +186,8 @@ export default {
                 return this.selectedDate;
             },
             set(value) {
-                if (value !== this.selectedDate) this.setSelectedDate(value);
+                const dateString = this.formatDate(value);
+                if (dateString !== this.selectedDate) this.setSelectedDate(dateString);
             },
         },
     },
@@ -312,6 +313,10 @@ export default {
             };
         },
         /* wwEditor:end */
+        formatDate(date) {
+            const _date = new Date(date)
+            return _date.getFullYear() + '-' + String(_date.getMonth() + 1).padStart(2, '0') + '-' + String(_date.getDate()).padStart(2, '0')
+        }
     },
 };
 </script>
