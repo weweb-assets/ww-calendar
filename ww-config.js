@@ -835,10 +835,12 @@ export default {
             options: {
                 options: [
                     { label: 'English', value: 'en' },
+                    { label: 'Dutch', value: 'nl' },
                     { label: 'French', value: 'fr' },
-                    { label: 'Spanish', value: 'es' },
                     { label: 'German', value: 'de' },
+                    { label: 'Italian', value: 'it' },
                     { label: 'Portuguese Brasilian', value: 'pt-br' },
+                    { label: 'Spanish', value: 'es' },
                 ],
             },
             defaultValue: 'en',
