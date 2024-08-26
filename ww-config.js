@@ -834,8 +834,9 @@ export default {
             },
             options: {
                 options: [
-                    { label: 'English', value: 'en' },
+                    { label: 'Arabic', value: 'ar' },
                     { label: 'Dutch', value: 'nl' },
+                    { label: 'English', value: 'en' },
                     { label: 'French', value: 'fr' },
                     { label: 'German', value: 'de' },
                     { label: 'Italian', value: 'it' },

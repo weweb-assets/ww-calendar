@@ -41,6 +41,7 @@ import * as de from './vue-cal/i18n/de.es.js';
 import * as nl from './vue-cal/i18n/nl.es.js';
 import * as it from './vue-cal/i18n/it.es.js'
 import * as pt from './vue-cal/i18n/pt-br.es.js';
+import * as ar from './vue-cal/i18n/ar.es.js';
 
 const locales = {
     en: en,
@@ -50,6 +51,7 @@ const locales = {
     nl: nl,
     it: it,
     'pt-br': pt,
+    ar: ar,
 };
 
 export default {
