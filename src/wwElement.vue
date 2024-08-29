@@ -318,8 +318,9 @@ export default {
         },
         /* wwEditor:end */
         formatDate(date) {
+            if (typeof date === 'string') return date
             const _date = new Date(date)
-            return _date.getUTCFullYear() + '-' + String(_date.getUTCMonth() + 1).padStart(2, '0') + '-' + String(_date.getUTCDate()).padStart(2, '0')
+            return _date.getFullYear() + '-' + String(_date.getMonth() + 1).padStart(2, '0') + '-' + String(_date.getDate()).padStart(2, '0')
         }
     },
 };
