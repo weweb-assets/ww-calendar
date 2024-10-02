@@ -23,7 +23,7 @@
         :xsmall="content.daySize === 'xsmall'"
         :watchRealTime="content.watchRealTime"
         :todayButton="content.todayButton"
-        v-model:selectedDate="internalSelectedDate"
+        :selectedDate="internalSelectedDate"
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
@@ -260,6 +260,7 @@ export default {
         handleCellClick(event) {
             const date = 'date' in event ? event.date : event;
             const calendar = 'split' in event ? event.split : null;
+            this.internalSelectedDate = event;
             this.$emit('trigger-event', {
                 name: 'cell:click',
                 event: {
