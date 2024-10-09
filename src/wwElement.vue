@@ -32,15 +32,16 @@
 
 <script>
 import { computed } from 'vue';
-import VueCal from './vue-cal/vue-cal.es.js';
-import './vue-cal/vuecal.css';
-import * as en from './vue-cal/i18n/en.es.js';
-import * as fr from './vue-cal/i18n/fr.es.js';
-import * as es from './vue-cal/i18n/es.es.js';
-import * as de from './vue-cal/i18n/de.es.js';
-import * as nl from './vue-cal/i18n/nl.es.js';
-import * as it from './vue-cal/i18n/it.es.js'
-import * as pt from './vue-cal/i18n/pt-br.es.js';
+import VueCal from 'vue-cal';
+import 'vue-cal/dist/vuecal.css';
+
+import * as en from 'vue-cal/dist/i18n/en.es.js';
+import * as fr from 'vue-cal/dist/i18n/fr.es.js';
+import * as es from 'vue-cal/dist/i18n/es.es.js';
+import * as de from 'vue-cal/dist/i18n/de.es.js';
+import * as nl from 'vue-cal/dist/i18n/nl.es.js';
+import * as it from 'vue-cal/dist/i18n/it.es.js';
+import * as pt from 'vue-cal/dist/i18n/pt-br.es.js';
 
 const locales = {
     en: en,
@@ -51,6 +52,8 @@ const locales = {
     it: it,
     'pt-br': pt,
 };
+
+const UNBOUNCED_DELAY_IN_MS = 200;
 
 export default {
     components: { VueCal },
@@ -74,6 +77,7 @@ export default {
     },
     data: () => ({
         currentView: null,
+        lastSelectedDateTimestamp: null,
     }),
     computed: {
         /**
@@ -143,7 +147,8 @@ export default {
                 name: wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryNamePath || 'name') || '',
                 color: wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryColorPath || 'color') || null,
                 textColor:
-                    wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') || null,
+                    wwLib.wwUtils.resolveObjectPropertyPath(cat, this.content.categoryColorTextPath || 'textColor') ||
+                    null,
                 class: 'cat-' + index,
             }));
         },
@@ -169,17 +174,25 @@ export default {
                 return {
                     rawEventData: event,
                     start:
-                        new Date(wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')) ||
-                        new Date(),
+                        new Date(
+                            wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventStartPath || 'start')
+                        ) || new Date(),
                     end:
                         new Date(wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventEndPath || 'end')) ||
                         new Date(),
                     title: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventTitlePath || 'title') || '',
-                    content: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') || '',
-                    allDay: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') || false,
-                    split: wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                    content:
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventContentPath || 'content') ||
+                        '',
+                    allDay:
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventAllDayPath || 'allDay') ||
+                        false,
+                    split:
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') ||
+                        null,
                     calendar:
-                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') || null,
+                        wwLib.wwUtils.resolveObjectPropertyPath(event, this.content.eventCalendarPath || 'calendar') ||
+                        null,
                     class: category ? category.class : 'calendar-default-event-color',
                 };
             });
@@ -191,7 +204,12 @@ export default {
             },
             set(value) {
                 const dateString = this.formatDate(value);
-                if (dateString !== this.selectedDate) this.setSelectedDate(dateString);
+                const delayFromLastSelection = Date.now() - this.lastSelectedDateTimestamp;
+                // Unbounced behavior to avoid double click event from vue-cal
+                if (dateString !== this.selectedDat && delayFromLastSelection > UNBOUNCED_DELAY_IN_MS) {
+                    this.setSelectedDate(dateString);
+                    this.lastSelectedDateTimestamp = Date.now();
+                }
             },
         },
     },
@@ -258,6 +276,7 @@ export default {
             });
         },
         handleCellClick(event) {
+            this.internalSelectedDate = event;
             const date = 'date' in event ? event.date : event;
             const calendar = 'split' in event ? event.split : null;
             this.$emit('trigger-event', {
@@ -318,10 +337,16 @@ export default {
         },
         /* wwEditor:end */
         formatDate(date) {
-            if (typeof date === 'string') return date
-            const _date = new Date(date)
-            return _date.getFullYear() + '-' + String(_date.getMonth() + 1).padStart(2, '0') + '-' + String(_date.getDate()).padStart(2, '0')
-        }
+            if (typeof date === 'string') return date;
+            const _date = new Date(date);
+            return (
+                _date.getFullYear() +
+                '-' +
+                String(_date.getMonth() + 1).padStart(2, '0') +
+                '-' +
+                String(_date.getDate()).padStart(2, '0')
+            );
+        },
     },
 };
 </script>
@@ -371,6 +396,7 @@ export default {
 }
 
 .vuecal {
+    flex: unset !important; // Fix for the calendar not taking the full height
     font-family: var(--calendar-font-family);
     font-weight: var(--calendar-font-weight);
 }
