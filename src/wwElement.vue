@@ -207,8 +207,8 @@ export default {
                 const delayFromLastSelection = Date.now() - this.lastSelectedDateTimestamp;
                 // Unbounced behavior to avoid double click event from vue-cal
                 if (dateString !== this.selectedDat && delayFromLastSelection > UNBOUNCED_DELAY_IN_MS) {
-                        this.setSelectedDate(dateString);
-                        this.lastSelectedDateTimestamp = Date.now();
+                    this.setSelectedDate(dateString);
+                    this.lastSelectedDateTimestamp = Date.now();
                 }
             },
         },
@@ -395,6 +395,7 @@ export default {
 }
 
 .vuecal {
+    flex: unset !important; // Fix for the calendar not taking the full height
     font-family: var(--calendar-font-family);
     font-weight: var(--calendar-font-weight);
 }
