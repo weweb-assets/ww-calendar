@@ -276,9 +276,9 @@ export default {
             });
         },
         handleCellClick(event) {
-            this.internalSelectedDate = event;
             const date = 'date' in event ? event.date : event;
             const calendar = 'split' in event ? event.split : null;
+            this.internalSelectedDate = date;
             this.$emit('trigger-event', {
                 name: 'cell:click',
                 event: {
