@@ -106,20 +106,6 @@ export default {
                 week: 1,
             },
         },
-        {
-            name: 'ready',
-            label: { en: 'On ready' },
-            event: {
-                view: 'years | year | month | week | day',
-                startDate: null,
-                endDate: null,
-                firstCellDate: null,
-                lastCellDate: null,
-                outOfScopeEvents: [],
-                events: [],
-                week: 1,
-            },
-        }
     ],
     properties: {
         defaultEventColor: {

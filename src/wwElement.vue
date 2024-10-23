@@ -314,7 +314,6 @@ export default {
          * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
          */
         handleViewChange(event) {
-            // Update the current active view
             this.currentView = event.view;
             this.setCurrentViewObj(event);
             this.$emit('trigger-event', {
@@ -326,12 +325,6 @@ export default {
         },
         handleReady(event) {
             this.setCurrentViewObj(event);
-            this.$emit('trigger-event', {
-                name: 'ready',
-                event: {
-                    ...(event || {}),
-                },
-            });
         },
         /* wwEditor:start */
         getTestEvent() {
