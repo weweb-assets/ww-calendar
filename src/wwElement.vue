@@ -27,6 +27,7 @@
         @event-click="handleEventClick"
         @cell-click="handleCellClick"
         @view-change="handleViewChange"
+        @ready="handleReady"
     />
 </template>
 
@@ -72,8 +73,14 @@ export default {
             type: 'string',
             defaultValue: computed(() => String(props.content.selectedDate || '')),
         });
+        const { value: currentViewObj, setValue: setCurrentViewObj } = wwLib.wwVariable.useComponentVariable({
+            uid: props.uid,
+            name: 'currentView',
+            type: 'object',
+            defaultValue: {},
+        });
 
-        return { selectedDate, setSelectedDate };
+        return { selectedDate, setSelectedDate, currentViewObj, setCurrentViewObj };
     },
     data: () => ({
         currentView: null,
@@ -307,14 +314,17 @@ export default {
          * @see https://github.com/antoniandre/vue-cal/issues/168#issuecomment-739544326 TS types
          */
         handleViewChange(event) {
-            // Update the current active view
             this.currentView = event.view;
+            this.setCurrentViewObj(event);
             this.$emit('trigger-event', {
                 name: 'view:change',
                 event: {
                     ...(event || {}),
                 },
             });
+        },
+        handleReady(event) {
+            this.setCurrentViewObj(event);
         },
         /* wwEditor:start */
         getTestEvent() {
