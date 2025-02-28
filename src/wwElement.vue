@@ -1,16 +1,17 @@
 <template>
     <vue-cal
+        ref="vueCal"
         :key="content.themeColor + '-' + content.startWeekOnSunday + '-' + content.watchRealTime"
         :disable-views="disabledViews"
-        :active-view="currentView"
-        :hide-view-selector="disabledViews.length >= 4"
+        :active-view="isMobileView ? content.mobileDefaultView : currentView"
+        :hide-view-selector="disabledViews.length >= 4 || (isMobileView && content.hideViewSelectorOnMobile)"
         :hide-weekends="content.hideWeekends"
         :events="events"
         :split-days="calendars"
         :showAllDayEvents="content.showAllDayEvents"
         :events-count-on-year-view="content.showCountOnYearView"
         :locale="currentLang"
-        :class="content.themeColor"
+        :class="[content.themeColor, { 'mobile-view': isMobileView }]"
         :style="{ ...customThemeStyle, ...calendarsStyle, ...categoriesStyle }"
         :time="!content.enableTimelessMode"
         :timeStep="content.timestep"
@@ -19,8 +20,8 @@
         :startWeekOnSunday="content.startWeekOnSunday"
         :hideWeekdays="content.hideWeekdays"
         :twelveHour="content.twelveHour"
-        :small="content.daySize === 'small'"
-        :xsmall="content.daySize === 'xsmall'"
+        :small="content.daySize === 'small' || (isMobileView && content.daySize !== 'xsmall')"
+        :xsmall="content.daySize === 'xsmall' || (isMobileView && content.daySize === 'xsmall')"
         :watchRealTime="content.watchRealTime"
         :todayButton="content.todayButton"
         v-model:selectedDate="internalSelectedDate"
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
 
@@ -82,7 +83,78 @@ export default {
             defaultValue: {},
         });
 
-        return { selectedDate, setSelectedDate, currentViewObj, setCurrentViewObj };
+        const vueCal = ref(null);
+        const elementWidth = ref(1000); // Default width
+        let resizeObserver = null;
+
+        const getElement = () => {
+            if (!vueCal.value) return null;
+
+            // Access the component's root DOM element
+            const el = vueCal.value.$el;
+            if (el && el.nodeType === 1) {
+                return el;
+            }
+
+            return null;
+        };
+
+        // Custom resize observer handler
+        const observeElement = () => {
+            if (!vueCal.value || typeof ResizeObserver === 'undefined') return;
+
+            // Clean up any existing observer
+            const el = getElement();
+            try {
+                resizeObserver = new ResizeObserver(entries => {
+                    // Use requestAnimationFrame to avoid ResizeObserver loop errors
+                    window.requestAnimationFrame(() => {
+                        if (!entries.length) return;
+
+                        const entry = entries[0];
+                        // Get the content rectangle width or use borderBoxSize if available
+                        if (entry.contentRect) {
+                            elementWidth.value = entry.contentRect.width;
+                        } else if (entry.borderBoxSize && entry.borderBoxSize.length > 0) {
+                            elementWidth.value = entry.borderBoxSize[0].inlineSize;
+                        }
+                    });
+                });
+
+                // Start observing the element
+                resizeObserver.observe(el);
+            } catch (error) {
+                console.error('ResizeObserver error:', error, el);
+                // Fallback to window width if ResizeObserver fails
+                elementWidth.value = window.innerWidth;
+            }
+        };
+
+        // Computed property to determine if we're in mobile view
+        const isMobileView = computed(() => {
+            return elementWidth.value < 768;
+        });
+
+        // Set up and tear down the observer
+        onMounted(() => {
+            observeElement();
+        });
+
+        onBeforeUnmount(() => {
+            if (resizeObserver) {
+                resizeObserver.disconnect();
+                resizeObserver = null;
+            }
+        });
+
+        return {
+            selectedDate,
+            setSelectedDate,
+            currentViewObj,
+            setCurrentViewObj,
+            isMobileView,
+            vueCal,
+        };
     },
     data: () => ({
         currentView: null,
@@ -531,5 +603,101 @@ export default {
     &.split-9 {
         background-color: var(--calendar-split-9-bg-color);
     }
+}
+
+/* Mobile-specific styles */
+.vuecal.mobile-view {
+    /* Reduce general padding */
+    --vuecal-cell-padding: 2px;
+}
+
+/* Calendar headings */
+.vuecal.mobile-view .vuecal__heading {
+    height: auto;
+}
+
+.vuecal.mobile-view .vuecal__heading-weekday {
+    font-size: 0.7em;
+    padding: 2px;
+}
+
+.vuecal.mobile-view .vuecal__heading .weekday-label {
+    font-size: 0.65em;
+}
+
+.vuecal.mobile-view .vuecal__heading-date {
+    font-size: 0.65em;
+}
+
+/* Title and navigation */
+.vuecal.mobile-view .vuecal__title {
+    padding: 3px 6px;
+}
+
+.vuecal.mobile-view .vuecal__title button {
+    font-size: 0.75em;
+    padding: 3px 6px;
+}
+
+.vuecal.mobile-view .vuecal__no-event {
+    font-size: 0.65em;
+}
+
+/* Menu and view buttons */
+.vuecal.mobile-view .vuecal__menu {
+    padding: 4px;
+}
+
+.vuecal.mobile-view .vuecal__menu button {
+    padding: 4px 6px;
+    font-size: 0.75em;
+}
+
+/* Event styling - simplified for mobile by default */
+.vuecal.mobile-view .vuecal__event {
+    border-radius: 4px;
+    margin: 1px;
+    padding: 2px 4px;
+}
+
+.vuecal.mobile-view .vuecal__event-title {
+    font-size: 0.75em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vuecal.mobile-view .vuecal__event-time {
+    font-size: 0.7em;
+}
+
+/* Optional: Hide event content on mobile to save space */
+.vuecal.mobile-view .vuecal__event-content {
+    display: none;
+}
+
+/* Time column adjustments */
+.vuecal.mobile-view:not(.vuecal--month-view) .vuecal__time-column {
+    width: 35px;
+}
+
+.vuecal.mobile-view:not(.vuecal--month-view) .vuecal__time-column .vuecal__time-cell {
+    font-size: 0.7em;
+    padding: 2px;
+}
+
+/* Improve touch targets for mobile */
+.vuecal.mobile-view .vuecal__cell {
+    min-height: 30px;
+}
+
+/* Time grid adjustments */
+.vuecal.mobile-view .vuecal__bg-grid .vuecal__time-cell {
+    font-size: 0.65em;
+}
+
+/* All day events adjustments */
+.vuecal.mobile-view .vuecal__all-day-text {
+    font-size: 0.7em;
 }
 </style>
