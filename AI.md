@@ -1,5 +1,5 @@
 ---
-name: fullcalendar-component
+name: ww-fullcalendar
 description: A feature-rich calendar component based on FullCalendar library with multiple view types, event management, and extensive customization options
 keywords: calendar, events, scheduling, fullcalendar, date picker, time slots, appointments
 ---

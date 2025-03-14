@@ -1,5 +1,5 @@
 {
-    "name": "fullcalendar-component",
+    "name": "ww-fullcalendar",
     "version": "1.2.0",
     "scripts": {
         "build": "weweb build",
