@@ -153,6 +153,7 @@ Special features:
 - Configurable border radius for buttons and calendar
 - Dynamic property mapping for events and categories when binding external data
 
-Style guidelines
+Important Build guidelines
 - Always put a fixed height on the calendar element
 - Never use flex or min-height directly on the calendar element
+- When creating fake events put them in 2025
