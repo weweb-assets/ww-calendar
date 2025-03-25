@@ -2,7 +2,7 @@
     <div class="fullcalendar-wrapper modern-buttons" :class="{ 'dark-mode': isDarkMode }" :style="calendarStyles">
         <FullCalendar ref="fullCalendarRef" :options="calendarOptions">
             <template v-slot:noEventsContent>
-                <wwElement v-bind="emptyListTextEl" />
+                <wwElement v-bind="content.emptyListTextEl" />
             </template>
         </FullCalendar>
     </div>
@@ -238,7 +238,6 @@ export default {
         });
 
         // Calendar options
-        const noEventsContentText = computed(() => wwLib.wwLang.getText(props.content.emptyListText));
         const calendarOptions = computed(() => {
             const firstDay = props.content?.startWeekOnSunday ? 0 : 1;
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
@@ -264,6 +263,7 @@ export default {
                 hiddenDays: hiddenDays.value,
                 slotMinTime: props.content?.timeStart || '00:00:00',
                 slotMaxTime: props.content?.timeEnd || '24:00:00',
+                timeFormat,
                 eventTimeFormat: {
                     hour: props.content?.use12hFormat ? 'numeric' : '2-digit',
                     minute: '2-digit',
@@ -543,7 +543,6 @@ export default {
             fullCalendarRef,
             calendarOptions,
             calendarStyles,
-            noEventsContentText,
             isDarkMode,
             currentView,
             selectedEvent,

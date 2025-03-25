@@ -1547,25 +1547,6 @@ export default {
             },
             /* wwEditor:end */
         },
-
-        // Empty list text
-        emptyListText: {
-            label: { en: 'Empty list text' },
-            type: 'Text',
-            section: 'settings',
-            bindable: true,
-            defaultValue: 'No events to display',
-            multiLang: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a string value for the empty list message',
-            },
-            propertyHelp: {
-                tooltip: 'Text to display when there are no events in list view',
-            },
-            /* wwEditor:end */
-        },
         emptyListTextEl: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Empty list placeholder' }, content: { text: { en: 'No events to display' } } },
