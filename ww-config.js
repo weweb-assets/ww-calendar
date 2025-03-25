@@ -1549,7 +1549,7 @@ export default {
         },
         emptyListTextEl: {
             hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Empty list placeholder' }, content: { text: { en: 'No events to display' } } },
+            defaultValue: { isWwObject: true, type: 'ww-text', _state: { name: 'Empty list placeholder' }, content: { '_ww-text_text': { en: 'No events to display' } } },
         },
     },
     triggerEvents: [
