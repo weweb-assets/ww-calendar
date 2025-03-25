@@ -1566,6 +1566,10 @@ export default {
             },
             /* wwEditor:end */
         },
+        emptyListTextEl: {
+            hidden: true,
+            defaultValue: { isWwObject: true, type: 'ww-text', state: { name: 'Empty list placeholder' }, content: { text: { en: 'No events to display' } } },
+        },
     },
     triggerEvents: [
         {

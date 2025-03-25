@@ -2,14 +2,14 @@
     <div class="fullcalendar-wrapper modern-buttons" :class="{ 'dark-mode': isDarkMode }" :style="calendarStyles">
         <FullCalendar ref="fullCalendarRef" :options="calendarOptions">
             <template v-slot:noEventsContent>
-                {{ noEventsContentText }}
+                <wwElement v-bind="emptyListTextEl" />
             </template>
         </FullCalendar>
     </div>
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { useTemplateRef, computed, watch } from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -30,7 +30,7 @@ export default {
     },
     emits: ['trigger-event'],
     setup(props, { emit }) {
-        const fullCalendarRef = ref(null);
+        const fullCalendarRef = useTemplateRef(null);
 
         // Editor state
         const isEditing = computed(() => {
