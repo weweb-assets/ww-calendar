@@ -689,7 +689,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 100%;
+                height: var(--fc-day-header-height);
                 padding: 8px;
                 color: var(--fc-day-header-text-color);
                 font-size: var(--fc-day-header-font-size);
