@@ -385,7 +385,7 @@ export default {
             /* wwEditor:end */
         },
         weekendTextColor: {
-            label: { en: 'Weekend hours text' },
+            label: { en: 'Weekend text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -393,10 +393,10 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'Bind to a color value for the weekend hours text',
+                tooltip: 'Bind to a color value for the weekend text',
             },
             propertyHelp: {
-                tooltip: 'Set the text color for weekend hours in week/day view',
+                tooltip: 'Set the text color for weekend in day header and cells',
             },
             /* wwEditor:end */
         },
