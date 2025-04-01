@@ -39,6 +39,7 @@ export default {
             ['darkMode', 'fontFamily', 'fontSize', 'fontWeight'],
             'headerStyleTitle',
             ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
+            'dayHeaderStyleTitle',
             [
                 'dayHeaderBackgroundColor',
                 'dayHeaderTextColor',
@@ -111,6 +112,14 @@ export default {
             type: 'Title',
             label: {
                 en: 'Header',
+            },
+            editorOnly: true,
+        },
+        dayHeaderStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Day header',
             },
             editorOnly: true,
         },
@@ -532,7 +541,7 @@ export default {
             /* wwEditor:end */
         },
         buttonActiveBackgroundColor: {
-            label: { en: 'Button active background' },
+            label: { en: 'Active background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -548,7 +557,7 @@ export default {
             /* wwEditor:end */
         },
         buttonActiveTextColor: {
-            label: { en: 'Button active text color' },
+            label: { en: 'Active text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -564,7 +573,7 @@ export default {
             /* wwEditor:end */
         },
         buttonActiveBorderColor: {
-            label: { en: 'Button active border color' },
+            label: { en: 'Active border color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -580,7 +589,7 @@ export default {
             /* wwEditor:end */
         },
         buttonBorderColor: {
-            label: { en: 'Button border color' },
+            label: { en: 'Border color' },
             type: 'Color',
             section: 'style',
             bindable: true,

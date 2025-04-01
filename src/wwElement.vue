@@ -622,16 +622,16 @@ export default {
             }
 
             .fc-col-header-cell {
-                background-color: var(--fc-day-header-bg-color, #333);
+                background-color: var(--fc-day-header-bg-color, #333) !important;
             }
 
             .fc-daygrid-day {
-                background-color: var(--fc-cell-bg-color, #222);
+                background-color: var(--fc-cell-bg-color, #222) !important;
             }
 
             .fc-day-other {
-                background-color: var(--fc-other-month-bg-color, #1a1a1a);
-                color: var(--fc-other-month-text-color, #888);
+                background-color: var(--fc-other-month-bg-color, #1a1a1a) !important;
+                color: var(--fc-other-month-text-color, #888) !important;
             }
 
             .fc-list-day-cushion {
@@ -680,9 +680,10 @@ export default {
             height: var(--fc-header-height);
         }
 
-        // Fix for day header vertical alignment
+        // Fix for day header vertical alignment and background
         .fc-col-header-cell {
             height: var(--fc-day-header-height);
+            background-color: var(--fc-day-header-bg-color) !important;
             
             .fc-col-header-cell-cushion {
                 display: flex;
@@ -699,6 +700,31 @@ export default {
         // Fix for today background in month view
         .fc-day-today {
             background-color: var(--fc-today-bg-color) !important;
+        }
+
+        // Fix for cell backgrounds and text colors
+        .fc-daygrid-day {
+            background-color: var(--fc-cell-bg-color) !important;
+            color: var(--fc-cell-text-color) !important;
+        }
+
+        // Fix for other month cells
+        .fc-day-other {
+            background-color: var(--fc-other-month-bg-color) !important;
+            
+            .fc-daygrid-day-top,
+            .fc-daygrid-day-number {
+                color: var(--fc-other-month-text-color) !important;
+            }
+        }
+
+        // Weekend text color
+        .fc-day-sat, .fc-day-sun {
+            .fc-daygrid-day-top,
+            .fc-daygrid-day-number,
+            .fc-col-header-cell-cushion {
+                color: var(--fc-weekend-text-color) !important;
+            }
         }
 
         // Fix for cell min height in all views
