@@ -7,44 +7,41 @@ keywords: calendar, events, scheduling, fullcalendar, date picker, time slots, a
 #### FullCalendar Component
 
 Properties:
-- `darkMode`: `boolean` - Enables dark mode styling. Default: `false`
 - `fontFamily`: `string` - Sets the font family for the calendar. Default: `null`
-- `fontSize`: `number` - Sets the font size in pixels. Default: `14`
-- `fontWeight`: `number` - Sets the font weight (100-900). Default: `400`
+- `fontSize`: `string` - Sets the font size with unit (e.g., "14px"). Default: `'14px'`
+- `fontWeight`: `string` - Sets the font weight as a string value. Default: `'400'`
 
 Style Properties:
 - `headerBackgroundColor`: `string` - Background color for the calendar header. Default: `null`
 - `headerTextColor`: `string` - Text color for the calendar header. Default: `null`
 - `dayHeaderBackgroundColor`: `string` - Background color for day headers. Default: `null`
 - `dayHeaderTextColor`: `string` - Text color for day headers. Default: `null`
-- `dayHeaderFontSize`: `number` - Sets the font size for day headers in pixels. Default: `14`
-- `dayHeaderFontWeight`: `number` - Sets the font weight for day headers (100-900). Default: `400`
-- `todayBackgroundColor`: `string` - Background color for today's cell. Default: `rgba(255, 220, 40, 0.15)`
+- `dayHeaderFontSize`: `string` - Sets the font size for day headers with unit (e.g., "14px"). Default: `'14px'`
+- `dayHeaderFontWeight`: `string` - Sets the font weight for day headers as a string value. Default: `'400'`
+- `todayBackgroundColor`: `string` - Background color for today's cell. Default: `'rgba(255, 220, 40, 0.15)'`
 - `cellBackgroundColor`: `string` - Background color for all calendar cells. Default: `null`
 - `cellTextColor`: `string` - Text color for calendar cells. Default: `null`
-- `weekendTextColor`: `string` - Text color for weekend hours in week/day view. Default: `null`
+- `weekendTextColor`: `string` - Text color for weekend days. Default: `null`
 - `otherMonthBackgroundColor`: `string` - Background color for days from other months. Default: `null`
 - `otherMonthTextColor`: `string` - Text color for days from other months. Default: `null`
-- `buttonBackgroundColor`: `string` - Background color for calendar buttons. Default: `#2C3E50`
-- `buttonTextColor`: `string` - Text color for calendar buttons. Default: `#FFFFFF`
-- `buttonHoverBackgroundColor`: `string` - Background color for buttons when hovered. Default: `#1e2b37`
-- `buttonHoverTextColor`: `string` - Text color for buttons when hovered. Default: `#FFFFFF`
-- `buttonHoverBorderColor`: `string` - Border color for buttons when hovered. Default: `#1a252f`
-- `buttonActiveBackgroundColor`: `string` - Background color for buttons when active. Default: `#1a252f`
-- `buttonActiveTextColor`: `string` - Text color for buttons when active. Default: `#FFFFFF`
-- `buttonActiveBorderColor`: `string` - Border color for buttons when active. Default: `#151e27`
-- `buttonBorderColor`: `string` - Border color for calendar buttons. Default: `#2C3E50`
-- `buttonBorderRadius`: `string` - Border radius for calendar buttons. Default: `4px`
-- `modernButtons`: `boolean` - Enables modern styling for navigation and today buttons. Default: `false`
-- `borderColor`: `string` - Color for all calendar borders. Default: `#ddd`
-- `borderWidth`: `number` - Width for all calendar borders in pixels. Default: `1`
-- `defaultEventBackgroundColor`: `string` - Default background color for events. Default: `#3788d8`
-- `defaultEventBorderColor`: `string` - Default border color for events. Default: `#3788d8`
-- `defaultEventTextColor`: `string` - Default text color for events. Default: `#ffffff`
-- `cellMinHeight`: `string` - Minimum height for calendar cells. Default: `80px`
+- `buttonBackgroundColor`: `string` - Background color for calendar buttons. Default: `'#2C3E50'`
+- `buttonTextColor`: `string` - Text color for calendar buttons. Default: `'#FFFFFF'`
+- `buttonHoverBackgroundColor`: `string` - Background color for buttons when hovered. Default: `'#1e2b37'`
+- `buttonHoverTextColor`: `string` - Text color for buttons when hovered. Default: `'#FFFFFF'`
+- `buttonHoverBorderColor`: `string` - Border color for buttons when hovered. Default: `'#1a252f'`
+- `buttonActiveBackgroundColor`: `string` - Background color for buttons when active. Default: `'#1a252f'`
+- `buttonActiveTextColor`: `string` - Text color for buttons when active. Default: `'#FFFFFF'`
+- `buttonActiveBorderColor`: `string` - Border color for buttons when active. Default: `'#151e27'`
+- `buttonBorderColor`: `string` - Border color for calendar buttons. Default: `'#2C3E50'`
+- `buttonBorderRadius`: `string` - Border radius for calendar buttons. Default: `'4px'`
+- `borderColor`: `string` - Color for all calendar borders. Default: `'#ddd'`
+- `defaultEventBackgroundColor`: `string` - Default background color for events. Default: `'#3788d8'`
+- `defaultEventBorderColor`: `string` - Default border color for events. Default: `'#3788d8'`
+- `defaultEventTextColor`: `string` - Default text color for events. Default: `'#ffffff'`
+- `cellMinHeight`: `string` - Minimum height for calendar cells. Default: `'80px'`
 - `headerHeight`: `string` - Height for the calendar header. Default: `null`
 - `dayHeaderHeight`: `string` - Height for the day headers. Default: `null`
-- `nowIndicatorColor`: `string` - Color for the current time indicator line. Default: `red`
+- `nowIndicatorColor`: `string` - Color for the current time indicator line. Default: `'red'`
 
 View Settings:
 - `locale`: `string` - Sets the language locale. Default: `'auto'`
@@ -62,6 +59,12 @@ View Settings:
 - `use12hFormat`: `boolean` - Uses 12-hour time format (AM/PM) instead of 24-hour format. Default: `false`
 - `hideDaysOfWeek`: `number[]` - Array of day numbers to hide (0=Sunday, 1=Monday, etc.). Default: `[]`
 - `hideDaysOfMonth`: `number[]` - Array of month days to hide (1-31). Default: `[]`
+- `buttonTextToday`: `string` - Custom text for the "Today" button. Default: `''` (uses locale default)
+- `buttonTextYear`: `string` - Custom text for the "Year" button. Default: `''` (uses locale default)
+- `buttonTextMonth`: `string` - Custom text for the "Month" button. Default: `''` (uses locale default)
+- `buttonTextWeek`: `string` - Custom text for the "Week" button. Default: `''` (uses locale default)
+- `buttonTextDay`: `string` - Custom text for the "Day" button. Default: `''` (uses locale default)
+- `buttonTextList`: `string` - Custom text for the "List" button. Default: `''` (uses locale default)
 
 Event Data:
 - `events`: `array` - Array of event objects with properties:
@@ -108,7 +111,7 @@ Category Property Mapping:
 - `categoriesTextColorPath`: `string` - Field to use as category text color. Default: `'textColor'`
 
 Slots:
-- `noEventsContent` - Slot for customizing the empty list message when there are no events to display
+- `emptyListTextEl` - Element for customizing the empty list message when there are no events to display
 
 Events:
 - `eventClick`: {value: eventData} - Triggered when an event is clicked
@@ -153,7 +156,7 @@ Special features:
 - Configurable border radius for buttons and calendar
 - Dynamic property mapping for events and categories when binding external data
 
-Important Build guidelines
+Important Build guidelines:
 - Always put a fixed height on the calendar element
 - Never use flex or min-height directly on the calendar element
 - When creating fake events put them in 2025
