@@ -61,8 +61,8 @@ export default {
 
         const calendarStyles = computed(() => ({
             '--fc-font-family': props.content?.fontFamily || 'inherit',
-            '--fc-font-size': props.content?.fontSize ? `${props.content.fontSize}px` : '14px',
-            '--fc-font-weight': props.content?.fontWeight || 'normal',
+            '--fc-font-size': props.content?.fontSize || '14px',
+            '--fc-font-weight': props.content?.fontWeight || '400',
             '--fc-border-color': props.content?.borderColor || '#ddd',
             '--fc-button-text-color': props.content?.buttonTextColor || '#fff',
             '--fc-button-bg-color': props.content?.buttonBackgroundColor || '#2C3E50',
@@ -87,9 +87,7 @@ export default {
             '--fc-header-text-color': props.content?.headerTextColor || null,
             '--fc-day-header-bg-color': props.content?.dayHeaderBackgroundColor || null,
             '--fc-day-header-text-color': props.content?.dayHeaderTextColor || null,
-            '--fc-day-header-font-size': props.content?.dayHeaderFontSize
-                ? `${props.content.dayHeaderFontSize}px`
-                : null,
+            '--fc-day-header-font-size': props.content?.dayHeaderFontSize || null,
             '--fc-day-header-font-weight': props.content?.dayHeaderFontWeight || null,
             '--fc-cell-bg-color': props.content?.cellBackgroundColor || null,
             '--fc-cell-text-color': props.content?.cellTextColor || null,
@@ -242,10 +240,26 @@ export default {
             const firstDay = props.content?.startWeekOnSunday ? 0 : 1;
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
             const timeFormat = props.content?.use12hFormat ? 'h:mm a' : 'HH:mm';
+            
+            // Validate default view
+            let initialView = props.content?.defaultView || 'dayGridMonth';
+            const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
+            if (!validViews.includes(initialView)) {
+                initialView = 'dayGridMonth';
+            }
+            
+            // Custom button text
+            const buttonText = {};
+            if (props.content?.buttonTextToday) buttonText.today = wwLib.wwLang.getText(props.content.buttonTextToday);
+            if (props.content?.buttonTextYear) buttonText.year = wwLib.wwLang.getText(props.content.buttonTextYear);
+            if (props.content?.buttonTextMonth) buttonText.month = wwLib.wwLang.getText(props.content.buttonTextMonth);
+            if (props.content?.buttonTextWeek) buttonText.week = wwLib.wwLang.getText(props.content.buttonTextWeek);
+            if (props.content?.buttonTextDay) buttonText.day = wwLib.wwLang.getText(props.content.buttonTextDay);
+            if (props.content?.buttonTextList) buttonText.list = wwLib.wwLang.getText(props.content.buttonTextList);
 
             return {
                 plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin],
-                initialView: currentView.value,
+                initialView: initialView,
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
@@ -273,6 +287,7 @@ export default {
                 nowIndicator: true,
                 height: '100%',
                 noEventsContent: '', // We'll handle empty list message with slot
+                buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
                 eventClick: info => {
                     if (isEditing.value) return;
@@ -665,51 +680,49 @@ export default {
             height: var(--fc-header-height);
         }
 
-        td.fc-timegrid-axis {
-            background-color: var(--fc-cell-bg-color);
-            color: var(--fc-cell-text-color);
-        }
-
-        th.fc-timegrid-axis {
-            background-color: var(--fc-day-header-bg-color);
-            color: var(--fc-cell-text-color);
-        }
-
+        // Fix for day header vertical alignment
         .fc-col-header-cell {
-            background-color: var(--fc-day-header-bg-color);
-            color: var(--fc-day-header-text-color);
             height: var(--fc-day-header-height);
-            font-size: var(--fc-day-header-font-size);
-            font-weight: var(--fc-day-header-font-weight);
-        }
-
-        .fc-daygrid-day,
-        .fc-timegrid-slot-label,
-        .fc-timegrid-slot,
-        .fc-timegrid-col {
-            background-color: var(--fc-cell-bg-color);
-            color: var(--fc-cell-text-color);
-        }
-
-        .fc-day-other {
-            background-color: var(--fc-other-month-bg-color);
-            color: var(--fc-other-month-text-color);
-        }
-
-        .fc-day-sat,
-        .fc-day-sun {
-            .fc-timegrid-axis-cushion,
-            .fc-timegrid-slot-label-cushion {
-                color: var(--fc-weekend-text-color);
+            
+            .fc-col-header-cell-cushion {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                padding: 8px;
+                color: var(--fc-day-header-text-color);
+                font-size: var(--fc-day-header-font-size);
+                font-weight: var(--fc-day-header-font-weight);
             }
         }
 
-        .fc-daygrid-day {
+        // Fix for today background in month view
+        .fc-day-today {
+            background-color: var(--fc-today-bg-color) !important;
+        }
+
+        // Fix for cell min height in all views
+        .fc-daygrid-day-frame {
             min-height: var(--fc-cell-min-height);
         }
 
         .fc-timegrid-slot {
             height: calc(var(--fc-cell-min-height) / 4);
+        }
+
+        .fc-timegrid-slot-lane {
+            min-height: calc(var(--fc-cell-min-height) / 4);
+        }
+
+        .fc-list-day {
+            min-height: var(--fc-cell-min-height);
+        }
+
+        // Additional styles for other views
+        .fc-multimonth-daygrid-table {
+            .fc-daygrid-day-frame {
+                min-height: calc(var(--fc-cell-min-height) / 2);
+            }
         }
     }
 }

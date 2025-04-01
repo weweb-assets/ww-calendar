@@ -12,7 +12,7 @@ export default {
             ['hideWeekends', 'startWeekOnSunday', 'use12hFormat'],
             ['hideDaysOfWeek', 'hideDaysOfMonth'],
             'eventsTitle',
-            'events',
+            ['events',
             'eventsIdPath',
             'eventsTitlePath',
             'eventsStartPath',
@@ -24,14 +24,15 @@ export default {
             'eventsUrlPath',
             'eventsContentPath',
             'eventsDataPath',
-            'eventsCategoryPath',
+            'eventsCategoryPath'],
             'categoriesTitle',
-            'categories',
+            ['categories',
             'categoriesIdPath',
             'categoriesNamePath',
             'categoriesBackgroundColorPath',
             'categoriesBorderColorPath',
-            'categoriesTextColorPath',
+            'categoriesTextColorPath'],
+            ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList']
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
@@ -66,7 +67,7 @@ export default {
             'eventStyleTitle',
             ['defaultEventBackgroundColor', 'defaultEventBorderColor', 'defaultEventTextColor'],
             'indicatorStyleTitle',
-            'nowIndicatorColor',
+            ['nowIndicatorColor']
         ],
     },
     properties: {
@@ -188,40 +189,48 @@ export default {
         },
         fontSize: {
             label: { en: 'Font size' },
-            type: 'Number',
+            type: 'Length',
             section: 'style',
             bindable: true,
-            defaultValue: 14,
+            defaultValue: '14px',
             options: {
-                min: 8,
-                max: 32,
-                step: 1,
+                unitChoices: [{ value: 'px', label: 'px', min: 1, max: 100 }],
+                noRange: true,
             },
+            responsive: true,
             /* wwEditor:start */
             bindingValidation: {
-                type: 'number',
-                tooltip: 'Bind to a number value for the font size in pixels',
+                type: 'string',
+                tooltip: 'Bind to a string value for the font size (e.g., "14px")',
             },
             propertyHelp: {
-                tooltip: 'Set the font size for the calendar in pixels',
+                tooltip: 'Set the font size for the calendar',
             },
             /* wwEditor:end */
         },
         fontWeight: {
             label: { en: 'Font weight' },
-            type: 'Number',
+            type: 'TextSelect',
             section: 'style',
             bindable: true,
-            defaultValue: 400,
+            defaultValue: '400',
             options: {
-                min: 100,
-                max: 900,
-                step: 100,
+                options: [
+                    { value: '100', label: '100 (Thin)' },
+                    { value: '200', label: '200 (Extra Light)' },
+                    { value: '300', label: '300 (Light)' },
+                    { value: '400', label: '400 (Normal)' },
+                    { value: '500', label: '500 (Medium)' },
+                    { value: '600', label: '600 (Semi Bold)' },
+                    { value: '700', label: '700 (Bold)' },
+                    { value: '800', label: '800 (Extra Bold)' },
+                    { value: '900', label: '900 (Black)' },
+                ],
             },
             /* wwEditor:start */
             bindingValidation: {
-                type: 'number',
-                tooltip: 'Bind to a number value for the font weight (100-900)',
+                type: 'string',
+                tooltip: 'Bind to a string value for the font weight (100-900)',
             },
             propertyHelp: {
                 tooltip: 'Set the font weight for the calendar (100-900)',
@@ -231,7 +240,7 @@ export default {
 
         // Calendar Colors - Style Tab
         headerBackgroundColor: {
-            label: { en: 'Header background' },
+            label: { en: 'Background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -247,7 +256,7 @@ export default {
             /* wwEditor:end */
         },
         headerTextColor: {
-            label: { en: 'Header text color' },
+            label: { en: 'Text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -263,7 +272,7 @@ export default {
             /* wwEditor:end */
         },
         dayHeaderBackgroundColor: {
-            label: { en: 'Day header background' },
+            label: { en: 'Background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -279,7 +288,7 @@ export default {
             /* wwEditor:end */
         },
         dayHeaderTextColor: {
-            label: { en: 'Day header text color' },
+            label: { en: 'Text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -296,43 +305,51 @@ export default {
         },
         dayHeaderFontSize: {
             label: { en: 'Font size' },
-            type: 'Number',
+            type: 'Length',
             section: 'style',
             bindable: true,
-            defaultValue: 14,
+            defaultValue: '14px',
             options: {
-                min: 8,
-                max: 32,
-                step: 1,
+                unitChoices: [{ value: 'px', label: 'px', min: 1, max: 100 }],
+                noRange: true,
             },
+            responsive: true,
             /* wwEditor:start */
             bindingValidation: {
-                type: 'number',
-                tooltip: 'Bind to a number value for the font size in pixels',
+                type: 'string',
+                tooltip: 'Bind to a string value for the font size (e.g., "14px")',
             },
             propertyHelp: {
-                tooltip: 'Set the font size for the calendar in pixels',
+                tooltip: 'Set the font size for the day headers',
             },
             /* wwEditor:end */
         },
         dayHeaderFontWeight: {
             label: { en: 'Font weight' },
-            type: 'Number',
+            type: 'TextSelect',
             section: 'style',
             bindable: true,
-            defaultValue: 400,
+            defaultValue: '400',
             options: {
-                min: 100,
-                max: 900,
-                step: 100,
+                options: [
+                    { value: '100', label: '100 (Thin)' },
+                    { value: '200', label: '200 (Extra Light)' },
+                    { value: '300', label: '300 (Light)' },
+                    { value: '400', label: '400 (Normal)' },
+                    { value: '500', label: '500 (Medium)' },
+                    { value: '600', label: '600 (Semi Bold)' },
+                    { value: '700', label: '700 (Bold)' },
+                    { value: '800', label: '800 (Extra Bold)' },
+                    { value: '900', label: '900 (Black)' },
+                ],
             },
             /* wwEditor:start */
             bindingValidation: {
-                type: 'number',
-                tooltip: 'Bind to a number value for the font weight (100-900)',
+                type: 'string',
+                tooltip: 'Bind to a string value for the font weight (100-900)',
             },
             propertyHelp: {
-                tooltip: 'Set the font weight for the calendar (100-900)',
+                tooltip: 'Set the font weight for the day headers',
             },
             /* wwEditor:end */
         },
@@ -353,7 +370,7 @@ export default {
             /* wwEditor:end */
         },
         cellBackgroundColor: {
-            label: { en: 'Cell background' },
+            label: { en: 'Background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -369,7 +386,7 @@ export default {
             /* wwEditor:end */
         },
         cellTextColor: {
-            label: { en: 'Cell text color' },
+            label: { en: 'Text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -385,7 +402,7 @@ export default {
             /* wwEditor:end */
         },
         weekendTextColor: {
-            label: { en: 'Weekend hours text color' },
+            label: { en: 'Weekend hours text' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -417,7 +434,7 @@ export default {
             /* wwEditor:end */
         },
         otherMonthTextColor: {
-            label: { en: 'Other month text color' },
+            label: { en: 'Other month text' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -435,7 +452,7 @@ export default {
 
         // Button Styling - Style Tab
         buttonBackgroundColor: {
-            label: { en: 'Button background' },
+            label: { en: 'Background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -451,7 +468,7 @@ export default {
             /* wwEditor:end */
         },
         buttonTextColor: {
-            label: { en: 'Button text color' },
+            label: { en: 'Text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -467,7 +484,7 @@ export default {
             /* wwEditor:end */
         },
         buttonHoverBackgroundColor: {
-            label: { en: 'Button hover background' },
+            label: { en: 'Hover background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -483,7 +500,7 @@ export default {
             /* wwEditor:end */
         },
         buttonHoverTextColor: {
-            label: { en: 'Button hover text color' },
+            label: { en: 'Hover text' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -499,7 +516,7 @@ export default {
             /* wwEditor:end */
         },
         buttonHoverBorderColor: {
-            label: { en: 'Button hover border color' },
+            label: { en: 'Hover border' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -580,7 +597,7 @@ export default {
         },
 
         buttonBorderRadius: {
-            label: { en: 'Button border radius' },
+            label: { en: 'Border radius' },
             type: 'Length',
             section: 'style',
             bindable: true,
@@ -598,7 +615,7 @@ export default {
 
         // Border Styling - Style Tab
         borderColor: {
-            label: { en: 'Border color' },
+            label: { en: 'Color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -616,7 +633,7 @@ export default {
 
         // Event Styling - Style Tab
         defaultEventBackgroundColor: {
-            label: { en: 'Default event background' },
+            label: { en: 'Background' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -632,7 +649,7 @@ export default {
             /* wwEditor:end */
         },
         defaultEventBorderColor: {
-            label: { en: 'Default event border' },
+            label: { en: 'Border' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -648,7 +665,7 @@ export default {
             /* wwEditor:end */
         },
         defaultEventTextColor: {
-            label: { en: 'Default event text color' },
+            label: { en: 'Text color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -716,7 +733,7 @@ export default {
 
         // Indicators - Style Tab
         nowIndicatorColor: {
-            label: { en: 'Now indicator color' },
+            label: { en: 'Color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -724,10 +741,10 @@ export default {
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'Bind to a color value for the "now" time indicator',
+                tooltip: 'Bind to a color value for the now indicator line',
             },
             propertyHelp: {
-                tooltip: 'Set the color for the current time indicator line',
+                tooltip: 'Set the color for the line indicating the current time',
             },
             /* wwEditor:end */
         },
@@ -850,22 +867,19 @@ export default {
             section: 'settings',
             bindable: true,
             defaultValue: 'dayGridMonth',
-            options: content => ({
+            options: {
                 options: [
-                    ...(content.yearView ? [{ value: 'multiMonthYear', label: 'Year' }] : []),
-                    ...(content.monthView ? [{ value: 'dayGridMonth', label: 'Month' }] : []),
-                    ...(content.weekView ? [{ value: 'timeGridWeek', label: 'Week' }] : []),
-                    ...(content.dayView ? [{ value: 'timeGridDay', label: 'Day' }] : []),
-                    ...(content.listView ? [{ value: 'listWeek', label: 'List' }] : []),
+                    { value: 'multiMonthYear', label: 'Year' },
+                    { value: 'dayGridMonth', label: 'Month' },
+                    { value: 'timeGridWeek', label: 'Week' },
+                    { value: 'timeGridDay', label: 'Day' },
+                    { value: 'listWeek', label: 'List' },
                 ],
-            }),
+            },
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'Bind to a string value for the default view (e.g., "dayGridMonth", "timeGridWeek")',
-            },
-            propertyHelp: {
-                tooltip: 'Set the default view when the calendar loads',
+                tooltip: 'Bind to a string value for the default view: multiMonthYear | dayGridMonth | timeGridWeek | timeGridDay | listWeek',
             },
             /* wwEditor:end */
         },
@@ -1550,6 +1564,90 @@ export default {
         emptyListTextEl: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-text', name: 'Empty list placeholder', state: { name: 'Empty list placeholder' }, content: { '_ww-text_text': { en: 'No events to display' } } },
+        },
+        buttonTextToday: {
+            label: { en: '"Today" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Today" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextYear: {
+            label: { en: '"Year" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Year" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextMonth: {
+            label: { en: '"Month" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Month" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextWeek: {
+            label: { en: '"Week" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Week" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextDay: {
+            label: { en: '"Day" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Day" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextList: {
+            label: { en: '"List" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "List" button text',
+            },
+            /* wwEditor:end */
         },
     },
     triggerEvents: [
