@@ -36,7 +36,7 @@ export default {
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
-            ['darkMode', 'fontFamily', 'fontSize', 'fontWeight'],
+            ['darkMode', 'fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
             'headerStyleTitle',
             ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
             'dayHeaderStyleTitle',
@@ -67,8 +67,6 @@ export default {
             ['borderColor'],
             'eventStyleTitle',
             ['defaultEventBackgroundColor', 'defaultEventBorderColor', 'defaultEventTextColor'],
-            'indicatorStyleTitle',
-            ['nowIndicatorColor']
         ],
     },
     properties: {
@@ -152,14 +150,6 @@ export default {
             type: 'Title',
             label: {
                 en: 'Events',
-            },
-            editorOnly: true,
-        },
-        indicatorStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Indicators',
             },
             editorOnly: true,
         },
