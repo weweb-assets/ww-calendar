@@ -1,5 +1,5 @@
 <template>
-    <div class="fullcalendar-wrapper modern-buttons" :class="{ 'dark-mode': isDarkMode }" :style="calendarStyles">
+    <div class="fullcalendar-wrapper modern-buttons" :style="calendarStyles">
         <FullCalendar ref="fullCalendarRef" :options="calendarOptions">
             <template v-slot:noEventsContent>
                 <wwElement v-bind="content.emptyListTextEl" />
@@ -57,8 +57,6 @@ export default {
         });
 
         // Computed properties for styling
-        const isDarkMode = computed(() => props.content.darkMode);
-
         const calendarStyles = computed(() => ({
             '--fc-font-family': props.content?.fontFamily || 'inherit',
             '--fc-font-size': props.content?.fontSize || '14px',
@@ -558,7 +556,6 @@ export default {
             fullCalendarRef,
             calendarOptions,
             calendarStyles,
-            isDarkMode,
             currentView,
             selectedEvent,
             // Actions

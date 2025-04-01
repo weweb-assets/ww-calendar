@@ -36,7 +36,7 @@ export default {
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
-            ['darkMode', 'fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
+            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
             'headerStyleTitle',
             ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
             'dayHeaderStyleTitle',
@@ -154,22 +154,6 @@ export default {
             editorOnly: true,
         },
         // Appearance - Style Tab
-        darkMode: {
-            label: { en: 'Dark mode' },
-            type: 'OnOff',
-            section: 'style',
-            bindable: true,
-            defaultValue: false,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'Bind to a boolean value to toggle dark mode',
-            },
-            propertyHelp: {
-                tooltip: 'Enable dark mode for the calendar',
-            },
-            /* wwEditor:end */
-        },
         fontFamily: {
             label: { en: 'Font family' },
             type: 'FontFamily',
