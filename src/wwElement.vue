@@ -344,20 +344,6 @@ export default {
                         event: { value: eventData },
                     });
                 },
-                eventRemove: info => {
-                    if (isEditing.value) return;
-
-                    const eventData = {
-                        id: info.event.id,
-                        title: info.event.title,
-                        ...info.event.extendedProps,
-                    };
-
-                    emit('trigger-event', {
-                        name: 'eventDeleted',
-                        event: { value: eventData },
-                    });
-                },
                 eventDragStart: info => {
                     if (isEditing.value) return;
 
@@ -509,36 +495,6 @@ export default {
             }
         };
 
-        const addEvent = eventData => {
-            if (fullCalendarRef.value) {
-                const calendarApi = fullCalendarRef.value.getApi();
-                calendarApi.addEvent(eventData);
-            }
-        };
-
-        const updateEvent = (eventId, eventData) => {
-            if (fullCalendarRef.value) {
-                const calendarApi = fullCalendarRef.value.getApi();
-                const event = calendarApi.getEventById(eventId);
-                if (event) {
-                    if (eventData.title) event.setProp('title', eventData.title);
-                    if (eventData.start) event.setStart(eventData.start);
-                    if (eventData.end) event.setEnd(eventData.end);
-                    if (eventData.allDay !== undefined) event.setAllDay(eventData.allDay);
-                }
-            }
-        };
-
-        const removeEvent = eventId => {
-            if (fullCalendarRef.value) {
-                const calendarApi = fullCalendarRef.value.getApi();
-                const event = calendarApi.getEventById(eventId);
-                if (event) {
-                    event.remove();
-                }
-            }
-        };
-
         return {
             fullCalendarRef,
             calendarOptions,
@@ -551,9 +507,6 @@ export default {
             next,
             prev,
             today,
-            addEvent,
-            updateEvent,
-            removeEvent,
         };
     },
 };

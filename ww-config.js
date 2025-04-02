@@ -1402,11 +1402,6 @@ export default {
             event: { value: null },
         },
         {
-            name: 'eventDeleted',
-            label: { en: 'On event deleted' },
-            event: { value: null },
-        },
-        {
             name: 'eventDragStart',
             label: { en: 'On event drag start' },
             event: { value: null },
@@ -1441,8 +1436,14 @@ export default {
             args: [
                 {
                     name: 'viewName',
-                    type: 'string',
-                    label: { en: 'View name' },
+                    type: 'select',
+                    options: [
+                        { value: 'multiMonthYear', label: 'multiMonthYear' },
+                        { value: 'dayGridMonth', label: 'dayGridMonth' },
+                        { value: 'timeGridWeek', label: 'timeGridWeek' },
+                        { value: 'timeGridDay', label: 'timeGridDay' },
+                        { value: 'listWeek', label: 'listWeek' },
+                    ],
                 },
             ],
         },
@@ -1453,7 +1454,6 @@ export default {
                 {
                     name: 'date',
                     type: 'string',
-                    label: { en: 'Date (YYYY-MM-DD)' },
                 },
             ],
         },
@@ -1468,44 +1468,6 @@ export default {
         {
             action: 'today',
             label: { en: 'Go to today' },
-        },
-        {
-            action: 'addEvent',
-            label: { en: 'Add event' },
-            args: [
-                {
-                    name: 'eventData',
-                    type: 'object',
-                    label: { en: 'Event data' },
-                },
-            ],
-        },
-        {
-            action: 'updateEvent',
-            label: { en: 'Update event' },
-            args: [
-                {
-                    name: 'eventId',
-                    type: 'string',
-                    label: { en: 'Event ID' },
-                },
-                {
-                    name: 'eventData',
-                    type: 'object',
-                    label: { en: 'Event data' },
-                },
-            ],
-        },
-        {
-            action: 'removeEvent',
-            label: { en: 'Remove event' },
-            args: [
-                {
-                    name: 'eventId',
-                    type: 'string',
-                    label: { en: 'Event ID' },
-                },
-            ],
         },
     ],
 };

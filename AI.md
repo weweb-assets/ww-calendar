@@ -100,7 +100,6 @@ Events:
 - `viewChange`: {value: viewData} - Triggered when the calendar view changes
 - `eventCreated`: {value: eventData} - Triggered when an event is created
 - `eventUpdated`: {value: eventData} - Triggered when an event is updated
-- `eventDeleted`: {value: eventData} - Triggered when an event is deleted
 - `eventDragStart`: {value: eventData} - Triggered when event dragging starts
 - `eventDragEnd`: {value: eventData} - Triggered when event dragging ends
 - `eventDrop`: {value: eventData} - Triggered when an event is dropped in a new position
