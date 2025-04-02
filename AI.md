@@ -56,9 +56,8 @@ View Settings:
 - `timeEnd`: `string` - Sets the end time for the calendar time grid (format: "HH:MM:SS"). Default: `'24:00:00'`
 - `hideWeekends`: `boolean` - Hides Saturday and Sunday. Default: `false`
 - `startWeekOnSunday`: `boolean` - Starts the week on Sunday instead of Monday. Default: `false`
-- `use12hFormat`: `boolean` - Uses 12-hour time format (AM/PM) instead of 24-hour format. Default: `false`
+- `allDaySlot`: `boolean` - Show or hide the all-day events. Default: `true`
 - `hideDaysOfWeek`: `number[]` - Array of day numbers to hide (0=Sunday, 1=Monday, etc.). Default: `[]`
-- `hideDaysOfMonth`: `number[]` - Array of month days to hide (1-31). Default: `[]`
 - `buttonTextToday`: `string` - Custom text for the "Today" button. Default: `''` (uses locale default)
 - `buttonTextYear`: `string` - Custom text for the "Year" button. Default: `''` (uses locale default)
 - `buttonTextMonth`: `string` - Custom text for the "Month" button. Default: `''` (uses locale default)
@@ -77,9 +76,8 @@ Event Data:
   - `backgroundColor`: `string` - Event background color
   - `borderColor`: `string` - Event border color
   - `textColor`: `string` - Event text color
-  - `url`: `string` - URL associated with the event
-  - `data`: `string` - Additional JSON data for the event
-  - `category`: `string` - Category ID for the event
+  - `groupId`: `string` - Group identifier for related events
+  - `data`: `object` - Additional data for the event
 
 Event Property Mapping:
 - `eventsIdPath`: `string` - Field to use as event ID. Default: `'id'`
@@ -90,25 +88,9 @@ Event Property Mapping:
 - `eventsBackgroundColorPath`: `string` - Field to use as event background color. Default: `'backgroundColor'`
 - `eventsBorderColorPath`: `string` - Field to use as event border color. Default: `'borderColor'`
 - `eventsTextColorPath`: `string` - Field to use as event text color. Default: `'textColor'`
-- `eventsUrlPath`: `string` - Field to use as event URL. Default: `'url'`
 - `eventsContentPath`: `string` - Field to use as event content/description. Default: `'content'`
 - `eventsDataPath`: `string` - Field to use as event additional data. Default: `'data'`
-- `eventsCategoryPath`: `string` - Field to use as event category. Default: `'category'`
-
-Categories:
-- `categories`: `array` - Array of category objects with properties:
-  - `id`: `string` - Unique identifier for the category
-  - `name`: `string` - Category name
-  - `backgroundColor`: `string` - Default background color for events in this category
-  - `borderColor`: `string` - Default border color for events in this category
-  - `textColor`: `string` - Default text color for events in this category
-
-Category Property Mapping:
-- `categoriesIdPath`: `string` - Field to use as category ID. Default: `'id'`
-- `categoriesNamePath`: `string` - Field to use as category name. Default: `'name'`
-- `categoriesBackgroundColorPath`: `string` - Field to use as category background color. Default: `'backgroundColor'`
-- `categoriesBorderColorPath`: `string` - Field to use as category border color. Default: `'borderColor'`
-- `categoriesTextColorPath`: `string` - Field to use as category text color. Default: `'textColor'`
+- `eventsGroupIdPath`: `string` - Field to use as event group ID. Default: `'groupId'`
 
 Slots:
 - `emptyListTextEl` - Element for customizing the empty list message when there are no events to display
@@ -145,18 +127,15 @@ Special features:
 - Multiple view types (year, month, week, day, list)
 - Event drag-and-drop for rescheduling
 - Event resizing to adjust duration
-- Category-based event styling
+- Grouped events that move together
 - Customizable time ranges and day display
 - Internationalization support with multiple locales
 - Extensive style customization for all calendar elements
 - Configurable cell dimensions and spacing
 - Custom empty list message via slot
-- Weekend hours text color customization
-- Modern button styling option with transparent navigation buttons
-- Configurable border radius for buttons and calendar
-- Dynamic property mapping for events and categories when binding external data
+- Dynamic property mapping for events when binding external data
 
 Important Build guidelines:
 - Always put a fixed height on the calendar element
 - Never use flex or min-height directly on the calendar element
-- When creating fake events put them in 2025
+- When creating fake events put them in current year/month/week

@@ -97,8 +97,7 @@ export default {
         // Process events data with property path mapping
         const processedEvents = computed(() => {
             const events = props.content?.events || [];
-            const categories = props.content?.categories || [];
-
+            
             return events.map(event => {
                 // Get values using property paths if bound, otherwise use direct properties
                 const id =
@@ -127,40 +126,15 @@ export default {
                 const textColor =
                     wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsTextColorPath || 'textColor') ??
                     event.textColor;
-                const url =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsUrlPath || 'url') ?? event.url;
                 const content =
                     wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsContentPath || 'content') ??
                     event.content;
                 const data =
                     wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsDataPath || 'data') ??
                     event.data;
-                const categoryId =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsCategoryPath || 'category') ??
-                    event.category;
-
-                // Find category if exists
-                const category = categories.find(cat => {
-                    const catId = wwLib.wwUtils.resolveObjectPropertyPath(cat, props.content?.categoriesIdPath || 'id');
-                    return catId === categoryId;
-                });
-
-                // Get category properties using property paths if bound
-                const categoryBackgroundColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(
-                        category,
-                        props.content?.categoriesBackgroundColorPath || 'backgroundColor'
-                    ) ?? category?.backgroundColor;
-                const categoryBorderColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(
-                        category,
-                        props.content?.categoriesBorderColorPath || 'borderColor'
-                    ) ?? category?.borderColor;
-                const categoryTextColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(
-                        category,
-                        props.content?.categoriesTextColorPath || 'textColor'
-                    ) ?? category?.textColor;
+                const groupId =
+                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsGroupIdPath || 'groupId') ??
+                    event.groupId;
 
                 return {
                     id: id || `event-${Math.random().toString(36).substr(2, 9)}`,
@@ -168,19 +142,13 @@ export default {
                     start: start,
                     end: end,
                     allDay: allDay,
-                    backgroundColor:
-                        backgroundColor ||
-                        categoryBackgroundColor ||
-                        props.content?.defaultEventBackgroundColor ||
-                        '#3788d8',
-                    borderColor:
-                        borderColor || categoryBorderColor || props.content?.defaultEventBorderColor || '#3788d8',
-                    textColor: textColor || categoryTextColor || props.content?.defaultEventTextColor || '#ffffff',
-                    url: url || '',
+                    backgroundColor: backgroundColor || props.content?.defaultEventBackgroundColor || '#3788d8',
+                    borderColor: borderColor || props.content?.defaultEventBorderColor || '#3788d8',
+                    textColor: textColor || props.content?.defaultEventTextColor || '#ffffff',
+                    groupId: groupId || null,
                     extendedProps: {
                         content: content || '',
                         data: data || {},
-                        category: categoryId || '',
                         originalEvent: event,
                     },
                 };
@@ -230,6 +198,11 @@ export default {
                 });
             }
 
+            // Ensure at least one day is visible (prevent hiding all days)
+            if (hidden.length === 7) {
+                hidden.pop(); // Remove the last day from hidden list to make at least one day visible
+            }
+
             return hidden;
         });
 
@@ -237,13 +210,32 @@ export default {
         const calendarOptions = computed(() => {
             const firstDay = props.content?.startWeekOnSunday ? 0 : 1;
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
-            const timeFormat = props.content?.use12hFormat ? 'h:mm a' : 'HH:mm';
             
             // Validate default view
             let initialView = props.content?.defaultView || 'dayGridMonth';
             const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
             if (!validViews.includes(initialView)) {
                 initialView = 'dayGridMonth';
+            }
+            
+            // Validate time start and end
+            let slotMinTime = '00:00:00';
+            let slotMaxTime = '24:00:00';
+            
+            if (props.content?.timeStart) {
+                // Simple validation for time format (HH:MM:SS)
+                const timeStartRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+                if (timeStartRegex.test(props.content.timeStart)) {
+                    slotMinTime = props.content.timeStart;
+                }
+            }
+            
+            if (props.content?.timeEnd) {
+                // Simple validation for time format (HH:MM:SS)
+                const timeEndRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+                if (timeEndRegex.test(props.content.timeEnd)) {
+                    slotMaxTime = props.content.timeEnd;
+                }
             }
             
             // Custom button text
@@ -273,15 +265,9 @@ export default {
                 firstDay: firstDay,
                 locale: locale,
                 hiddenDays: hiddenDays.value,
-                slotMinTime: props.content?.timeStart || '00:00:00',
-                slotMaxTime: props.content?.timeEnd || '24:00:00',
-                timeFormat,
-                eventTimeFormat: {
-                    hour: props.content?.use12hFormat ? 'numeric' : '2-digit',
-                    minute: '2-digit',
-                    meridiem: props.content?.use12hFormat,
-                },
-                allDaySlot: !props.content?.timeless,
+                slotMinTime: slotMinTime,
+                slotMaxTime: slotMaxTime,
+                allDaySlot: props.content?.allDaySlot,
                 nowIndicator: true,
                 height: '100%',
                 noEventsContent: '', // We'll handle empty list message with slot
@@ -297,6 +283,7 @@ export default {
                         start: info.event.start,
                         end: info.event.end,
                         allDay: info.event.allDay,
+                        groupId: info.event.groupId,
                     };
 
                     setSelectedEvent(eventData);

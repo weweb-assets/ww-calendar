@@ -8,9 +8,8 @@ export default {
             'viewSettingsTitle',
             ['locale', 'defaultView'],
             ['yearView', 'monthView', 'weekView', 'dayView', 'listView'],
-            ['timeless', 'timeStart', 'timeEnd'],
-            ['hideWeekends', 'startWeekOnSunday', 'use12hFormat'],
-            ['hideDaysOfWeek', 'hideDaysOfMonth'],
+            ['allDaySlot', 'timeStart', 'timeEnd'],
+            ['hideWeekends', 'startWeekOnSunday', 'hideDaysOfWeek'],
             'eventsTitle',
             ['events',
             'eventsIdPath',
@@ -24,14 +23,7 @@ export default {
             'eventsUrlPath',
             'eventsContentPath',
             'eventsDataPath',
-            'eventsCategoryPath'],
-            'categoriesTitle',
-            ['categories',
-            'categoriesIdPath',
-            'categoriesNamePath',
-            'categoriesBackgroundColorPath',
-            'categoriesBorderColorPath',
-            'categoriesTextColorPath'],
+            'eventsGroupIdPath'],
             ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList']
         ],
         customStylePropertiesOrder: [
@@ -84,14 +76,6 @@ export default {
             type: 'Title',
             label: {
                 en: 'Events',
-            },
-            editorOnly: true,
-        },
-        categoriesTitle: {
-            section: 'settings',
-            type: 'Title',
-            label: {
-                en: 'Categories',
             },
             editorOnly: true,
         },
@@ -866,19 +850,19 @@ export default {
             },
             /* wwEditor:end */
         },
-        timeless: {
-            label: { en: 'Timeless' },
+        allDaySlot: {
+            label: { en: 'Show all-day events' },
             type: 'OnOff',
             section: 'settings',
             bindable: true,
-            defaultValue: false,
+            defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
                 type: 'boolean',
-                tooltip: 'Bind to a boolean value to enable/disable time display',
+                tooltip: 'Bind to a boolean value to show/hide the all-day slot',
             },
             propertyHelp: {
-                tooltip: 'Hide time slots and show only all-day events',
+                tooltip: 'Show or hide the all-day events',
             },
             /* wwEditor:end */
         },
@@ -888,7 +872,6 @@ export default {
             section: 'settings',
             bindable: true,
             defaultValue: '00:00:00',
-            hidden: content => content.timeless,
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
@@ -905,7 +888,6 @@ export default {
             section: 'settings',
             bindable: true,
             defaultValue: '24:00:00',
-            hidden: content => content.timeless,
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
@@ -948,22 +930,6 @@ export default {
             },
             /* wwEditor:end */
         },
-        use12hFormat: {
-            label: { en: 'Use 12h format' },
-            type: 'OnOff',
-            section: 'settings',
-            bindable: true,
-            defaultValue: false,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'Bind to a boolean value to use 12-hour time format',
-            },
-            propertyHelp: {
-                tooltip: 'Use 12-hour time format (AM/PM) instead of 24-hour format',
-            },
-            /* wwEditor:end */
-        },
         hideDaysOfWeek: {
             label: { en: 'Hide days of week' },
             type: 'Array',
@@ -995,36 +961,6 @@ export default {
             },
             /* wwEditor:end */
         },
-        hideDaysOfMonth: {
-            label: { en: 'Hide days of month' },
-            type: 'Array',
-            section: 'settings',
-            bindable: true,
-            defaultValue: [],
-            options: {
-                expandable: true,
-                getItemLabel(item) {
-                    return `Day ${item}`;
-                },
-                item: {
-                    type: 'Number',
-                    options: {
-                        min: 1,
-                        max: 31,
-                        step: 1,
-                    },
-                },
-            },
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'array',
-                tooltip: 'Bind to an array of numbers (1-31) representing days of month to hide',
-            },
-            propertyHelp: {
-                tooltip: 'Hide specific days of the month (1-31)',
-            },
-            /* wwEditor:end */
-        },
 
         // Events
         events: {
@@ -1043,7 +979,7 @@ export default {
                     borderColor: '#3788d8',
                     textColor: '#ffffff',
                     content: 'This is a sample event',
-                    category: 'default',
+                    groupId: '',
                 },
             ],
             options: {
@@ -1053,6 +989,19 @@ export default {
                 },
                 item: {
                     type: 'Object',
+                    defaultValue: {
+                        id: '123', 
+                        title: 'Sample Event', 
+                        content: 'This is a sample event',
+                        start: '', 
+                        end: '', 
+                        allDay: false, 
+                        backgroundColor: '#3788d8',
+                        borderColor: '#3788d8',
+                        textColor: '#ffffff',
+                        data: null, 
+                        groupId: null
+                    },
                     options: {
                         item: {
                             id: {
@@ -1096,20 +1045,15 @@ export default {
                                 label: { en: 'Text Color' },
                                 type: 'Color',
                             },
-                            url: {
-                                label: { en: 'URL' },
-                                type: 'Text',
-                                options: { placeholder: 'https://...' },
-                            },
                             data: {
                                 label: { en: 'Data' },
                                 type: 'Text',
                                 options: { placeholder: '{ "key": "value" }' },
                             },
-                            category: {
-                                label: { en: 'Category' },
+                            groupId: {
+                                label: { en: 'Group ID' },
                                 type: 'Text',
-                                options: { placeholder: 'Category ID' },
+                                options: { placeholder: 'Group ID' },
                             },
                         },
                     },
@@ -1294,27 +1238,6 @@ export default {
             },
             /* wwEditor:end */
         },
-        eventsUrlPath: {
-            label: { en: 'URL Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.events?.[0] || {},
-            }),
-            defaultValue: 'url',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event URL',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the event URL property',
-            },
-            /* wwEditor:end */
-        },
         eventsContentPath: {
             label: { en: 'Content Field' },
             type: 'ObjectPropertyPath',
@@ -1357,193 +1280,28 @@ export default {
             },
             /* wwEditor:end */
         },
-        eventsCategoryPath: {
-            label: { en: 'Category Field' },
+        eventsGroupIdPath: {
+            label: { en: 'Group ID Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
             bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'category',
+            defaultValue: '',
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'Select which property from your data to use as the event category',
+                tooltip: 'Select which property from your data to use as the event group id',
             },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event category property',
+                tooltip: 'Map a field from your data to the event group id property',
             },
             /* wwEditor:end */
         },
 
-        categories: {
-            label: { en: 'Categories' },
-            type: 'Array',
-            section: 'settings',
-            bindable: true,
-            defaultValue: [
-                {
-                    id: 'default',
-                    name: 'Default',
-                    backgroundColor: '#3788d8',
-                    borderColor: '#3788d8',
-                    textColor: '#3788d8',
-                },
-            ],
-            options: {
-                expandable: true,
-                getItemLabel(item) {
-                    return item.name || 'Unnamed Category';
-                },
-                item: {
-                    type: 'Object',
-                    options: {
-                        item: {
-                            id: {
-                                label: { en: 'ID' },
-                                type: 'Text',
-                                options: { placeholder: 'Category ID' },
-                            },
-                            name: {
-                                label: { en: 'Name' },
-                                type: 'Text',
-                                options: { placeholder: 'Category Name' },
-                            },
-                            backgroundColor: {
-                                label: { en: 'Background Color' },
-                                type: 'Color',
-                            },
-                            borderColor: {
-                                label: { en: 'Border Color' },
-                                type: 'Color',
-                            },
-                            textColor: {
-                                label: { en: 'Text Color' },
-                                type: 'Color',
-                            },
-                        },
-                    },
-                },
-            },
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'array',
-                tooltip: 'Bind to an array of category objects with required properties: id, name, backgroundColor',
-            },
-            propertyHelp: {
-                tooltip: 'Define event categories with custom styling',
-            },
-            /* wwEditor:end */
-        },
-        // Category property mapping fields
-        categoriesIdPath: {
-            label: { en: 'ID Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.categories?.[0] || {},
-            }),
-            defaultValue: 'id',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.categories) || !content.categories?.length || !boundProps.categories,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the category ID',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the category ID property',
-            },
-            /* wwEditor:end */
-        },
-        categoriesNamePath: {
-            label: { en: 'Name Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.categories?.[0] || {},
-            }),
-            defaultValue: 'name',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.categories) || !content.categories?.length || !boundProps.categories,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the category name',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the category name property',
-            },
-            /* wwEditor:end */
-        },
-        categoriesBackgroundColorPath: {
-            label: { en: 'Background Color Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.categories?.[0] || {},
-            }),
-            defaultValue: 'backgroundColor',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.categories) || !content.categories?.length || !boundProps.categories,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the category background color',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the category background color property',
-            },
-            /* wwEditor:end */
-        },
-        categoriesBorderColorPath: {
-            label: { en: 'Border Color Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.categories?.[0] || {},
-            }),
-            defaultValue: 'borderColor',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.categories) || !content.categories?.length || !boundProps.categories,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the category border color',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the category border color property',
-            },
-            /* wwEditor:end */
-        },
-        categoriesTextColorPath: {
-            label: { en: 'Text Color Field' },
-            type: 'ObjectPropertyPath',
-            section: 'settings',
-            bindable: true,
-            options: content => ({
-                object: content.categories?.[0] || {},
-            }),
-            defaultValue: 'textColor',
-            hidden: (content, sidepanelContent, boundProps) =>
-                !Array.isArray(content.categories) || !content.categories?.length || !boundProps.categories,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the category text color',
-            },
-            propertyHelp: {
-                tooltip: 'Map a field from your data to the category text color property',
-            },
-            /* wwEditor:end */
-        },
         emptyListTextEl: {
             hidden: true,
             defaultValue: { isWwObject: true, type: 'ww-text', name: 'Empty list placeholder', state: { name: 'Empty list placeholder' }, content: { '_ww-text_text': { en: 'No events to display' } } },
