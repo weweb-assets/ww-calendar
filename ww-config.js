@@ -700,7 +700,7 @@ export default {
 
         // Indicators - Style Tab
         nowIndicatorColor: {
-            label: { en: 'Color' },
+            label: { en: 'Now indicator Color' },
             type: 'Color',
             section: 'style',
             bindable: true,
@@ -1074,7 +1074,6 @@ export default {
             label: { en: 'ID Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1095,7 +1094,6 @@ export default {
             label: { en: 'Title Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1116,7 +1114,6 @@ export default {
             label: { en: 'Start Date Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1137,7 +1134,6 @@ export default {
             label: { en: 'End Date Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1158,7 +1154,6 @@ export default {
             label: { en: 'All Day Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1179,7 +1174,6 @@ export default {
             label: { en: 'Background Color Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1200,7 +1194,6 @@ export default {
             label: { en: 'Border Color Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1221,7 +1214,6 @@ export default {
             label: { en: 'Text Color Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1242,7 +1234,6 @@ export default {
             label: { en: 'Content Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1263,7 +1254,6 @@ export default {
             label: { en: 'Data Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
@@ -1284,7 +1274,6 @@ export default {
             label: { en: 'Group ID Field' },
             type: 'ObjectPropertyPath',
             section: 'settings',
-            bindable: true,
             options: content => ({
                 object: content.events?.[0] || {},
             }),
