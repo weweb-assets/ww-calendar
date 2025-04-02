@@ -744,18 +744,6 @@ export default {
             padding: var(--fc-header-padding);
         }
 
-        .fc-today-button {
-            text-transform: capitalize;
-            background: transparent;
-            color: var(--fc-header-text-color);
-            border: none;
-
-            &:hover {
-                background-color: var(--fc-button-hover-bg-color);
-                color: var(--fc-button-hover-text-color);
-            }
-        }
-
         .fc-prev-button,
         .fc-next-button {
             background: transparent;
