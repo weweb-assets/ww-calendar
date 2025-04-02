@@ -50,10 +50,11 @@ export default {
                 'buttonHoverTextColor',
                 'buttonActiveBackgroundColor',
                 'buttonActiveTextColor',
-                'buttonHoverBorderColor',
-                'buttonActiveBorderColor',
-                'buttonBorderColor',
                 'buttonBorderRadius',
+                'todayButtonBackgroundColor',
+                'todayButtonTextColor',
+                'todayButtonHoverBackgroundColor',
+                'todayButtonHoverTextColor',
             ],
             'borderStyleTitle',
             ['borderColor'],
@@ -482,22 +483,6 @@ export default {
             },
             /* wwEditor:end */
         },
-        buttonHoverBorderColor: {
-            label: { en: 'Hover border' },
-            type: 'Color',
-            section: 'style',
-            bindable: true,
-            defaultValue: '#1a252f',
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a color value for the button hover border',
-            },
-            propertyHelp: {
-                tooltip: 'Set the border color for calendar buttons when hovered',
-            },
-            /* wwEditor:end */
-        },
         buttonActiveBackgroundColor: {
             label: { en: 'Active background' },
             type: 'Color',
@@ -530,38 +515,6 @@ export default {
             },
             /* wwEditor:end */
         },
-        buttonActiveBorderColor: {
-            label: { en: 'Active border color' },
-            type: 'Color',
-            section: 'style',
-            bindable: true,
-            defaultValue: '#151e27',
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a color value for the button active border',
-            },
-            propertyHelp: {
-                tooltip: 'Set the border color for calendar buttons when active',
-            },
-            /* wwEditor:end */
-        },
-        buttonBorderColor: {
-            label: { en: 'Border color' },
-            type: 'Color',
-            section: 'style',
-            bindable: true,
-            defaultValue: '#2C3E50',
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a color value for the button border',
-            },
-            propertyHelp: {
-                tooltip: 'Set the border color for calendar buttons',
-            },
-            /* wwEditor:end */
-        },
 
         buttonBorderRadius: {
             label: { en: 'Border radius' },
@@ -576,6 +529,71 @@ export default {
             },
             propertyHelp: {
                 tooltip: 'Set the border radius for calendar buttons',
+            },
+            /* wwEditor:end */
+        },
+
+        todayButtonBackgroundColor: {
+            label: { en: 'Today button background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button background',
+            },
+            propertyHelp: {
+                tooltip: 'Set the background color for the Today button',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonTextColor: {
+            label: { en: 'Today button text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button text',
+            },
+            propertyHelp: {
+                tooltip: 'Set the text color for the Today button',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonHoverBackgroundColor: {
+            label: { en: 'Today button hover background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button background on hover',
+            },
+            propertyHelp: {
+                tooltip: 'Set the background color for the Today button when hovered',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonHoverTextColor: {
+            label: { en: 'Today button hover text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button text on hover',
+            },
+            propertyHelp: {
+                tooltip: 'Set the text color for the Today button when hovered',
             },
             /* wwEditor:end */
         },

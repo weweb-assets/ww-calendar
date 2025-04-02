@@ -28,12 +28,13 @@ Style Properties:
 - `buttonTextColor`: `string` - Text color for calendar buttons. Default: `'#FFFFFF'`
 - `buttonHoverBackgroundColor`: `string` - Background color for buttons when hovered. Default: `'#1e2b37'`
 - `buttonHoverTextColor`: `string` - Text color for buttons when hovered. Default: `'#FFFFFF'`
-- `buttonHoverBorderColor`: `string` - Border color for buttons when hovered. Default: `'#1a252f'`
 - `buttonActiveBackgroundColor`: `string` - Background color for buttons when active. Default: `'#1a252f'`
 - `buttonActiveTextColor`: `string` - Text color for buttons when active. Default: `'#FFFFFF'`
-- `buttonActiveBorderColor`: `string` - Border color for buttons when active. Default: `'#151e27'`
-- `buttonBorderColor`: `string` - Border color for calendar buttons. Default: `'#2C3E50'`
 - `buttonBorderRadius`: `string` - Border radius for calendar buttons. Default: `'4px'`
+- `todayButtonBackgroundColor`: `string` - Background color for the Today button. Default: `null`
+- `todayButtonTextColor`: `string` - Text color for the Today button. Default: `null`
+- `todayButtonHoverBackgroundColor`: `string` - Background color for the Today button when hovered. Default: `null`
+- `todayButtonHoverTextColor`: `string` - Text color for the Today button when hovered. Default: `null`
 - `borderColor`: `string` - Color for all calendar borders. Default: `'#ddd'`
 - `defaultEventBackgroundColor`: `string` - Default background color for events. Default: `'#3788d8'`
 - `defaultEventBorderColor`: `string` - Default border color for events. Default: `'#3788d8'`

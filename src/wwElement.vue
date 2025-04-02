@@ -64,14 +64,15 @@ export default {
             '--fc-border-color': props.content?.borderColor || '#ddd',
             '--fc-button-text-color': props.content?.buttonTextColor || '#fff',
             '--fc-button-bg-color': props.content?.buttonBackgroundColor || '#2C3E50',
-            '--fc-button-border-color': props.content?.buttonBorderColor || '#2C3E50',
             '--fc-button-hover-bg-color': props.content?.buttonHoverBackgroundColor || '#1e2b37',
-            '--fc-button-hover-border-color': props.content?.buttonHoverBorderColor || '#1a252f',
             '--fc-button-hover-text-color': props.content?.buttonHoverTextColor || '#fff',
             '--fc-button-active-bg-color': props.content?.buttonActiveBackgroundColor || '#1a252f',
-            '--fc-button-active-border-color': props.content?.buttonActiveBorderColor || '#151e27',
             '--fc-button-active-text-color': props.content?.buttonActiveTextColor || '#fff',
             '--fc-button-border-radius': props.content?.buttonBorderRadius || '4px',
+            '--fc-today-button-bg-color': props.content?.todayButtonBackgroundColor || null,
+            '--fc-today-button-text-color': props.content?.todayButtonTextColor || null,
+            '--fc-today-button-hover-bg-color': props.content?.todayButtonHoverBackgroundColor || null,
+            '--fc-today-button-hover-text-color': props.content?.todayButtonHoverTextColor || null,
             '--fc-event-bg-color': props.content?.defaultEventBackgroundColor || '#3788d8',
             '--fc-event-border-color': props.content?.defaultEventBorderColor || '#3788d8',
             '--fc-event-text-color': props.content?.defaultEventTextColor || '#fff',
@@ -684,6 +685,19 @@ export default {
                 min-height: calc(var(--fc-cell-min-height) / 2);
             }
         }
+
+        .fc-today-button {
+            text-transform: capitalize;
+            background: var(--fc-today-button-bg-color, transparent);
+            color: var(--fc-today-button-text-color, var(--fc-header-text-color));
+            border: none;
+
+            &:hover {
+                background-color: var(--fc-today-button-hover-bg-color, var(--fc-button-hover-bg-color));
+                border-color: var(--fc-button-hover-border-color);
+                color: var(--fc-today-button-hover-text-color, var(--fc-button-hover-text-color));
+            }
+        }
     }
 }
 
@@ -707,13 +721,11 @@ export default {
 
                 &:hover {
                     background-color: var(--fc-button-hover-bg-color);
-                    border-color: var(--fc-button-hover-border-color);
                     border-radius: var(--fc-button-border-radius);
                     color: var(--fc-button-hover-text-color);
                 }
                 &.fc-button-active {
                     background-color: var(--fc-button-active-bg-color);
-                    border-color: var(--fc-button-active-border-color);
                     border-radius: var(--fc-button-border-radius);
                     color: var(--fc-button-active-text-color);
                     box-shadow: none;
@@ -740,7 +752,6 @@ export default {
 
             &:hover {
                 background-color: var(--fc-button-hover-bg-color);
-                border-color: var(--fc-button-hover-border-color);
                 color: var(--fc-button-hover-text-color);
             }
         }
@@ -752,7 +763,6 @@ export default {
 
             &:hover {
                 background-color: var(--fc-button-hover-bg-color);
-                border-color: var(--fc-button-hover-border-color);
                 color: var(--fc-button-hover-text-color);
             }
         }
