@@ -1077,7 +1077,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'id',
+            defaultValue: "['id']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1097,7 +1097,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'title',
+            defaultValue: "['title']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1117,7 +1117,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'start',
+            defaultValue: "['start']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1137,7 +1137,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'end',
+            defaultValue: "['end']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1157,7 +1157,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'allDay',
+            defaultValue: "['allDay']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1177,7 +1177,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'backgroundColor',
+            defaultValue: "['backgroundColor']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1197,7 +1197,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'borderColor',
+            defaultValue: "['borderColor']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1217,7 +1217,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'textColor',
+            defaultValue: "['textColor']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1237,7 +1237,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'content',
+            defaultValue: "['content']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1257,7 +1257,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: 'data',
+            defaultValue: "['data']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1277,7 +1277,7 @@ export default {
             options: content => ({
                 object: content.events?.[0] || {},
             }),
-            defaultValue: '',
+            defaultValue: "['groupId']",
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
@@ -1384,48 +1384,126 @@ export default {
         {
             name: 'eventClick',
             label: { en: 'On event click' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Sample Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    textColor: '#ffffff',
+                    content: 'This is a sample event'
+                }
+            },
         },
         {
             name: 'viewChange',
             label: { en: 'On view change' },
-            event: { value: null },
+            event: { 
+                value: {
+                    view: 'dayGridMonth',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString(),
+                    title: 'Month View'
+                }
+            },
         },
         {
             name: 'eventCreated',
             label: { en: 'On event created' },
-            event: { value: null },
+            event: { 
+                value: {
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
         },
         {
             name: 'eventUpdated',
             label: { en: 'On event updated' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Updated Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    textColor: '#ffffff',
+                    content: 'This event was updated'
+                }
+            },
         },
         {
             name: 'eventDragStart',
             label: { en: 'On event drag start' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dragging Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
         },
         {
             name: 'eventDragEnd',
             label: { en: 'On event drag end' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dragged Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
         },
         {
             name: 'eventDrop',
             label: { en: 'On event drop' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dropped Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    delta: { days: 1, milliseconds: 0 }
+                }
+            },
         },
         {
             name: 'eventResizeStart',
             label: { en: 'On event resize start' },
-            event: { value: null },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Resizing Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
         },
         {
             name: 'eventResize',
             label: { en: 'On event resize' },
             event: {
-                value: null,
+                value: {
+                    id: 'event1',
+                    title: 'Resized Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 7200000).toISOString(),
+                    allDay: false,
+                    startDelta: { days: 0, milliseconds: 0 },
+                    endDelta: { days: 0, milliseconds: 3600000 }
+                }
             },
         },
     ],

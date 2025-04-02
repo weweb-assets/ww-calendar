@@ -98,7 +98,7 @@ Slots:
 Events:
 - `eventClick`: {value: eventData} - Triggered when an event is clicked
 - `viewChange`: {value: viewData} - Triggered when the calendar view changes
-- `eventCreated`: {value: eventData} - Triggered when an event is created
+- `eventCreated`: {value: eventData} - Triggered when an event is created by selecting a time slot
 - `eventUpdated`: {value: eventData} - Triggered when an event is updated
 - `eventDragStart`: {value: eventData} - Triggered when event dragging starts
 - `eventDragEnd`: {value: eventData} - Triggered when event dragging ends
@@ -112,9 +112,6 @@ Actions:
 - `next`: Moves to the next time period (day, week, month, etc.)
 - `prev`: Moves to the previous time period (day, week, month, etc.)
 - `today`: Moves to the current date
-- `addEvent`: Adds a new event to the calendar. Args: eventData (object)
-- `updateEvent`: Updates an existing event. Args: eventId (string), eventData (object)
-- `removeEvent`: Removes an event from the calendar. Args: eventId (string)
 
 Variables:
 - `currentView`: string - The currently active view type
