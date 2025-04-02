@@ -310,16 +310,13 @@ export default {
                         event: { value: viewData },
                     });
                 },
-                eventAdd: info => {
+                select: info => {
                     if (isEditing.value) return;
 
                     const eventData = {
-                        id: info.event.id,
-                        title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
-                        allDay: info.event.allDay,
-                        ...info.event.extendedProps,
+                        start: info.start,
+                        end: info.end,
+                        allDay: info.allDay,
                     };
 
                     emit('trigger-event', {
@@ -341,6 +338,23 @@ export default {
 
                     emit('trigger-event', {
                         name: 'eventUpdated',
+                        event: { value: eventData },
+                    });
+                },
+                eventRemove: info => {
+                    if (isEditing.value) return;
+
+                    const eventData = {
+                        id: info.event.id,
+                        title: info.event.title,
+                        start: info.event.start,
+                        end: info.event.end,
+                        allDay: info.event.allDay,
+                        ...info.event.extendedProps,
+                    };
+
+                    emit('trigger-event', {
+                        name: 'eventDeleted',
                         event: { value: eventData },
                     });
                 },
