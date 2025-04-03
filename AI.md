@@ -65,6 +65,7 @@ View Settings:
 - `buttonTextWeek`: `string` - Custom text for the "Week" button. Default: `''` (uses locale default)
 - `buttonTextDay`: `string` - Custom text for the "Day" button. Default: `''` (uses locale default)
 - `buttonTextList`: `string` - Custom text for the "List" button. Default: `''` (uses locale default)
+- `noEventsText`: `string` - Custom text when there is no events to display in the list view. Default: `''` 
 
 Event Data:
 - `events`: `array` - Array of event objects with properties:
@@ -93,9 +94,6 @@ Event Property Mapping:
 - `eventsDataPath`: `string` - Field to use as event additional data. Default: `'data'`
 - `eventsGroupIdPath`: `string` - Field to use as event group ID. Default: `'groupId'`
 
-Slots:
-- `emptyListTextEl` - Element for customizing the empty list message when there are no events to display
-
 Events:
 - `eventClick`: {value: eventData} - Triggered when an event is clicked
 - `viewChange`: {value: viewData} - Triggered when the calendar view changes
@@ -120,7 +118,6 @@ Variables:
 
 Special features:
 - Responsive design that adapts to container size
-- Dark mode support with custom styling
 - Multiple view types (year, month, week, day, list)
 - Event drag-and-drop for rescheduling
 - Event resizing to adjust duration
@@ -129,7 +126,6 @@ Special features:
 - Internationalization support with multiple locales
 - Extensive style customization for all calendar elements
 - Configurable cell dimensions and spacing
-- Custom empty list message via slot
 - Dynamic property mapping for events when binding external data
 
 Important Build guidelines:

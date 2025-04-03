@@ -1,10 +1,6 @@
 <template>
     <div class="fullcalendar-wrapper modern-buttons" :style="calendarStyles">
-        <FullCalendar ref="fullCalendarRef" :options="calendarOptions">
-            <template v-slot:noEventsContent>
-                <wwElement v-bind="content.emptyListTextEl" />
-            </template>
-        </FullCalendar>
+        <FullCalendar ref="fullCalendarRef" :options="calendarOptions"></FullCalendar>
     </div>
 </template>
 
@@ -271,7 +267,7 @@ export default {
                 allDaySlot: props.content?.allDaySlot,
                 nowIndicator: true,
                 height: '100%',
-                noEventsContent: '', // We'll handle empty list message with slot
+                noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
                 eventClick: info => {

@@ -24,7 +24,7 @@ export default {
             'eventsContentPath',
             'eventsDataPath',
             'eventsGroupIdPath'],
-            ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList']
+            ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList', 'noEventsText']
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
@@ -1309,10 +1309,6 @@ export default {
             /* wwEditor:end */
         },
 
-        emptyListTextEl: {
-            hidden: true,
-            defaultValue: { isWwObject: true, type: 'ww-text', name: 'Empty list placeholder', state: { name: 'Empty list placeholder' }, content: { '_ww-text_text': { en: 'No events to display' } } },
-        },
         buttonTextToday: {
             label: { en: '"Today" button text' },
             type: 'Text',
@@ -1394,6 +1390,23 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the "List" button text',
+            },
+            /* wwEditor:end */
+        },
+        noEventsText: {
+            label: { en: 'No events text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: { en: 'No events to display' },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the text shown when no events are available',
+            },
+            propertyHelp: {
+                tooltip: 'The text to display when there are no events to show',
             },
             /* wwEditor:end */
         },
