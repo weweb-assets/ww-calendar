@@ -1399,7 +1399,7 @@ export default {
             section: 'settings',
             multilang: true,
             bindable: true,
-            defaultValue: { en: 'No events to display' },
+            defaultValue: '',
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
