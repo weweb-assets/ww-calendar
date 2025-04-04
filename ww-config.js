@@ -28,7 +28,7 @@ export default {
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
-            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
+            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor', 'height', 'contentHeight'],
             'headerStyleTitle',
             ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
             'dayHeaderStyleTitle',
@@ -41,7 +41,7 @@ export default {
                 'weekendTextColor',
             ],
             'cellStyleTitle',
-            ['todayBackgroundColor', 'cellBackgroundColor', 'cellTextColor', 'cellMinHeight'],
+            ['todayBackgroundColor', 'cellBackgroundColor', 'cellTextColor'],
             ['otherMonthBackgroundColor', 'otherMonthTextColor'],
             'timeGridStyleTitle',
             ['timeGridBackgroundColor'],
@@ -161,9 +161,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the font family',
             },
-            propertyHelp: {
-                tooltip: 'Set the font family for the calendar',
-            },
             /* wwEditor:end */
         },
         fontSize: {
@@ -185,9 +182,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the font size (e.g., "14px")',
-            },
-            propertyHelp: {
-                tooltip: 'Set the font size for the calendar',
             },
             /* wwEditor:end */
         },
@@ -214,9 +208,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the font weight (100-900)',
-            },
-            propertyHelp: {
-                tooltip: 'Set the font weight for the calendar (100-900)',
             },
             /* wwEditor:end */
         },
@@ -294,9 +285,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the font size (e.g., "14px")',
             },
-            propertyHelp: {
-                tooltip: 'Set the font size for the day headers',
-            },
             /* wwEditor:end */
         },
         dayHeaderFontWeight: {
@@ -323,9 +311,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the font weight (100-900)',
             },
-            propertyHelp: {
-                tooltip: 'Set the font weight for the day headers',
-            },
             /* wwEditor:end */
         },
         todayBackgroundColor: {
@@ -338,9 +323,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: "Bind to a color value for today's cell background",
-            },
-            propertyHelp: {
-                tooltip: "Set the background color for today's cell",
             },
             /* wwEditor:end */
         },
@@ -355,9 +337,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the cell background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for all calendar cells',
-            },
             /* wwEditor:end */
         },
         cellTextColor: {
@@ -370,9 +349,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the cell text',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for calendar cells',
             },
             /* wwEditor:end */
         },
@@ -400,9 +376,6 @@ export default {
                 type: 'string',
                 tooltip: "Bind to a color value for other month's days background",
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for days from other months',
-            },
             /* wwEditor:end */
         },
         otherMonthTextColor: {
@@ -415,9 +388,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: "Bind to a color value for other month's days text",
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for days from other months',
             },
             /* wwEditor:end */
         },
@@ -512,9 +482,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the button border radius',
-            },
-            propertyHelp: {
-                tooltip: 'Set the border radius for calendar buttons',
             },
             /* wwEditor:end */
         },
@@ -629,16 +596,47 @@ export default {
         },
 
         // Dimensions - Style Tab
-        cellMinHeight: {
-            label: { en: 'Cell min height' },
+        height: {
+            label: { en: 'Calendar height' },
             type: 'Length',
             section: 'style',
             bindable: true,
-            defaultValue: '80px',
+            defaultValue: '600px',
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 100, max: 2000 },
+                    { value: '%', label: '%', min: 10, max: 100 },
+                    { value: 'auto', label: 'auto' },
+                ],
+                noRange: true,
+            },
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: 'Bind to a string value for the cell minimum height (e.g., "80px")',
+                tooltip: 'Bind to a string value for the calendar height (e.g., "600px", "100%", "auto")',
+            },
+            /* wwEditor:end */
+        },
+        contentHeight: {
+            label: { en: 'Content height' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            defaultValue: 'auto',
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 100, max: 2000 },
+                    { value: 'auto', label: 'auto' },
+                ],
+                noRange: true,
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the calendar content height (e.g., "600px", "auto")',
+            },
+            propertyHelp: {
+                tooltip: 'Controls the height of the calendar content area. "auto" will expand to fit all events.',
             },
             /* wwEditor:end */
         },

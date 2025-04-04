@@ -74,7 +74,6 @@ export default {
             '--fc-event-text-color': props.content?.defaultEventTextColor || '#fff',
             '--fc-today-bg-color': props.content?.todayBackgroundColor || 'rgba(255, 220, 40, 0.15)',
             '--fc-now-indicator-color': props.content?.nowIndicatorColor || 'red',
-            '--fc-cell-min-height': props.content?.cellMinHeight || '80px',
             '--fc-header-height': props.content?.headerHeight || 'auto',
             '--fc-day-header-height': props.content?.dayHeaderHeight || 'auto',
             '--fc-header-bg-color': props.content?.headerBackgroundColor || null,
@@ -89,7 +88,6 @@ export default {
             '--fc-other-month-bg-color': props.content?.otherMonthBackgroundColor || null,
             '--fc-other-month-text-color': props.content?.otherMonthTextColor || null,
             '--fc-weekend-text-color': props.content?.weekendTextColor || null,
-            '--fc-time-grid-bg-color': props.content?.timeGridBackgroundColor || null,
         }));
 
         // Process events data with property path mapping
@@ -236,6 +234,20 @@ export default {
                 }
             }
             
+            // Handle height and contentHeight settings
+            let height = props.content?.height || '600px';
+            let contentHeight = props.content?.contentHeight || 'auto';
+            
+            // If height is 'auto', set it to null to let FullCalendar handle it
+            if (height === 'auto') {
+                height = null;
+            }
+            
+            // If contentHeight is 'auto', set it to null to let FullCalendar handle it
+            if (contentHeight === 'auto') {
+                contentHeight = null;
+            }
+            
             // Custom button text
             const buttonText = {};
             if (props.content?.buttonTextToday) buttonText.today = wwLib.wwLang.getText(props.content.buttonTextToday);
@@ -267,7 +279,8 @@ export default {
                 slotMaxTime: slotMaxTime,
                 allDaySlot: props.content?.allDaySlot,
                 nowIndicator: true,
-                height: '100%',
+                height: height,
+                contentHeight: contentHeight,
                 noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
@@ -527,12 +540,53 @@ export default {
     --fc-more-link-text-color: inherit;
     --fc-today-bg-color: rgba(255, 220, 40, 0.15);
     --fc-now-indicator-color: red;
-    --fc-cell-min-height: 80px;
     --fc-header-height: auto;
     --fc-day-header-height: auto;
     position: relative;
 
+    &.dark-mode {
+        --fc-border-color: #444;
+        --fc-button-text-color: #fff;
+        --fc-button-bg-color: #444;
+        --fc-button-border-color: #444;
+        --fc-button-hover-bg-color: #555;
+        --fc-button-hover-border-color: #555;
+        --fc-button-active-bg-color: #666;
+        --fc-button-active-border-color: #666;
+        --fc-page-bg-color: #222;
+        --fc-neutral-bg-color: #333;
+        --fc-neutral-text-color: #fff;
+        --fc-today-bg-color: rgba(255, 220, 40, 0.1);
 
+        :deep(.fc) {
+            color: #fff;
+
+            .fc-toolbar-title {
+                color: #fff;
+            }
+
+            .fc-col-header-cell {
+                background-color: var(--fc-day-header-bg-color, #333) !important;
+            }
+
+            .fc-daygrid-day {
+                background-color: var(--fc-cell-bg-color, #222) !important;
+            }
+
+            .fc-day-other {
+                background-color: var(--fc-other-month-bg-color, #1a1a1a) !important;
+                color: var(--fc-other-month-text-color, #888) !important;
+            }
+
+            .fc-list-day-cushion {
+                background-color: #333;
+            }
+
+            .fc-list-event:hover td {
+                background-color: #444;
+            }
+        }
+    }
 
     :deep(.fc) {
         height: 100%;
@@ -625,19 +679,6 @@ export default {
             background-color: var(--fc-time-grid-bg-color) !important;
         }
 
-        // Fix for cell min height in all views
-        .fc-daygrid-day-frame {
-            min-height: var(--fc-cell-min-height);
-        }
-
-        .fc-timegrid-slot {
-            height: calc(var(--fc-cell-min-height) / 4);
-        }
-
-        .fc-timegrid-slot-lane {
-            min-height: calc(var(--fc-cell-min-height) / 4);
-        }
-        
         // Fix for today button styling to use its own colors
         .fc-today-button {
             text-transform: capitalize;
@@ -664,10 +705,6 @@ export default {
         .fc-multimonth-daygrid-table {
             .fc-day-today {
                 background-color: var(--fc-today-bg-color) !important;
-            }
-            
-            .fc-daygrid-day-frame {
-                min-height: calc(var(--fc-cell-min-height) / 2);
             }
         }
     }

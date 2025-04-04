@@ -40,7 +40,8 @@ Style Properties:
 - `defaultEventBackgroundColor`: `string` - Default background color for events. Default: `'#3788d8'`
 - `defaultEventBorderColor`: `string` - Default border color for events. Default: `'#3788d8'`
 - `defaultEventTextColor`: `string` - Default text color for events. Default: `'#ffffff'`
-- `cellMinHeight`: `string` - Minimum height for calendar cells in all views. Default: `'80px'`
+- `height`: `string` - Height for the entire calendar. Can be 'auto', pixels, or percentage. Default: `'600px'`
+- `contentHeight`: `string` - Height for the calendar content area. Can be 'auto' or pixels. Default: `'auto'`
 - `headerHeight`: `string` - Height for the calendar header. Default: `null`
 - `dayHeaderHeight`: `string` - Height for the day headers. Default: `null`
 - `nowIndicatorColor`: `string` - Color for the current time indicator line. Default: `'red'`
