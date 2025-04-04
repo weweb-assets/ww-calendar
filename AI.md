@@ -18,10 +18,11 @@ Style Properties:
 - `dayHeaderTextColor`: `string` - Text color for day headers. Default: `null`
 - `dayHeaderFontSize`: `string` - Sets the font size for day headers with unit (e.g., "14px"). Default: `'14px'`
 - `dayHeaderFontWeight`: `string` - Sets the font weight for day headers as a string value. Default: `'400'`
-- `todayBackgroundColor`: `string` - Background color for today's cell. Default: `'rgba(255, 220, 40, 0.15)'`
-- `cellBackgroundColor`: `string` - Background color for all calendar cells. Default: `null`
+- `weekendTextColor`: `string` - Text color for weekend days in headers and cells. Default: `null`
+- `todayBackgroundColor`: `string` - Background color for today's cell in all views. Default: `'rgba(255, 220, 40, 0.15)'`
+- `cellBackgroundColor`: `string` - Background color for calendar cells in month and year views. Default: `null`
 - `cellTextColor`: `string` - Text color for calendar cells. Default: `null`
-- `weekendTextColor`: `string` - Text color for weekend days. Default: `null`
+- `timeGridBackgroundColor`: `string` - Background color for time grid in week and day views. Default: `null`
 - `otherMonthBackgroundColor`: `string` - Background color for days from other months. Default: `null`
 - `otherMonthTextColor`: `string` - Text color for days from other months. Default: `null`
 - `buttonBackgroundColor`: `string` - Background color for calendar buttons. Default: `'#2C3E50'`
@@ -39,7 +40,7 @@ Style Properties:
 - `defaultEventBackgroundColor`: `string` - Default background color for events. Default: `'#3788d8'`
 - `defaultEventBorderColor`: `string` - Default border color for events. Default: `'#3788d8'`
 - `defaultEventTextColor`: `string` - Default text color for events. Default: `'#ffffff'`
-- `cellMinHeight`: `string` - Minimum height for calendar cells. Default: `'80px'`
+- `cellMinHeight`: `string` - Minimum height for calendar cells in all views. Default: `'80px'`
 - `headerHeight`: `string` - Height for the calendar header. Default: `null`
 - `dayHeaderHeight`: `string` - Height for the day headers. Default: `null`
 - `nowIndicatorColor`: `string` - Color for the current time indicator line. Default: `'red'`

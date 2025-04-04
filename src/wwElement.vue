@@ -89,6 +89,7 @@ export default {
             '--fc-other-month-bg-color': props.content?.otherMonthBackgroundColor || null,
             '--fc-other-month-text-color': props.content?.otherMonthTextColor || null,
             '--fc-weekend-text-color': props.content?.weekendTextColor || null,
+            '--fc-time-grid-bg-color': props.content?.timeGridBackgroundColor || null,
         }));
 
         // Process events data with property path mapping
@@ -531,49 +532,7 @@ export default {
     --fc-day-header-height: auto;
     position: relative;
 
-    &.dark-mode {
-        --fc-border-color: #444;
-        --fc-button-text-color: #fff;
-        --fc-button-bg-color: #444;
-        --fc-button-border-color: #444;
-        --fc-button-hover-bg-color: #555;
-        --fc-button-hover-border-color: #555;
-        --fc-button-active-bg-color: #666;
-        --fc-button-active-border-color: #666;
-        --fc-page-bg-color: #222;
-        --fc-neutral-bg-color: #333;
-        --fc-neutral-text-color: #fff;
-        --fc-today-bg-color: rgba(255, 220, 40, 0.1);
 
-        :deep(.fc) {
-            color: #fff;
-
-            .fc-toolbar-title {
-                color: #fff;
-            }
-
-            .fc-col-header-cell {
-                background-color: var(--fc-day-header-bg-color, #333) !important;
-            }
-
-            .fc-daygrid-day {
-                background-color: var(--fc-cell-bg-color, #222) !important;
-            }
-
-            .fc-day-other {
-                background-color: var(--fc-other-month-bg-color, #1a1a1a) !important;
-                color: var(--fc-other-month-text-color, #888) !important;
-            }
-
-            .fc-list-day-cushion {
-                background-color: #333;
-            }
-
-            .fc-list-event:hover td {
-                background-color: #444;
-            }
-        }
-    }
 
     :deep(.fc) {
         height: 100%;
@@ -628,11 +587,11 @@ export default {
             }
         }
 
-        // Fix for today background in month view
+        // Fix for today background in all views
         .fc-day-today {
             background-color: var(--fc-today-bg-color) !important;
         }
-
+        
         // Fix for cell backgrounds and text colors
         .fc-daygrid-day {
             background-color: var(--fc-cell-bg-color) !important;
@@ -658,6 +617,14 @@ export default {
             }
         }
 
+        // Fix for time grid background
+        .fc-timegrid-slot, 
+        .fc-timegrid-cols, 
+        .fc-timegrid-col, 
+        .fc-timegrid-body {
+            background-color: var(--fc-time-grid-bg-color) !important;
+        }
+
         // Fix for cell min height in all views
         .fc-daygrid-day-frame {
             min-height: var(--fc-cell-min-height);
@@ -670,28 +637,37 @@ export default {
         .fc-timegrid-slot-lane {
             min-height: calc(var(--fc-cell-min-height) / 4);
         }
-
-        .fc-list-day {
-            min-height: var(--fc-cell-min-height);
-        }
-
-        // Additional styles for other views
-        .fc-multimonth-daygrid-table {
-            .fc-daygrid-day-frame {
-                min-height: calc(var(--fc-cell-min-height) / 2);
-            }
-        }
-
+        
+        // Fix for today button styling to use its own colors
         .fc-today-button {
             text-transform: capitalize;
-            background: var(--fc-today-button-bg-color, transparent);
-            color: var(--fc-today-button-text-color, var(--fc-header-text-color));
+            background: var(--fc-today-button-bg-color, var(--fc-button-bg-color));
+            color: var(--fc-today-button-text-color, var(--fc-button-text-color));
             border: none;
 
             &:hover {
                 background-color: var(--fc-today-button-hover-bg-color, var(--fc-button-hover-bg-color));
                 border-color: var(--fc-button-hover-border-color);
                 color: var(--fc-today-button-hover-text-color, var(--fc-button-hover-text-color));
+            }
+        }
+        
+        // Fix for today highlighting in all views
+        .fc-day.fc-day-today,
+        .fc-daygrid-day.fc-day-today,
+        .fc-timegrid-col.fc-day-today,
+        .fc-list-day.fc-day-today {
+            background-color: var(--fc-today-bg-color) !important;
+        }
+        
+        // Additional styles for multimonth view (year view)
+        .fc-multimonth-daygrid-table {
+            .fc-day-today {
+                background-color: var(--fc-today-bg-color) !important;
+            }
+            
+            .fc-daygrid-day-frame {
+                min-height: calc(var(--fc-cell-min-height) / 2);
             }
         }
     }

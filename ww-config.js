@@ -38,10 +38,13 @@ export default {
                 'dayHeaderHeight',
                 'dayHeaderFontSize',
                 'dayHeaderFontWeight',
+                'weekendTextColor',
             ],
             'cellStyleTitle',
             ['todayBackgroundColor', 'cellBackgroundColor', 'cellTextColor', 'cellMinHeight'],
-            ['otherMonthBackgroundColor', 'otherMonthTextColor', 'weekendTextColor'],
+            ['otherMonthBackgroundColor', 'otherMonthTextColor'],
+            'timeGridStyleTitle',
+            ['timeGridBackgroundColor'],
             'buttonStyleTitle',
             [
                 'buttonBackgroundColor',
@@ -138,6 +141,14 @@ export default {
             },
             editorOnly: true,
         },
+        timeGridStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Time Grid',
+            },
+            editorOnly: true,
+        },
         // Appearance - Style Tab
         fontFamily: {
             label: { en: 'Font family' },
@@ -162,7 +173,11 @@ export default {
             bindable: true,
             defaultValue: '14px',
             options: {
-                unitChoices: [{ value: 'px', label: 'px', min: 1, max: 100 }],
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 }
+                ],
                 noRange: true,
             },
             responsive: true,
@@ -218,9 +233,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the header background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for the calendar header',
-            },
             /* wwEditor:end */
         },
         headerTextColor: {
@@ -233,9 +245,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the header text',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for the calendar header',
             },
             /* wwEditor:end */
         },
@@ -250,9 +259,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the day header background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for the day headers (Mon, Tue, etc.)',
-            },
             /* wwEditor:end */
         },
         dayHeaderTextColor: {
@@ -266,9 +272,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the day header text',
             },
-            propertyHelp: {
-                tooltip: 'Set the text color for the day headers (Mon, Tue, etc.)',
-            },
             /* wwEditor:end */
         },
         dayHeaderFontSize: {
@@ -278,7 +281,11 @@ export default {
             bindable: true,
             defaultValue: '14px',
             options: {
-                unitChoices: [{ value: 'px', label: 'px', min: 1, max: 100 }],
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 }
+                ],
                 noRange: true,
             },
             responsive: true,
@@ -380,9 +387,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the weekend text',
             },
-            propertyHelp: {
-                tooltip: 'Set the text color for weekend in day header and cells',
-            },
             /* wwEditor:end */
         },
         otherMonthBackgroundColor: {
@@ -430,9 +434,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for calendar buttons',
-            },
             /* wwEditor:end */
         },
         buttonTextColor: {
@@ -445,9 +446,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button text',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for calendar buttons',
             },
             /* wwEditor:end */
         },
@@ -462,9 +460,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button hover background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for calendar buttons when hovered',
-            },
             /* wwEditor:end */
         },
         buttonHoverTextColor: {
@@ -477,9 +472,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button text when hovered',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for calendar buttons when hovered',
             },
             /* wwEditor:end */
         },
@@ -494,9 +486,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button active background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for calendar buttons when active',
-            },
             /* wwEditor:end */
         },
         buttonActiveTextColor: {
@@ -509,9 +498,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the button text when active',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for calendar buttons when active',
             },
             /* wwEditor:end */
         },
@@ -544,9 +530,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the Today button background',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for the Today button',
-            },
             /* wwEditor:end */
         },
         todayButtonTextColor: {
@@ -559,9 +542,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the Today button text',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for the Today button',
             },
             /* wwEditor:end */
         },
@@ -576,9 +556,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the Today button background on hover',
             },
-            propertyHelp: {
-                tooltip: 'Set the background color for the Today button when hovered',
-            },
             /* wwEditor:end */
         },
         todayButtonHoverTextColor: {
@@ -591,9 +568,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the Today button text on hover',
-            },
-            propertyHelp: {
-                tooltip: 'Set the text color for the Today button when hovered',
             },
             /* wwEditor:end */
         },
@@ -610,9 +584,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the calendar borders',
             },
-            propertyHelp: {
-                tooltip: 'Set the color for all calendar borders',
-            },
             /* wwEditor:end */
         },
 
@@ -628,9 +599,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the default event background',
             },
-            propertyHelp: {
-                tooltip: 'Set the default background color for events',
-            },
             /* wwEditor:end */
         },
         defaultEventBorderColor: {
@@ -644,9 +612,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a color value for the default event border',
             },
-            propertyHelp: {
-                tooltip: 'Set the default border color for events',
-            },
             /* wwEditor:end */
         },
         defaultEventTextColor: {
@@ -659,9 +624,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the default event text',
-            },
-            propertyHelp: {
-                tooltip: 'Set the default text color for events',
             },
             /* wwEditor:end */
         },
@@ -678,9 +640,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the cell minimum height (e.g., "80px")',
             },
-            propertyHelp: {
-                tooltip: 'Set the minimum height for calendar cells',
-            },
             /* wwEditor:end */
         },
         headerHeight: {
@@ -694,9 +653,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the header height (e.g., "50px")',
             },
-            propertyHelp: {
-                tooltip: 'Set the height for the calendar header',
-            },
             /* wwEditor:end */
         },
         dayHeaderHeight: {
@@ -709,9 +665,6 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the day header height (e.g., "30px")',
-            },
-            propertyHelp: {
-                tooltip: 'Set the height for the day headers (Mon, Tue, etc.)',
             },
             /* wwEditor:end */
         },
@@ -1407,6 +1360,21 @@ export default {
             },
             propertyHelp: {
                 tooltip: 'The text to display when there are no events to show',
+            },
+            /* wwEditor:end */
+        },
+
+        // Adding new property for time grid background
+        timeGridBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the time grid background',
             },
             /* wwEditor:end */
         },
