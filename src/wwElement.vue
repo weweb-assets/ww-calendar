@@ -195,8 +195,8 @@ export default {
             }
 
             // Ensure at least one day is visible (prevent hiding all days)
-            if (hidden.length === 7) {
-                hidden.pop(); // Remove the last day from hidden list to make at least one day visible
+            if ([0,1,2,3,4,5,6].every(day => hidden.includes(day))) {
+                return []
             }
 
             return hidden;
@@ -208,7 +208,7 @@ export default {
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
             
             // Validate default view
-            let initialView = props.content?.defaultView || 'dayGridMonth';
+            let initialView = currentView;
             const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
             if (!validViews.includes(initialView)) {
                 initialView = 'dayGridMonth';
@@ -291,8 +291,8 @@ export default {
                         ...info.event.extendedProps.originalEvent,
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         groupId: info.event.groupId,
                     };
@@ -309,8 +309,8 @@ export default {
 
                     const viewData = {
                         view: info.view.type,
-                        start: info.view.activeStart,
-                        end: info.view.activeEnd,
+                        start: info.view.activeStart?.toISOString(),
+                        end: info.view.activeEnd?.toISOString(),
                         title: info.view.title,
                     };
 
@@ -325,8 +325,8 @@ export default {
                     if (isEditing.value) return;
 
                     const eventData = {
-                        start: info.start,
-                        end: info.end,
+                        start: info.start?.toISOString(),
+                        end: info.end?.toISOString(),
                         allDay: info.allDay,
                     };
 
@@ -341,8 +341,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         ...info.event.extendedProps,
                     };
@@ -358,8 +358,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         ...info.event.extendedProps,
                     };
@@ -375,8 +375,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         ...info.event.extendedProps,
                     };
@@ -392,8 +392,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         delta: info.delta,
                         ...info.event.extendedProps,
@@ -410,8 +410,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         ...info.event.extendedProps,
                     };
@@ -427,8 +427,8 @@ export default {
                     const eventData = {
                         id: info.event.id,
                         title: info.event.title,
-                        start: info.event.start,
-                        end: info.event.end,
+                        start: info.event.start?.toISOString(),
+                        end: info.event.end?.toISOString(),
                         allDay: info.event.allDay,
                         startDelta: info.startDelta,
                         endDelta: info.endDelta,
@@ -447,10 +447,16 @@ export default {
         watch(
             () => props.content?.defaultView,
             newVal => {
-                if (newVal && fullCalendarRef.value) {
+                console.log(newVal)
+                let viewMode = newVal
+                const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
+                if (!validViews.includes(newVal)) {
+                    viewMode = 'dayGridMonth';
+                }
+                if (viewMode && fullCalendarRef.value) {
                     const calendarApi = fullCalendarRef.value.getApi();
-                    calendarApi.changeView(newVal);
-                    setCurrentView(newVal);
+                    calendarApi.changeView(viewMode);
+                    setCurrentView(viewMode);
                 }
             }
         );
