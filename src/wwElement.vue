@@ -95,43 +95,21 @@ export default {
         const processedEvents = computed(() => {
             const events = props.content?.events || [];
             
+            const { resolveMappingFormula } = wwLib.wwFormula.useFormula();
+    
             return events.map(event => {
-                // Get values using property paths if bound, otherwise use direct properties
-                const id =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsIdPath || 'id') ?? event.id;
-                const title =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsTitlePath || 'title') ??
-                    event.title;
-                const start =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsStartPath || 'start') ??
-                    event.start;
-                const end =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsEndPath || 'end') ?? event.end;
-                const allDay =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsAllDayPath || 'allDay') ??
-                    event.allDay;
-                const backgroundColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(
-                        event,
-                        props.content?.eventsBackgroundColorPath || 'backgroundColor'
-                    ) ?? event.backgroundColor;
-                const borderColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(
-                        event,
-                        props.content?.eventsBorderColorPath || 'borderColor'
-                    ) ?? event.borderColor;
-                const textColor =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsTextColorPath || 'textColor') ??
-                    event.textColor;
-                const content =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsContentPath || 'content') ??
-                    event.content;
-                const data =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsDataPath || 'data') ??
-                    event.data;
-                const groupId =
-                    wwLib.wwUtils.resolveObjectPropertyPath(event, props.content?.eventsGroupIdPath || 'groupId') ??
-                    event.groupId;
+                // Get values using formulas
+                const id = resolveMappingFormula(props.content?.eventsIdFormula, { mapping: event }) ?? event.id;
+                const title = resolveMappingFormula(props.content?.eventsTitleFormula, { mapping: event }) ?? event.title;
+                const start = resolveMappingFormula(props.content?.eventsStartFormula, { mapping: event }) ?? event.start;
+                const end = resolveMappingFormula(props.content?.eventsEndFormula, { mapping: event }) ?? event.end;
+                const allDay = resolveMappingFormula(props.content?.eventsAllDayFormula, { mapping: event }) ?? event.allDay;
+                const backgroundColor = resolveMappingFormula(props.content?.eventsBackgroundColorFormula, { mapping: event }) ?? event.backgroundColor;
+                const borderColor = resolveMappingFormula(props.content?.eventsBorderColorFormula, { mapping: event }) ?? event.borderColor;
+                const textColor = resolveMappingFormula(props.content?.eventsTextColorFormula, { mapping: event }) ?? event.textColor;
+                const content = resolveMappingFormula(props.content?.eventsContentFormula, { mapping: event }) ?? event.content;
+                const data = resolveMappingFormula(props.content?.eventsDataFormula, { mapping: event }) ?? event.data;
+                const groupId = resolveMappingFormula(props.content?.eventsGroupIdFormula, { mapping: event }) ?? event.groupId;
 
                 return {
                     id: id || `event-${Math.random().toString(36).substr(2, 9)}`,

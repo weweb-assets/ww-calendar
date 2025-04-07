@@ -12,18 +12,18 @@ export default {
             ['hideWeekends', 'startWeekOnSunday', 'hideDaysOfWeek'],
             'eventsTitle',
             ['events',
-            'eventsIdPath',
-            'eventsTitlePath',
-            'eventsStartPath',
-            'eventsEndPath',
-            'eventsAllDayPath',
-            'eventsBackgroundColorPath',
-            'eventsBorderColorPath',
-            'eventsTextColorPath',
-            'eventsUrlPath',
-            'eventsContentPath',
-            'eventsDataPath',
-            'eventsGroupIdPath'],
+            'eventsIdFormula',
+            'eventsTitleFormula',
+            'eventsStartFormula',
+            'eventsEndFormula',
+            'eventsAllDayFormula',
+            'eventsBackgroundColorFormula',
+            'eventsBorderColorFormula',
+            'eventsTextColorFormula',
+            'eventsUrlFormula',
+            'eventsContentFormula',
+            'eventsDataFormula',
+            'eventsGroupIdFormula'],
             ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList', 'noEventsText']
         ],
         customStylePropertiesOrder: [
@@ -1092,223 +1092,212 @@ export default {
             /* wwEditor:end */
         },
         // Event property mapping fields
-        eventsIdPath: {
+        eventsIdFormula: {
             label: { en: 'ID Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['id']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['id']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event ID',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event ID property',
+                tooltip: 'Formula to extract the ID from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsTitlePath: {
+        eventsTitleFormula: {
             label: { en: 'Title Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['title']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['title']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event title',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event title property',
+                tooltip: 'Formula to extract the title from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsStartPath: {
+        eventsStartFormula: {
             label: { en: 'Start Date Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['start']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['start']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event start date',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event start date property',
+                tooltip: 'Formula to extract the start date from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsEndPath: {
+        eventsEndFormula: {
             label: { en: 'End Date Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['end']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['end']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event end date',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event end date property',
+                tooltip: 'Formula to extract the end date from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsAllDayPath: {
+        eventsAllDayFormula: {
             label: { en: 'All Day Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['allDay']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['allDay']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the all day flag',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event all day property',
+                tooltip: 'Formula to extract the all-day flag from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsBackgroundColorPath: {
+        eventsBackgroundColorFormula: {
             label: { en: 'Background Color Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['backgroundColor']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['backgroundColor']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event background color',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event background color property',
+                tooltip: 'Formula to extract the background color from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsBorderColorPath: {
+        eventsBorderColorFormula: {
             label: { en: 'Border Color Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['borderColor']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['borderColor']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event border color',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event border color property',
+                tooltip: 'Formula to extract the border color from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsTextColorPath: {
+        eventsTextColorFormula: {
             label: { en: 'Text Color Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['textColor']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['textColor']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event text color',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event text color property',
+                tooltip: 'Formula to extract the text color from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsContentPath: {
+        eventsContentFormula: {
             label: { en: 'Content Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['content']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['content']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event content/description',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event content property',
+                tooltip: 'Formula to extract the content/description from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsDataPath: {
+        eventsDataFormula: {
             label: { en: 'Data Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['data']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['data']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event additional data',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event data property',
+                tooltip: 'Formula to extract additional data from each event object.',
             },
             /* wwEditor:end */
         },
-        eventsGroupIdPath: {
+        eventsGroupIdFormula: {
             label: { en: 'Group ID Field' },
-            type: 'ObjectPropertyPath',
+            type: 'Formula',
             section: 'settings',
             options: content => ({
-                object: content.events?.[0] || {},
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
             }),
-            defaultValue: "['groupId']",
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['groupId']",
+            },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
             /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Select which property from your data to use as the event group id',
-            },
             propertyHelp: {
-                tooltip: 'Map a field from your data to the event group id property',
+                tooltip: 'Formula to extract the group ID from each event object.',
             },
             /* wwEditor:end */
         },

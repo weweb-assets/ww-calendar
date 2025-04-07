@@ -85,17 +85,17 @@ Event Data:
   - `data`: `object` - Additional data for the event
 
 Event Property Mapping:
-- `eventsIdPath`: `string` - Field to use as event ID. Default: `'id'`
-- `eventsTitlePath`: `string` - Field to use as event title. Default: `'title'`
-- `eventsStartPath`: `string` - Field to use as event start date. Default: `'start'`
-- `eventsEndPath`: `string` - Field to use as event end date. Default: `'end'`
-- `eventsAllDayPath`: `string` - Field to use as event all-day flag. Default: `'allDay'`
-- `eventsBackgroundColorPath`: `string` - Field to use as event background color. Default: `'backgroundColor'`
-- `eventsBorderColorPath`: `string` - Field to use as event border color. Default: `'borderColor'`
-- `eventsTextColorPath`: `string` - Field to use as event text color. Default: `'textColor'`
-- `eventsContentPath`: `string` - Field to use as event content/description. Default: `'content'`
-- `eventsDataPath`: `string` - Field to use as event additional data. Default: `'data'`
-- `eventsGroupIdPath`: `string` - Field to use as event group ID. Default: `'groupId'`
+- `eventsIdFormula`: `Formula` - Formula to extract the ID from each event object. Default: `"context.mapping?.['id']"`
+- `eventsTitleFormula`: `Formula` - Formula to extract the title from each event object. Default: `"context.mapping?.['title']"`
+- `eventsStartFormula`: `Formula` - Formula to extract the start date from each event object. Default: `"context.mapping?.['start']"`
+- `eventsEndFormula`: `Formula` - Formula to extract the end date from each event object. Default: `"context.mapping?.['end']"`
+- `eventsAllDayFormula`: `Formula` - Formula to extract the all-day flag from each event object. Default: `"context.mapping?.['allDay']"`
+- `eventsBackgroundColorFormula`: `Formula` - Formula to extract the background color from each event object. Default: `"context.mapping?.['backgroundColor']"`
+- `eventsBorderColorFormula`: `Formula` - Formula to extract the border color from each event object. Default: `"context.mapping?.['borderColor']"`
+- `eventsTextColorFormula`: `Formula` - Formula to extract the text color from each event object. Default: `"context.mapping?.['textColor']"`
+- `eventsContentFormula`: `Formula` - Formula to extract the content/description from each event object. Default: `"context.mapping?.['content']"`
+- `eventsDataFormula`: `Formula` - Formula to extract additional data from each event object. Default: `"context.mapping?.['data']"`
+- `eventsGroupIdFormula`: `Formula` - Formula to extract the group ID from each event object. Default: `"context.mapping?.['groupId']"`
 
 Events:
 - `eventClick`: {value: eventData} - Triggered when an event is clicked
