@@ -12,6 +12,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import multiMonthPlugin from '@fullcalendar/multimonth';
+import luxonPlugin from '@fullcalendar/luxon3'
 
 export default {
     components: {
@@ -258,7 +259,7 @@ export default {
             if (props.content?.buttonTextList) buttonText.list = wwLib.wwLang.getText(props.content.buttonTextList);
 
             return {
-                plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin],
+                plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin, luxonPlugin],
                 initialView: initialView,
                 headerToolbar: {
                     left: 'prev,next today',
@@ -274,6 +275,7 @@ export default {
                 weekends: !props.content?.hideWeekends,
                 firstDay: firstDay,
                 locale: locale,
+                timeZone: props.content?.timezone || 'local',
                 hiddenDays: hiddenDays.value,
                 slotMinTime: slotMinTime,
                 slotMaxTime: slotMaxTime,
@@ -456,6 +458,16 @@ export default {
                     const calendarApi = fullCalendarRef.value.getApi();
                     calendarApi.changeView(viewMode);
                     setCurrentView(viewMode);
+                }
+            }
+        );
+
+        watch(
+            () => props.content?.timezone,
+            () => {
+                if (fullCalendarRef.value) {
+                    const calendarApi = fullCalendarRef.value.getApi();
+                    calendarApi.refetchEvents();
                 }
             }
         );

@@ -6,13 +6,14 @@
         "serve": "weweb serve"
     },
     "dependencies": {
-        "@fullcalendar/core": "6.1.10",
-        "@fullcalendar/daygrid": "6.1.10",
-        "@fullcalendar/interaction": "6.1.10",
-        "@fullcalendar/list": "6.1.10",
-        "@fullcalendar/timegrid": "6.1.10",
-        "@fullcalendar/vue3": "6.1.10",
-        "@fullcalendar/multimonth": "6.1.10"
+        "@fullcalendar/core": "6.1.17",
+        "@fullcalendar/daygrid": "6.1.17",
+        "@fullcalendar/interaction": "6.1.17",
+        "@fullcalendar/list": "6.1.17",
+        "@fullcalendar/luxon3": "^6.1.17",
+        "@fullcalendar/multimonth": "6.1.17",
+        "@fullcalendar/timegrid": "6.1.17",
+        "@fullcalendar/vue3": "6.1.17"
     },
     "devDependencies": {
         "@vue/eslint-config-prettier": "^6.0.0",

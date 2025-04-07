@@ -48,6 +48,7 @@ Style Properties:
 
 View Settings:
 - `locale`: `string` - Sets the language locale. Default: `'auto'`
+- `timezone`: `string` - Timezone used to display dates and times. Can be 'local' (browser time), 'UTC', or any valid IANA timezone ID. Default: `'local'`
 - `yearView`: `boolean` - Enables year view. Default: `true`
 - `monthView`: `boolean` - Enables month view. Default: `true`
 - `weekView`: `boolean` - Enables week view. Default: `true`

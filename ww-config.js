@@ -6,7 +6,7 @@ export default {
         icon: 'calendar',
         customSettingsPropertiesOrder: [
             'viewSettingsTitle',
-            ['locale', 'defaultView'],
+            ['locale', 'timezone', 'defaultView'],
             ['yearView', 'monthView', 'weekView', 'dayView', 'listView'],
             ['allDaySlot', 'timeStart', 'timeEnd'],
             ['hideWeekends', 'startWeekOnSunday', 'hideDaysOfWeek'],
@@ -830,6 +830,38 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a string value for the default view: multiMonthYear | dayGridMonth | timeGridWeek | timeGridDay | listWeek',
+            },
+            /* wwEditor:end */
+        },
+        timezone: {
+            label: { en: 'Timezone' },
+            type: 'TextSelect',
+            section: 'settings',
+            bindable: true,
+            defaultValue: 'local',
+            options: {
+                options: [
+                    { value: 'local', label: 'Local Browser Time' },
+                    { value: 'UTC', label: 'UTC' },
+                    { value: 'America/New_York', label: 'America/New_York' },
+                    { value: 'America/Chicago', label: 'America/Chicago' },
+                    { value: 'America/Denver', label: 'America/Denver' },
+                    { value: 'America/Los_Angeles', label: 'America/Los_Angeles' },
+                    { value: 'Europe/London', label: 'Europe/London' },
+                    { value: 'Europe/Paris', label: 'Europe/Paris' },
+                    { value: 'Europe/Berlin', label: 'Europe/Berlin' },
+                    { value: 'Asia/Tokyo', label: 'Asia/Tokyo' },
+                    { value: 'Asia/Shanghai', label: 'Asia/Shanghai' },
+                    { value: 'Australia/Sydney', label: 'Australia/Sydney' },
+                ],
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the timezone in IANA format (e.g., "UTC", "America/New_York")',
+            },
+            propertyHelp: {
+                tooltip: 'Set the timezone for the calendar to display dates and times',
             },
             /* wwEditor:end */
         },
