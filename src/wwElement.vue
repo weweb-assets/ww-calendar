@@ -447,7 +447,6 @@ export default {
         watch(
             () => props.content?.defaultView,
             newVal => {
-                console.log(newVal)
                 let viewMode = newVal
                 const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
                 if (!validViews.includes(newVal)) {

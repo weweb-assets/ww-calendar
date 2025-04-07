@@ -168,6 +168,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: '14px',
             options: {
                 unitChoices: [
@@ -190,6 +191,7 @@ export default {
             type: 'TextSelect',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: '400',
             options: {
                 options: [
@@ -270,6 +272,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: '14px',
             options: {
                 unitChoices: [
@@ -292,6 +295,7 @@ export default {
             type: 'TextSelect',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: '400',
             options: {
                 options: [
@@ -601,6 +605,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: '600px',
             options: {
                 unitChoices: [
@@ -622,6 +627,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: 'auto',
             options: {
                 unitChoices: [
@@ -645,6 +651,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -658,6 +665,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            responsive: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -722,6 +730,7 @@ export default {
             type: 'OnOff',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -738,6 +747,7 @@ export default {
             type: 'OnOff',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -754,6 +764,7 @@ export default {
             type: 'OnOff',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -770,6 +781,7 @@ export default {
             type: 'OnOff',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -786,6 +798,7 @@ export default {
             type: 'OnOff',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: true,
             /* wwEditor:start */
             bindingValidation: {
@@ -802,6 +815,7 @@ export default {
             type: 'TextSelect',
             section: 'settings',
             bindable: true,
+            responsive: true,
             defaultValue: 'dayGridMonth',
             options: {
                 options: [
