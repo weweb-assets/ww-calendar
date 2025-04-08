@@ -636,6 +636,9 @@ export default {
                 font-weight: var(--fc-day-header-font-weight);
             }
         }
+        .fc-timegrid-axis {
+            background-color: var(--fc-day-header-bg-color) !important;
+        }
 
         // Fix for today background in all views
         .fc-day-today {
@@ -668,7 +671,6 @@ export default {
         }
 
         // Fix for time grid background
-        .fc-timegrid-slot, 
         .fc-timegrid-cols, 
         .fc-timegrid-col, 
         .fc-timegrid-body {
