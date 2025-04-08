@@ -598,6 +598,10 @@ export default {
         font-weight: var(--fc-font-weight);
         overflow: hidden;
 
+        .fc-view-harness {
+            overflow: auto;
+        }
+
         .fc-event {
             cursor: pointer;
         }
