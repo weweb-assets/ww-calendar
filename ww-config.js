@@ -28,7 +28,7 @@ export default {
         ],
         customStylePropertiesOrder: [
             'generalStyleTitle',
-            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor', 'height', 'contentHeight'],
+            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
             'headerStyleTitle',
             ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
             'dayHeaderStyleTitle',
@@ -600,52 +600,6 @@ export default {
         },
 
         // Dimensions - Style Tab
-        height: {
-            label: { en: 'Calendar height' },
-            type: 'Length',
-            section: 'style',
-            bindable: true,
-            responsive: true,
-            defaultValue: '600px',
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px', min: 100, max: 2000 },
-                    { value: '%', label: '%', min: 10, max: 100 },
-                    { value: 'auto', label: 'auto' },
-                ],
-                noRange: true,
-            },
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a string value for the calendar height (e.g., "600px", "100%", "auto")',
-            },
-            /* wwEditor:end */
-        },
-        contentHeight: {
-            label: { en: 'Content height' },
-            type: 'Length',
-            section: 'style',
-            bindable: true,
-            responsive: true,
-            defaultValue: 'auto',
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px', min: 100, max: 2000 },
-                    { value: 'auto', label: 'auto' },
-                ],
-                noRange: true,
-            },
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'Bind to a string value for the calendar content height (e.g., "600px", "auto")',
-            },
-            propertyHelp: {
-                tooltip: 'Controls the height of the calendar content area. "auto" will expand to fit all events.',
-            },
-            /* wwEditor:end */
-        },
         headerHeight: {
             label: { en: 'Header height' },
             type: 'Length',
@@ -720,9 +674,6 @@ export default {
                 type: 'string',
                 tooltip: 'Bind to a string value for the locale code (e.g., "en", "fr")',
             },
-            propertyHelp: {
-                tooltip: 'Set the language locale for the calendar',
-            },
             /* wwEditor:end */
         },
         yearView: {
@@ -736,9 +687,6 @@ export default {
             bindingValidation: {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to enable/disable year view',
-            },
-            propertyHelp: {
-                tooltip: 'Enable year view in the calendar',
             },
             /* wwEditor:end */
         },
@@ -754,9 +702,6 @@ export default {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to enable/disable month view',
             },
-            propertyHelp: {
-                tooltip: 'Enable month view in the calendar',
-            },
             /* wwEditor:end */
         },
         weekView: {
@@ -770,9 +715,6 @@ export default {
             bindingValidation: {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to enable/disable week view',
-            },
-            propertyHelp: {
-                tooltip: 'Enable week view in the calendar',
             },
             /* wwEditor:end */
         },
@@ -788,9 +730,6 @@ export default {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to enable/disable day view',
             },
-            propertyHelp: {
-                tooltip: 'Enable day view in the calendar',
-            },
             /* wwEditor:end */
         },
         listView: {
@@ -804,9 +743,6 @@ export default {
             bindingValidation: {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to enable/disable list view',
-            },
-            propertyHelp: {
-                tooltip: 'Enable list view in the calendar',
             },
             /* wwEditor:end */
         },
@@ -876,9 +812,6 @@ export default {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to show/hide the all-day slot',
             },
-            propertyHelp: {
-                tooltip: 'Show or hide the all-day events',
-            },
             /* wwEditor:end */
         },
         timeStart: {
@@ -924,9 +857,6 @@ export default {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to hide/show weekends',
             },
-            propertyHelp: {
-                tooltip: 'Hide Saturday and Sunday from the calendar',
-            },
             /* wwEditor:end */
         },
         startWeekOnSunday: {
@@ -939,9 +869,6 @@ export default {
             bindingValidation: {
                 type: 'boolean',
                 tooltip: 'Bind to a boolean value to start week on Sunday/Monday',
-            },
-            propertyHelp: {
-                tooltip: 'Start the week on Sunday instead of Monday',
             },
             /* wwEditor:end */
         },
@@ -977,9 +904,6 @@ export default {
             bindingValidation: {
                 type: 'array',
                 tooltip: 'Bind to an array of numbers (0-6) representing days to hide (0=Sunday, 1=Monday, etc.)',
-            },
-            propertyHelp: {
-                tooltip: 'Hide specific days of the week (0=Sunday, 1=Monday, etc.)',
             },
             /* wwEditor:end */
         },

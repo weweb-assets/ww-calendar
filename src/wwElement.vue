@@ -86,6 +86,7 @@ export default {
             '--fc-day-header-font-weight': props.content?.dayHeaderFontWeight || null,
             '--fc-cell-bg-color': props.content?.cellBackgroundColor || null,
             '--fc-cell-text-color': props.content?.cellTextColor || null,
+            '--fc-time-grid-bg-color': props.content.timeGridBackgroundColor || null,
             '--fc-other-month-bg-color': props.content?.otherMonthBackgroundColor || null,
             '--fc-other-month-text-color': props.content?.otherMonthTextColor || null,
             '--fc-weekend-text-color': props.content?.weekendTextColor || null,
@@ -259,8 +260,8 @@ export default {
                 slotMaxTime: slotMaxTime,
                 allDaySlot: props.content?.allDaySlot,
                 nowIndicator: true,
-                height: height,
-                contentHeight: contentHeight,
+                height: 'auto',
+                contentHeight: 'auto',
                 noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
