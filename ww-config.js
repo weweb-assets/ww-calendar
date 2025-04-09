@@ -1010,9 +1010,6 @@ export default {
                 type: 'array',
                 tooltip: 'Bind to an array of event objects with required properties: id, title, start, end',
             },
-            propertyHelp: {
-                tooltip: 'Array of calendar events to display',
-            },
             /* wwEditor:end */
         },
         // Event property mapping fields
@@ -1029,11 +1026,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the ID from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsTitleFormula: {
             label: { en: 'Title Field' },
@@ -1048,11 +1040,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the title from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsStartFormula: {
             label: { en: 'Start Date Field' },
@@ -1067,11 +1054,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the start date from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsEndFormula: {
             label: { en: 'End Date Field' },
@@ -1086,11 +1068,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the end date from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsAllDayFormula: {
             label: { en: 'All Day Field' },
@@ -1105,11 +1082,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the all-day flag from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsBackgroundColorFormula: {
             label: { en: 'Background Color Field' },
@@ -1124,11 +1096,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the background color from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsBorderColorFormula: {
             label: { en: 'Border Color Field' },
@@ -1143,11 +1110,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the border color from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsTextColorFormula: {
             label: { en: 'Text Color Field' },
@@ -1162,11 +1124,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the text color from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsContentFormula: {
             label: { en: 'Content Field' },
@@ -1181,11 +1138,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the content/description from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsDataFormula: {
             label: { en: 'Data Field' },
@@ -1200,11 +1152,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract additional data from each event object.',
-            },
-            /* wwEditor:end */
         },
         eventsGroupIdFormula: {
             label: { en: 'Group ID Field' },
@@ -1219,11 +1166,6 @@ export default {
             },
             hidden: (content, sidepanelContent, boundProps) =>
                 !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
-            /* wwEditor:start */
-            propertyHelp: {
-                tooltip: 'Formula to extract the group ID from each event object.',
-            },
-            /* wwEditor:end */
         },
 
         buttonTextToday: {
