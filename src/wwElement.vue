@@ -111,9 +111,8 @@ export default {
                 const content = resolveMappingFormula(props.content?.eventsContentFormula, { mapping: event }) ?? event.content;
                 const data = resolveMappingFormula(props.content?.eventsDataFormula, { mapping: event }) ?? event.data;
                 const groupId = resolveMappingFormula(props.content?.eventsGroupIdFormula, { mapping: event }) ?? event.groupId;
-
                 return {
-                    id: id || `event-${Math.random().toString(36).substr(2, 9)}`,
+                    id: id || wwLib.wwUtils.getUid(),
                     title: title || 'Untitled Event',
                     start: start,
                     end: end,
@@ -121,7 +120,7 @@ export default {
                     backgroundColor: backgroundColor || props.content?.defaultEventBackgroundColor || '#3788d8',
                     borderColor: borderColor || props.content?.defaultEventBorderColor || '#3788d8',
                     textColor: textColor || props.content?.defaultEventTextColor || '#ffffff',
-                    groupId: groupId || null,
+                    ...(groupId ? {groupId: groupId || undefined} : {}),
                     extendedProps: {
                         content: content || '',
                         data: data || {},
@@ -262,6 +261,7 @@ export default {
                 nowIndicator: true,
                 height: 'auto',
                 contentHeight: 'auto',
+                stickyHeaderDates: true,
                 noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
@@ -457,6 +457,7 @@ export default {
                 if (fullCalendarRef.value) {
                     const calendarApi = fullCalendarRef.value.getApi();
                     calendarApi.refetchEvents();
+                    calendarApi.unselect();
                 }
             },
             { deep: true }
@@ -519,7 +520,6 @@ export default {
 <style lang="scss" scoped>
 .fullcalendar-wrapper {
     width: 100%;
-    height: 100%;
     --fc-border-color: #ddd;
     --fc-button-text-color: #fff;
     --fc-button-bg-color: #2c3e50;
@@ -539,6 +539,7 @@ export default {
     --fc-header-height: auto;
     --fc-day-header-height: auto;
     position: relative;
+    overflow: auto;
 
     &.dark-mode {
         --fc-border-color: #444;
@@ -585,22 +586,12 @@ export default {
     }
 
     :deep(.fc) {
-        height: 100%;
         display: flex;
         flex-direction: column;
         flex-grow: 1;
-    }
-
-    :deep(.fc) {
-        height: 100%;
         font-family: var(--fc-font-family);
         font-size: var(--fc-font-size);
         font-weight: var(--fc-font-weight);
-        overflow: hidden;
-
-        .fc-view-harness {
-            overflow: auto;
-        }
 
         .fc-event {
             cursor: pointer;
