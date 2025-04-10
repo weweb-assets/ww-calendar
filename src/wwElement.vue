@@ -181,7 +181,7 @@ export default {
             return hidden;
         });
 
-        // Calendar options
+        // Computed properties for calendar options
         const calendarOptions = computed(() => {
             const firstDay = props.content?.startWeekOnSunday ? 0 : 1;
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
@@ -239,15 +239,15 @@ export default {
             return {
                 plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin, luxonPlugin],
                 initialView: initialView,
-                headerToolbar: {
+                headerToolbar: props.content?.showHeader ? {
                     left: 'prev,next today',
                     center: 'title',
                     right: Object.keys(availableViews.value).join(','),
-                },
+                } : false,
                 views: availableViews.value,
                 events: processedEvents.value,
-                editable: !isEditing.value,
-                selectable: !isEditing.value,
+                editable: !props.content?.disableInteractions && !isEditing.value,
+                selectable: !props.content?.disableInteractions && !isEditing.value,
                 selectMirror: true,
                 dayMaxEvents: true,
                 weekends: !props.content?.hideWeekends,
@@ -266,7 +266,7 @@ export default {
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
                 eventClick: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         ...info.event.extendedProps.originalEvent,
@@ -303,7 +303,7 @@ export default {
                     });
                 },
                 select: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         start: info.start?.toISOString(),
@@ -317,7 +317,7 @@ export default {
                     });
                 },
                 eventChange: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,
@@ -334,7 +334,7 @@ export default {
                     });
                 },
                 eventDragStart: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,
@@ -351,7 +351,7 @@ export default {
                     });
                 },
                 eventDragStop: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,
@@ -368,7 +368,7 @@ export default {
                     });
                 },
                 eventDrop: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,
@@ -386,7 +386,7 @@ export default {
                     });
                 },
                 eventResizeStart: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,
@@ -403,7 +403,7 @@ export default {
                     });
                 },
                 eventResize: info => {
-                    if (isEditing.value) return;
+                    if (isEditing.value || props.content?.disableInteractions) return;
 
                     const eventData = {
                         id: info.event.id,

@@ -5,6 +5,7 @@ export default {
         },
         icon: 'calendar',
         customSettingsPropertiesOrder: [
+            'disableInteractions',
             'viewSettingsTitle',
             ['locale', 'timezone', 'defaultView'],
             ['yearView', 'monthView', 'weekView', 'dayView', 'listView'],
@@ -30,7 +31,7 @@ export default {
             'generalStyleTitle',
             ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
             'headerStyleTitle',
-            ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
+            ['showHeader', 'headerBackgroundColor', 'headerTextColor', 'headerHeight'],
             'dayHeaderStyleTitle',
             [
                 'dayHeaderBackgroundColor',
@@ -1281,6 +1282,38 @@ export default {
             bindingValidation: {
                 type: 'string',
                 tooltip: 'Bind to a color value for the time grid background',
+            },
+            /* wwEditor:end */
+        },
+        showHeader: {
+            label: { en: 'Header' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Toggle to show or hide the calendar header/toolbar.',
+            },
+            propertyHelp: {
+                tooltip: 'Controls the visibility of the calendar header/toolbar.',
+            },
+            /* wwEditor:end */
+        },
+        disableInteractions: {
+            label: { en: 'Readonly' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            defaultValue: false,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Toggle to disable interactions like event creation and dragging.',
+            },
+            propertyHelp: {
+                tooltip: 'Controls whether users can interact with the calendar to create or modify events.',
             },
             /* wwEditor:end */
         },

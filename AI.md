@@ -10,6 +10,8 @@ Properties:
 - `fontFamily`: `string` - Sets the font family for the calendar. Default: `null`
 - `fontSize`: `string` - Sets the font size with unit (e.g., "14px"). Default: `'14px'`
 - `fontWeight`: `string` - Sets the font weight as a string value. Default: `'400'`
+- `showHeader`: `boolean` - Controls the visibility of the calendar header/toolbar. Default: `true`
+- `disableInteractions`: `boolean` - Disables interactions like event creation and dragging. Default: `false`
 
 Style Properties:
 - `headerBackgroundColor`: `string` - Background color for the calendar header. Default: `null`
