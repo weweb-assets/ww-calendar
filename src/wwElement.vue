@@ -266,8 +266,8 @@ export default {
                 slotMaxTime: slotMaxTime,
                 allDaySlot: props.content?.allDaySlot,
                 nowIndicator: true,
-                height: 'auto',
-                contentHeight: 'auto',
+                height: '100%',
+                contentHeight: '100%',
                 stickyHeaderDates: true,
                 noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
@@ -567,7 +567,6 @@ export default {
     --fc-header-height: auto;
     --fc-day-header-height: auto;
     position: relative;
-    overflow: auto;
 
     &.dark-mode {
         --fc-border-color: #444;
