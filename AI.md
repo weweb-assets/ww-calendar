@@ -118,6 +118,11 @@ Actions:
 Variables:
 - `currentView`: string - The currently active view type
 - `selectedEvent`: object - The most recently clicked event data
+- `currentDateRange`: object - The current date range of the calendar view, containing:
+  - `view`: string - The current view type (e.g., 'dayGridMonth', 'timeGridWeek', etc.)
+  - `start`: string - The start date of the current view in ISO format
+  - `end`: string - The end date of the current view in ISO format
+  - `title`: string - The title of the current view
 
 Special features:
 - Responsive design that adapts to container size

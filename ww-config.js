@@ -156,6 +156,7 @@ export default {
             type: 'FontFamily',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -170,6 +171,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: '14px',
             options: {
                 unitChoices: [
@@ -193,6 +195,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: '400',
             options: {
                 options: [
@@ -221,6 +224,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -234,6 +238,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -247,6 +252,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -260,6 +266,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -274,6 +281,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: '14px',
             options: {
                 unitChoices: [
@@ -297,6 +305,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: '400',
             options: {
                 options: [
@@ -323,6 +332,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: 'rgba(255, 220, 40, 0.15)',
             /* wwEditor:start */
             bindingValidation: {
@@ -336,6 +346,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -349,6 +360,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -362,6 +374,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -375,6 +388,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -388,6 +402,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -403,6 +418,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#2C3E50',
             /* wwEditor:start */
             bindingValidation: {
@@ -416,6 +432,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#FFFFFF',
             /* wwEditor:start */
             bindingValidation: {
@@ -429,6 +446,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#1e2b37',
             /* wwEditor:start */
             bindingValidation: {
@@ -442,6 +460,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#FFFFFF',
             /* wwEditor:start */
             bindingValidation: {
@@ -455,6 +474,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#1a252f',
             /* wwEditor:start */
             bindingValidation: {
@@ -468,6 +488,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#FFFFFF',
             /* wwEditor:start */
             bindingValidation: {
@@ -482,6 +503,7 @@ export default {
             type: 'Length',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '4px',
             /* wwEditor:start */
             bindingValidation: {
@@ -496,6 +518,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -509,6 +532,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -522,6 +546,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -535,6 +560,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -550,6 +576,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#ddd',
             /* wwEditor:start */
             bindingValidation: {
@@ -565,6 +592,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#3788d8',
             /* wwEditor:start */
             bindingValidation: {
@@ -578,6 +606,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#3788d8',
             /* wwEditor:start */
             bindingValidation: {
@@ -591,6 +620,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: '#ffffff',
             /* wwEditor:start */
             bindingValidation: {
@@ -607,6 +637,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -621,6 +652,7 @@ export default {
             section: 'style',
             bindable: true,
             responsive: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -636,6 +668,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: 'red',
             /* wwEditor:start */
             bindingValidation: {
@@ -1277,6 +1310,7 @@ export default {
             type: 'Color',
             section: 'style',
             bindable: true,
+            classes: true,
             defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
@@ -1288,7 +1322,6 @@ export default {
         showHeader: {
             label: { en: 'Header' },
             type: 'OnOff',
-            section: 'settings',
             bindable: true,
             defaultValue: true,
             /* wwEditor:start */

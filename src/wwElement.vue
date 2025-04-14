@@ -53,6 +53,13 @@ export default {
             defaultValue: null,
         });
 
+        const { value: currentDateRange, setValue: setCurrentDateRange } = wwLib.wwVariable.useComponentVariable({
+            uid: props.uid,
+            name: 'currentDateRange',
+            type: 'object',
+            defaultValue: null,
+        });
+
         // Computed properties for styling
         const calendarStyles = computed(() => ({
             '--fc-font-family': props.content?.fontFamily || 'inherit',
@@ -296,6 +303,7 @@ export default {
                     };
 
                     setCurrentView(info.view.type);
+                    setCurrentDateRange(viewData);
 
                     emit('trigger-event', {
                         name: 'viewChange',
@@ -463,6 +471,25 @@ export default {
             { deep: true }
         );
 
+        // Initialize currentDateRange when calendar is mounted
+        watch(
+            () => fullCalendarRef.value,
+            (newVal) => {
+                if (newVal) {
+                    const calendarApi = newVal.getApi();
+                    const view = calendarApi.view;
+                    const viewData = {
+                        view: view.type,
+                        start: view.activeStart?.toISOString(),
+                        end: view.activeEnd?.toISOString(),
+                        title: view.title,
+                    };
+                    setCurrentDateRange(viewData);
+                }
+            },
+            { immediate: true }
+        );
+
         // Actions
         const changeView = viewName => {
             if (fullCalendarRef.value) {
@@ -506,6 +533,7 @@ export default {
             calendarStyles,
             currentView,
             selectedEvent,
+            currentDateRange,
             // Actions
             changeView,
             goToDate,
