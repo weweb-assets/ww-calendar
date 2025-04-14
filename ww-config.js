@@ -16,6 +16,7 @@ function getObjectPropertyPathOptions(basePropertyKey, { content }) {
 
 export default {
     editor: {
+        deprecated: 'Use the Calendar from the Elements panel instead of this one.',
         label: {
             en: 'Calendar',
             fr: 'Calendrier',
