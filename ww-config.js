@@ -1,857 +1,1489 @@
-function showObjectPropertyPath(basePropertyKey, { content, boundProps }) {
-    return (
-        boundProps[basePropertyKey] &&
-        content[basePropertyKey] &&
-        typeof wwLib.wwUtils.getDataFromCollection(content[basePropertyKey])[0] === 'object'
-    );
-}
-function getObjectPropertyPathOptions(basePropertyKey, { content }) {
-    const data = wwLib.wwUtils.getDataFromCollection(content[basePropertyKey]);
-    if (!data.length || typeof data[0] !== 'object') {
-        return null;
-    }
-
-    return { object: data[0] };
-}
-
 export default {
     editor: {
         label: {
-            en: 'Calendar',
-            fr: 'Calendrier',
+            en: 'FullCalendar',
         },
-        customStylePropertiesOrder: [
-            'defaultEventColor',
-            'defaultEventTextColor',
-            'defaultEventTitleSize',
-            'defaultEventTimeSize',
-            'defaultEventContentSize',
-            'themeColor',
-            ['themeMenuColor', 'themeTitleBarColor', 'themeTodayCellColor', 'themeSelectedCellColor'],
-            'fontFamily',
-            'fontWeight',
-            'defaultView',
-            ['enableYearsView', 'enableYearView', 'enableMonthView', 'enableWeekView', 'enableDayView'],
-            'enableTimelessMode',
-            ['timestep', 'timeStart', 'timeEnd'],
-            ['startWeekOnSunday', 'twelveHour'],
-            ['hideWeekends', 'hideWeekdays'],
-            ['watchRealTime', 'todayButton', 'showAllDayEvents'],
-        ],
+        icon: 'calendar',
         customSettingsPropertiesOrder: [
-            'selectedDate',
-            'lang',
-            'enableMultiCalendar',
-            'calendars',
-            ['calendarIdPath', 'calendarLabelPath', 'calendarColorPath'],
-            'categories',
-            ['categoryNamePath', 'categoryColorPath', 'categoryColorTextPath'],
-            'events',
+            'disableInteractions',
+            'viewSettingsTitle',
+            ['locale', 'timezone', 'defaultView'],
+            ['yearView', 'monthView', 'weekView', 'dayView', 'listView'],
+            ['allDaySlot', 'timeStart', 'timeEnd'],
+            ['hideWeekends', 'startWeekOnSunday', 'hideDaysOfWeek'],
+            'eventsTitle',
+            ['events',
+            'eventsIdFormula',
+            'eventsTitleFormula',
+            'eventsStartFormula',
+            'eventsEndFormula',
+            'eventsAllDayFormula',
+            'eventsBackgroundColorFormula',
+            'eventsBorderColorFormula',
+            'eventsTextColorFormula',
+            'eventsUrlFormula',
+            'eventsContentFormula',
+            'eventsDataFormula',
+            'eventsGroupIdFormula'],
+            ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList', 'noEventsText']
+        ],
+        customStylePropertiesOrder: [
+            'generalStyleTitle',
+            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
+            'headerStyleTitle',
+            ['showHeader', 'headerBackgroundColor', 'headerTextColor', 'headerHeight'],
+            'dayHeaderStyleTitle',
             [
-                'eventStartPath',
-                'eventEndPath',
-                'eventTitlePath',
-                'eventContentPath',
-                'eventAllDayPath',
-                'eventCalendarPath',
-                'eventCategoryPath',
+                'dayHeaderBackgroundColor',
+                'dayHeaderTextColor',
+                'dayHeaderHeight',
+                'dayHeaderFontSize',
+                'dayHeaderFontWeight',
+                'weekendTextColor',
             ],
+            'cellStyleTitle',
+            ['todayBackgroundColor', 'cellBackgroundColor', 'cellTextColor'],
+            ['otherMonthBackgroundColor', 'otherMonthTextColor'],
+            'timeGridStyleTitle',
+            ['timeGridBackgroundColor'],
+            'buttonStyleTitle',
+            [
+                'buttonBackgroundColor',
+                'buttonTextColor',
+                'buttonHoverBackgroundColor',
+                'buttonHoverTextColor',
+                'buttonActiveBackgroundColor',
+                'buttonActiveTextColor',
+                'buttonBorderRadius',
+                'todayButtonBackgroundColor',
+                'todayButtonTextColor',
+                'todayButtonHoverBackgroundColor',
+                'todayButtonHoverTextColor',
+            ],
+            'borderStyleTitle',
+            ['borderColor'],
+            'eventStyleTitle',
+            ['defaultEventBackgroundColor', 'defaultEventBorderColor', 'defaultEventTextColor'],
         ],
     },
-    triggerEvents: [
-        {
-            name: 'event:click',
-            label: { en: 'On event click' },
-            event: {
-                rawEventData: {},
-                event: {
-                    start: new Date(),
-                    startISO: '2024-01-01T12:00:00.000Z',
-                    end: new Date(),
-                    endISO: '2024-01-01T14:00:00.000Z',
-                    title: '',
-                    content: '',
-                    calendar: null,
-                    allDay: null,
-                },
-                currentView: 'years | year | month | week | day',
-                domEvent: {},
-            },
-            default: true,
-            getTestEvent: 'getTestEvent',
-        },
-        {
-            name: 'cell:click',
-            label: { en: 'On cell click' },
-            event: {
-                cell: {
-                    date: new Date(),
-                    dateISO: '2024-01-01T12:00:00.000Z',
-                    calendar: null,
-                },
-                currentView: 'years | year | month | week | day',
-            },
-        },
-        {
-            name: 'view:change',
-            label: { en: 'On view change' },
-            event: {
-                view: 'years | year | month | week | day',
-                startDate: null,
-                endDate: null,
-                firstCellDate: null,
-                lastCellDate: null,
-                outOfScopeEvents: [],
-                events: [],
-                week: 1,
-            },
-        },
-    ],
     properties: {
-        defaultEventColor: {
+        // Title properties for Settings
+        viewSettingsTitle: {
+            section: 'settings',
+            type: 'Title',
             label: {
-                en: 'Default event color',
+                en: 'View Settings',
             },
-            type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
+            editorOnly: true,
+        },
+        eventsTitle: {
+            section: 'settings',
+            type: 'Title',
+            label: {
+                en: 'Events',
+            },
+            editorOnly: true,
+        },
+
+        // Title properties for Style
+        generalStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'General',
+            },
+            editorOnly: true,
+        },
+        headerStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Header',
+            },
+            editorOnly: true,
+        },
+        dayHeaderStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Day header',
+            },
+            editorOnly: true,
+        },
+        cellStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Cells',
+            },
+            editorOnly: true,
+        },
+        buttonStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Buttons',
+            },
+            editorOnly: true,
+        },
+        borderStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Borders',
+            },
+            editorOnly: true,
+        },
+        eventStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Events',
+            },
+            editorOnly: true,
+        },
+        timeGridStyleTitle: {
+            section: 'style',
+            type: 'Title',
+            label: {
+                en: 'Time Grid',
+            },
+            editorOnly: true,
+        },
+        // Appearance - Style Tab
+        fontFamily: {
+            label: { en: 'Font family' },
+            type: 'FontFamily',
+            section: 'style',
             bindable: true,
+            defaultValue: null,
             /* wwEditor:start */
             bindingValidation: {
-                cssSupports: 'color',
                 type: 'string',
-                tooltip: 'A string that represents a color code: `"rebeccapurple" | "#00ff00" | "rgb(214, 122, 127)"`',
+                tooltip: 'Bind to a string value for the font family',
+            },
+            /* wwEditor:end */
+        },
+        fontSize: {
+            label: { en: 'Font size' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            responsive: true,
+            defaultValue: '14px',
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 }
+                ],
+                noRange: true,
+            },
+            responsive: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the font size (e.g., "14px")',
+            },
+            /* wwEditor:end */
+        },
+        fontWeight: {
+            label: { en: 'Font weight' },
+            type: 'TextSelect',
+            section: 'style',
+            bindable: true,
+            responsive: true,
+            defaultValue: '400',
+            options: {
+                options: [
+                    { value: '100', label: '100 (Thin)' },
+                    { value: '200', label: '200 (Extra Light)' },
+                    { value: '300', label: '300 (Light)' },
+                    { value: '400', label: '400 (Normal)' },
+                    { value: '500', label: '500 (Medium)' },
+                    { value: '600', label: '600 (Semi Bold)' },
+                    { value: '700', label: '700 (Bold)' },
+                    { value: '800', label: '800 (Extra Bold)' },
+                    { value: '900', label: '900 (Black)' },
+                ],
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the font weight (100-900)',
+            },
+            /* wwEditor:end */
+        },
+
+        // Calendar Colors - Style Tab
+        headerBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the header background',
+            },
+            /* wwEditor:end */
+        },
+        headerTextColor: {
+            label: { en: 'Text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the header text',
+            },
+            /* wwEditor:end */
+        },
+        dayHeaderBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the day header background',
+            },
+            /* wwEditor:end */
+        },
+        dayHeaderTextColor: {
+            label: { en: 'Text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the day header text',
+            },
+            /* wwEditor:end */
+        },
+        dayHeaderFontSize: {
+            label: { en: 'Font size' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            responsive: true,
+            defaultValue: '14px',
+            options: {
+                unitChoices: [
+                    { value: 'px', label: 'px', min: 10, max: 50 },
+                    { value: 'em', label: 'em', min: 1, max: 50 },
+                    { value: 'rem', label: 'rem', min: 1, max: 50 }
+                ],
+                noRange: true,
+            },
+            responsive: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the font size (e.g., "14px")',
+            },
+            /* wwEditor:end */
+        },
+        dayHeaderFontWeight: {
+            label: { en: 'Font weight' },
+            type: 'TextSelect',
+            section: 'style',
+            bindable: true,
+            responsive: true,
+            defaultValue: '400',
+            options: {
+                options: [
+                    { value: '100', label: '100 (Thin)' },
+                    { value: '200', label: '200 (Extra Light)' },
+                    { value: '300', label: '300 (Light)' },
+                    { value: '400', label: '400 (Normal)' },
+                    { value: '500', label: '500 (Medium)' },
+                    { value: '600', label: '600 (Semi Bold)' },
+                    { value: '700', label: '700 (Bold)' },
+                    { value: '800', label: '800 (Extra Bold)' },
+                    { value: '900', label: '900 (Black)' },
+                ],
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the font weight (100-900)',
+            },
+            /* wwEditor:end */
+        },
+        todayBackgroundColor: {
+            label: { en: 'Today background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: 'rgba(255, 220, 40, 0.15)',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: "Bind to a color value for today's cell background",
+            },
+            /* wwEditor:end */
+        },
+        cellBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the cell background',
+            },
+            /* wwEditor:end */
+        },
+        cellTextColor: {
+            label: { en: 'Text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the cell text',
+            },
+            /* wwEditor:end */
+        },
+        weekendTextColor: {
+            label: { en: 'Weekend text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the weekend text',
+            },
+            /* wwEditor:end */
+        },
+        otherMonthBackgroundColor: {
+            label: { en: 'Other month background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: "Bind to a color value for other month's days background",
+            },
+            /* wwEditor:end */
+        },
+        otherMonthTextColor: {
+            label: { en: 'Other month text' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: "Bind to a color value for other month's days text",
+            },
+            /* wwEditor:end */
+        },
+
+        // Button Styling - Style Tab
+        buttonBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#2C3E50',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button background',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextColor: {
+            label: { en: 'Text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#FFFFFF',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonHoverBackgroundColor: {
+            label: { en: 'Hover background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#1e2b37',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button hover background',
+            },
+            /* wwEditor:end */
+        },
+        buttonHoverTextColor: {
+            label: { en: 'Hover text' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#FFFFFF',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button text when hovered',
+            },
+            /* wwEditor:end */
+        },
+        buttonActiveBackgroundColor: {
+            label: { en: 'Active background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#1a252f',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button active background',
+            },
+            /* wwEditor:end */
+        },
+        buttonActiveTextColor: {
+            label: { en: 'Active text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#FFFFFF',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the button text when active',
+            },
+            /* wwEditor:end */
+        },
+
+        buttonBorderRadius: {
+            label: { en: 'Border radius' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            defaultValue: '4px',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the button border radius',
+            },
+            /* wwEditor:end */
+        },
+
+        todayButtonBackgroundColor: {
+            label: { en: 'Today button background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button background',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonTextColor: {
+            label: { en: 'Today button text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button text',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonHoverBackgroundColor: {
+            label: { en: 'Today button hover background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button background on hover',
+            },
+            /* wwEditor:end */
+        },
+        todayButtonHoverTextColor: {
+            label: { en: 'Today button hover text color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the Today button text on hover',
+            },
+            /* wwEditor:end */
+        },
+
+        // Border Styling - Style Tab
+        borderColor: {
+            label: { en: 'Color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#ddd',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the calendar borders',
+            },
+            /* wwEditor:end */
+        },
+
+        // Event Styling - Style Tab
+        defaultEventBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#3788d8',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the default event background',
+            },
+            /* wwEditor:end */
+        },
+        defaultEventBorderColor: {
+            label: { en: 'Border' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: '#3788d8',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the default event border',
             },
             /* wwEditor:end */
         },
         defaultEventTextColor: {
-            label: {
-                en: 'Default event text color',
-            },
+            label: { en: 'Text color' },
             type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
+            section: 'style',
             bindable: true,
+            defaultValue: '#ffffff',
             /* wwEditor:start */
             bindingValidation: {
-                cssSupports: 'color',
                 type: 'string',
-                tooltip: 'A string that represents a color code: `"rebeccapurple" | "#00ff00" | "rgb(214, 122, 127)"`',
+                tooltip: 'Bind to a color value for the default event text',
             },
             /* wwEditor:end */
         },
-        defaultEventTitleSize: {
+
+        // Dimensions - Style Tab
+        headerHeight: {
+            label: { en: 'Header height' },
             type: 'Length',
-            label: { en: 'Default event title font-size' },
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px', min: 10, max: 50 },
-                    { value: 'em', label: 'em', min: 1, max: 50 },
-                    { value: 'rem', label: 'rem', min: 1, max: 50 },
-                ],
-            },
-            classes: true,
-            states: true,
-            responsive: true,
+            section: 'style',
             bindable: true,
-        },
-        defaultEventTimeSize: {
-            type: 'Length',
-            label: { en: 'Default event time font-size' },
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px', min: 10, max: 50 },
-                    { value: 'em', label: 'em', min: 1, max: 50 },
-                    { value: 'rem', label: 'rem', min: 1, max: 50 },
-                ],
-            },
-            classes: true,
-            states: true,
             responsive: true,
-            bindable: true,
-        },
-        defaultEventContentSize: {
-            type: 'Length',
-            label: { en: 'Default event content font-size' },
-            options: {
-                unitChoices: [
-                    { value: 'px', label: 'px', min: 10, max: 50 },
-                    { value: 'em', label: 'em', min: 1, max: 50 },
-                    { value: 'rem', label: 'rem', min: 1, max: 50 },
-                ],
-            },
-            classes: true,
-            states: true,
-            responsive: true,
-            bindable: true,
-        },
-        themeColor: {
-            label: {
-                en: 'Theme color',
-            },
-            type: 'TextSelect',
-            options: {
-                options: [
-                    { label: 'Gray', value: 'vuecal--gray-theme' },
-                    { label: 'Green', value: 'vuecal--green-theme' },
-                    { label: 'Blue', value: 'vuecal--blue-theme' },
-                    { label: 'Custom', value: 'vuecal--custom-theme' },
-                ],
-            },
-            defaultValue: 'vuecal--gray-theme',
-            classes: true,
-            states: true,
-            responsive: true,
-        },
-        themeMenuColor: {
-            hidden: content => content.themeColor !== 'vuecal--custom-theme',
-            label: {
-                en: 'Views menu',
-            },
-            type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
-        },
-        themeTitleBarColor: {
-            hidden: content => content.themeColor !== 'vuecal--custom-theme',
-            label: {
-                en: 'Title bar',
-            },
-            type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
-        },
-        themeTodayCellColor: {
-            hidden: content => content.themeColor !== 'vuecal--custom-theme',
-            label: {
-                en: 'Today cell',
-            },
-            type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
-        },
-        themeSelectedCellColor: {
-            hidden: content => content.themeColor !== 'vuecal--custom-theme',
-            label: {
-                en: 'Selected cell',
-            },
-            type: 'Color',
-            classes: true,
-            states: true,
-            responsive: true,
-        },
-        fontFamily: {
-            type: 'FontFamily',
-            label: {
-                en: 'Font Family',
-            },
-        },
-        fontWeight: {
-            label: {
-                en: 'Font weight',
-                fr: 'Graisse',
-            },
-            type: 'TextSelect',
-            options: {
-                options: [
-                    { value: null, label: { en: 'Default' } },
-                    { value: 100, label: { en: '100 - Thin' } },
-                    { value: 200, label: { en: '200 - Extra Light' } },
-                    { value: 300, label: { en: '300 - Light' } },
-                    { value: 400, label: { en: '400 - Normal' } },
-                    { value: 500, label: { en: '500 - Medium' } },
-                    { value: 600, label: { en: '600 - Semi Bold' } },
-                    { value: 700, label: { en: '700 - Bold' } },
-                    { value: 800, label: { en: '800 - Extra Bold' } },
-                    { value: 900, label: { en: '900 - Black' } },
-                ],
-            },
             defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the header height (e.g., "50px")',
+            },
+            /* wwEditor:end */
+        },
+        dayHeaderHeight: {
+            label: { en: 'Day header height' },
+            type: 'Length',
+            section: 'style',
+            bindable: true,
+            responsive: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the day header height (e.g., "30px")',
+            },
+            /* wwEditor:end */
+        },
+
+        // Indicators - Style Tab
+        nowIndicatorColor: {
+            label: { en: 'Now indicator Color' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: 'red',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the now indicator line',
+            },
+            propertyHelp: {
+                tooltip: 'Set the color for the line indicating the current time',
+            },
+            /* wwEditor:end */
+        },
+
+        // View Settings - Settings Tab
+        locale: {
+            label: { en: 'Locale' },
+            type: 'TextSelect',
+            section: 'settings',
+            bindable: true,
+            defaultValue: 'auto',
+            options: {
+                options: [
+                    { value: 'auto', label: 'Current Lang' },
+                    { value: 'en', label: 'English' },
+                    { value: 'fr', label: 'French' },
+                    { value: 'es', label: 'Spanish' },
+                    { value: 'de', label: 'German' },
+                    { value: 'it', label: 'Italian' },
+                    { value: 'pt', label: 'Portuguese' },
+                    { value: 'ru', label: 'Russian' },
+                    { value: 'zh-cn', label: 'Chinese (Simplified)' },
+                    { value: 'ja', label: 'Japanese' },
+                    { value: 'ar', label: 'Arabic' },
+                ],
+            },
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the locale code (e.g., "en", "fr")',
+            },
+            /* wwEditor:end */
+        },
+        yearView: {
+            label: { en: 'Year view' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to enable/disable year view',
+            },
+            /* wwEditor:end */
+        },
+        monthView: {
+            label: { en: 'Month view' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to enable/disable month view',
+            },
+            /* wwEditor:end */
+        },
+        weekView: {
+            label: { en: 'Week view' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to enable/disable week view',
+            },
+            /* wwEditor:end */
+        },
+        dayView: {
+            label: { en: 'Day view' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to enable/disable day view',
+            },
+            /* wwEditor:end */
+        },
+        listView: {
+            label: { en: 'List view' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to enable/disable list view',
+            },
+            /* wwEditor:end */
         },
         defaultView: {
-            label: {
-                en: 'Default view',
-            },
+            label: { en: 'Default view' },
             type: 'TextSelect',
+            section: 'settings',
+            bindable: true,
+            responsive: true,
+            defaultValue: 'dayGridMonth',
             options: {
                 options: [
-                    { label: 'Years', value: 'years' },
-                    { label: 'Year', value: 'year' },
-                    { label: 'Month', value: 'month' },
-                    { label: 'Week', value: 'week' },
-                    { label: 'Day', value: 'day' },
+                    { value: 'multiMonthYear', label: 'Year' },
+                    { value: 'dayGridMonth', label: 'Month' },
+                    { value: 'timeGridWeek', label: 'Week' },
+                    { value: 'timeGridDay', label: 'Day' },
+                    { value: 'listWeek', label: 'List' },
                 ],
             },
-            defaultValue: 'week',
-        },
-        enableYearsView: {
-            label: {
-                en: 'Years view',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the default view: multiMonthYear | dayGridMonth | timeGridWeek | timeGridDay | listWeek',
             },
-            type: 'OnOff',
-            defaultValue: true,
+            /* wwEditor:end */
+        },
+        timezone: {
+            label: { en: 'Timezone' },
+            type: 'TextSelect',
+            section: 'settings',
             bindable: true,
-        },
-        enableYearView: {
-            label: {
-                en: 'Year view',
-            },
-            type: 'OnOff',
-            defaultValue: true,
-            bindable: true,
-        },
-        enableMonthView: {
-            label: {
-                en: 'Month view',
-            },
-            type: 'OnOff',
-            defaultValue: true,
-            bindable: true,
-        },
-        enableWeekView: {
-            label: {
-                en: 'Week view',
-            },
-            type: 'OnOff',
-            defaultValue: true,
-            bindable: true,
-        },
-        enableDayView: {
-            label: {
-                en: 'Day view',
-            },
-            type: 'OnOff',
-            defaultValue: true,
-            bindable: true,
-        },
-        hideWeekends: {
-            label: {
-                en: 'Hide weekends',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-        },
-        showAllDayEvents: {
-            label: {
-                en: 'Show all day events',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-        },
-        showCountOnYearView: {
-            label: {
-                en: 'Show count on year view',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-        },
-        enableTimelessMode: {
-            label: {
-                en: 'Timeless mode',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-        },
-        timestep: {
-            hidden: content => content.enableTimelessMode,
-            label: {
-                en: 'Timestep (minutes)',
-            },
-            type: 'Number',
+            defaultValue: 'local',
             options: {
-                min: 5,
-                max: 60,
-                step: 5,
+                options: [
+                    { value: 'local', label: 'Local Browser Time' },
+                    { value: 'UTC', label: 'UTC' },
+                    { value: 'America/New_York', label: 'America/New_York' },
+                    { value: 'America/Chicago', label: 'America/Chicago' },
+                    { value: 'America/Denver', label: 'America/Denver' },
+                    { value: 'America/Los_Angeles', label: 'America/Los_Angeles' },
+                    { value: 'Europe/London', label: 'Europe/London' },
+                    { value: 'Europe/Paris', label: 'Europe/Paris' },
+                    { value: 'Europe/Berlin', label: 'Europe/Berlin' },
+                    { value: 'Asia/Tokyo', label: 'Asia/Tokyo' },
+                    { value: 'Asia/Shanghai', label: 'Asia/Shanghai' },
+                    { value: 'Australia/Sydney', label: 'Australia/Sydney' },
+                ],
             },
-            defaultValue: 30,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the timezone in IANA format (e.g., "UTC", "America/New_York")',
+            },
+            propertyHelp: {
+                tooltip: 'Set the timezone for the calendar to display dates and times',
+            },
+            /* wwEditor:end */
+        },
+        allDaySlot: {
+            label: { en: 'Show all-day events' },
+            type: 'OnOff',
+            section: 'settings',
             bindable: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to show/hide the all-day slot',
+            },
+            /* wwEditor:end */
         },
         timeStart: {
-            hidden: content => content.enableTimelessMode,
-            label: {
-                en: 'Time start (hour)',
-            },
-            type: 'Number',
-            options: {
-                min: 0,
-                max: 23,
-                step: 1,
-            },
-            defaultValue: 8,
+            label: { en: 'Time start' },
+            type: 'Text',
+            section: 'settings',
             bindable: true,
+            defaultValue: '00:00:00',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the start time in format "HH:MM:SS"',
+            },
+            propertyHelp: {
+                tooltip: 'Set the start time for the calendar time grid (format: "HH:MM:SS")',
+            },
+            /* wwEditor:end */
         },
         timeEnd: {
-            hidden: content => content.enableTimelessMode,
-            label: {
-                en: 'Time end (hour)',
-            },
-            type: 'Number',
-            options: {
-                min: 1,
-                max: 24,
-                step: 1,
-            },
-            defaultValue: 20,
+            label: { en: 'Time end' },
+            type: 'Text',
+            section: 'settings',
             bindable: true,
+            defaultValue: '24:00:00',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the end time in format "HH:MM:SS"',
+            },
+            propertyHelp: {
+                tooltip: 'Set the end time for the calendar time grid (format: "HH:MM:SS")',
+            },
+            /* wwEditor:end */
+        },
+        hideWeekends: {
+            label: { en: 'Hide weekends' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            defaultValue: false,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to hide/show weekends',
+            },
+            /* wwEditor:end */
         },
         startWeekOnSunday: {
-            label: {
-                en: 'Start week on Sunday',
-            },
+            label: { en: 'Start week on Sunday' },
             type: 'OnOff',
+            section: 'settings',
+            bindable: true,
             defaultValue: false,
-            bindable: true,
-        },
-        hideWeekdays: {
-            label: {
-                en: 'Hide particular days of the week',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Bind to a boolean value to start week on Sunday/Monday',
             },
+            /* wwEditor:end */
+        },
+        hideDaysOfWeek: {
+            label: { en: 'Hide days of week' },
             type: 'Array',
-            defaultValue: [],
+            section: 'settings',
             bindable: true,
+            defaultValue: [],
             options: {
+                expandable: true,
+                getItemLabel(item) {
+                    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    return days[item] || `Day ${item}`;
+                },
                 item: {
                     type: 'TextSelect',
+                    defaultValue: 0,
                     options: {
                         options: [
-                            { label: 'Monday', value: 1 },
-                            { label: 'Tuesday', value: 2 },
-                            { label: 'Wednesday', value: 3 },
-                            { label: 'Thursday', value: 4 },
-                            { label: 'Friday', value: 5 },
-                            { label: 'Saturday', value: 6 },
-                            { label: 'Sunday', value: 7 },
-                        ],
+                            { value: 0, label: 'Sunday' },
+                            { value: 1, label: 'Monday' },
+                            { value: 2, label: 'Tuesday' },
+                            { value: 3, label: 'Wednesday' },
+                            { value: 4, label: 'Thursday' },
+                            { value: 5, label: 'Friday' },
+                            { value: 6, label: 'Saturday' },
+                        ]
                     },
                 },
             },
             /* wwEditor:start */
             bindingValidation: {
                 type: 'array',
-                tooltip: 'Numbers from 1 to 7 for the day of the week, 7 is Sunday. Ex: `[6, 7]`',
-            },
-            /* wwEditor:end */
-            responsive: true,
-        },
-        twelveHour: {
-            label: {
-                en: 'Use 12h format',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'A boolean that defines whether the option is applied: `true | false',
+                tooltip: 'Bind to an array of numbers (0-6) representing days to hide (0=Sunday, 1=Monday, etc.)',
             },
             /* wwEditor:end */
         },
-        watchRealTime: {
-            label: {
-                en: 'Update current time every minute',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'A boolean that defines whether the option is applied: `true | false',
-            },
-            /* wwEditor:end */
-        },
-        todayButton: {
-            label: {
-                en: 'Add "Today" button',
-            },
-            type: 'OnOff',
-            defaultValue: false,
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'boolean',
-                tooltip: 'A boolean that defines whether the option is applied: `true | false',
-            },
-            /* wwEditor:end */
-        },
-        daySize: {
-            label: {
-                en: 'Header Format',
-            },
-            type: 'TextSelect',
-            options: {
-                options: [
-                    { label: 'Normal', value: null },
-                    { label: 'Short', value: 'small' },
-                    { label: 'Minimal', value: 'xsmall' },
-                ],
-            },
-            defaultValue: null,
-            classes: true,
-            states: true,
-            responsive: true,
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: 'A string that defines what option is applied: `null | small | xsmall`',
-            },
-            /* wwEditor:end */
-        },
-        selectedDate: {
-            section: 'settings',
-            label: {
-                en: 'Selected date',
-            },
-            type: 'Text',
-            defaultValue: '',
-            bindable: true,
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'string',
-                tooltip: `A string that defines the selected date. The selected date is used as "init value". Updating it after init will update the view if needed to show this date. A correct string date format is 2023-06-15 07:05 or 2023-06-15 if you don't need the time. Only these formats will work as a string.`,
-            },
-            /* wwEditor:end */
-        },
-        calendars: {
-            section: 'settings',
-            label: {
-                en: 'Calendars',
-            },
+
+        // Events
+        events: {
+            label: { en: 'Events' },
             type: 'Array',
+            section: 'settings',
             bindable: true,
+            defaultValue: [
+                {
+                    id: 'event1',
+                    title: 'Sample Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    textColor: '#ffffff',
+                    content: 'This is a sample event',
+                    groupId: '',
+                },
+            ],
             options: {
+                expandable: true,
+                getItemLabel(item) {
+                    return item.title || 'Untitled Event';
+                },
                 item: {
                     type: 'Object',
-                    defaultValue: { label: '', color: null, id: '' },
+                    defaultValue: {
+                        id: '123', 
+                        title: 'Sample Event', 
+                        content: 'This is a sample event',
+                        start: '', 
+                        end: '', 
+                        allDay: false, 
+                        backgroundColor: '#3788d8',
+                        borderColor: '#3788d8',
+                        textColor: '#ffffff',
+                        data: null, 
+                        groupId: null
+                    },
                     options: {
                         item: {
                             id: {
-                                label: { en: 'Id' },
+                                label: { en: 'ID' },
                                 type: 'Text',
-                            },
-                            label: {
-                                label: { en: 'Label' },
-                                type: 'Text',
-                                options: { placeholder: 'Label' },
-                            },
-                            color: {
-                                label: { en: 'Background color' },
-                                type: 'Color',
-                            },
-                        },
-                    },
-                },
-            },
-            defaultValue: [],
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'array',
-                tooltip: 'An array of objects: `[{}, {}, ...]`',
-            },
-            /* wwEditor:end */
-        },
-        calendarIdPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
-            label: {
-                en: 'Id property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        calendarLabelPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
-            label: {
-                en: 'Label property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        calendarColorPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('calendars', { content, boundProps }),
-            label: {
-                en: 'Color property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('calendars', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        events: {
-            section: 'settings',
-            label: { en: 'Events' },
-            type: 'Array',
-            bindable: true,
-            options: {
-                item: {
-                    type: 'Object',
-                    defaultValue: { startDate: null, endDate: null, title: null, content: null, calendar: null },
-                    options: {
-                        item: {
-                            start: {
-                                label: { en: 'Start date' },
-                                placeholder: '2022-01-01 12:00',
-                                type: 'Text',
-                            },
-                            end: {
-                                label: { en: 'End date' },
-                                placeholder: '2022-01-01 14:00',
-                                type: 'Text',
+                                options: { placeholder: 'Event ID' },
                             },
                             title: {
                                 label: { en: 'Title' },
                                 type: 'Text',
+                                options: { placeholder: 'Event Title' },
                             },
                             content: {
                                 label: { en: 'Content' },
+                                type: 'Textarea',
+                                options: { placeholder: 'Event Description' },
+                            },
+                            start: {
+                                label: { en: 'Start' },
                                 type: 'Text',
+                                options: { placeholder: 'YYYY-MM-DDTHH:MM:SS' },
+                            },
+                            end: {
+                                label: { en: 'End' },
+                                type: 'Text',
+                                options: { placeholder: 'YYYY-MM-DDTHH:MM:SS' },
                             },
                             allDay: {
-                                label: { en: 'All day' },
+                                label: { en: 'All Day' },
                                 type: 'OnOff',
                             },
-                            calendar: {
-                                label: { en: 'Calendar id' },
-                                type: 'Text',
+                            backgroundColor: {
+                                label: { en: 'Background Color' },
+                                type: 'Color',
                             },
-                            category: {
-                                label: { en: 'Category name' },
-                                type: 'Text',
-                            },
-                        },
-                    },
-                },
-            },
-            defaultValue: [
-                {
-                    // Add 2h event today
-                    start: `${new Date().toISOString().split('T')[0]} 12:00`,
-                    end: `${new Date().toISOString().split('T')[0]} 14:00`,
-                    title: 'My first event',
-                    content: 'Content of my first event',
-                    calendar: null,
-                    category: 'Sport',
-                },
-                {
-                    start: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                    end: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-                    title: 'My second event',
-                    content: 'Content of my second event',
-                    calendar: null,
-                    category: 'Health',
-                    allDay: true,
-                },
-            ],
-            /* wwEditor:start */
-            bindingValidation: {
-                type: 'array',
-                tooltip: 'An array of objects: `[{}, {}, ...]`',
-            },
-            /* wwEditor:end */
-        },
-        eventStartPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'Start date property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventEndPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'End date property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventTitlePath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'Title property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventContentPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'Content property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventAllDayPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'All day property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventCalendarPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'Calendar ID property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-        eventCategoryPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('events', { content, boundProps }),
-            label: {
-                en: 'Category name property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('events', { content }),
-            defaultValue: null,
-            section: 'settings',
-        },
-
-        categories: {
-            section: 'settings',
-            label: {
-                en: 'Categories',
-            },
-            type: 'Array',
-            bindable: true,
-            options: {
-                item: {
-                    type: 'Object',
-                    defaultValue: { name: 'Sport', color: '#FFFFFF', textColor: '#000000' },
-                    options: {
-                        item: {
-                            name: {
-                                label: { en: 'Name' },
-                                type: 'Text',
-                            },
-                            color: {
-                                label: { en: 'Background color' },
+                            borderColor: {
+                                label: { en: 'Border Color' },
                                 type: 'Color',
                             },
                             textColor: {
-                                label: { en: 'Text color' },
+                                label: { en: 'Text Color' },
                                 type: 'Color',
+                            },
+                            data: {
+                                label: { en: 'Data' },
+                                type: 'Text',
+                                options: { placeholder: '{ "key": "value" }' },
+                            },
+                            groupId: {
+                                label: { en: 'Group ID' },
+                                type: 'Text',
+                                options: { placeholder: 'Group ID' },
                             },
                         },
                     },
                 },
             },
-            defaultValue: [
-                {
-                    name: 'Sport',
-                    color: '#FFA500',
-                    textColor: '#FFFFFF',
-                },
-                {
-                    name: 'Health',
-                    color: 'green',
-                    textColor: '#FFFFFF',
-                },
-            ],
             /* wwEditor:start */
             bindingValidation: {
                 type: 'array',
-                tooltip: 'An array of objects: `[{}, {}, ...]`',
+                tooltip: 'Bind to an array of event objects with required properties: id, title, start, end',
             },
             /* wwEditor:end */
         },
-        categoryNamePath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
-            label: {
-                en: 'Name property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
-            defaultValue: null,
+        // Event property mapping fields
+        eventsIdFormula: {
+            label: { en: 'ID Field' },
+            type: 'Formula',
             section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['id']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
         },
-        categoryColorPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
-            label: {
-                en: 'Color property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
-            defaultValue: null,
+        eventsTitleFormula: {
+            label: { en: 'Title Field' },
+            type: 'Formula',
             section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['title']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
         },
-        categoryColorTextPath: {
-            hidden: (content, sidepanelContent, boundProps) =>
-                !showObjectPropertyPath('categories', { content, boundProps }),
-            label: {
-                en: 'Color text property',
-            },
-            type: 'ObjectPropertyPath',
-            options: content => getObjectPropertyPathOptions('categories', { content }),
-            defaultValue: null,
+        eventsStartFormula: {
+            label: { en: 'Start Date Field' },
+            type: 'Formula',
             section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['start']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsEndFormula: {
+            label: { en: 'End Date Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['end']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsAllDayFormula: {
+            label: { en: 'All Day Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['allDay']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsBackgroundColorFormula: {
+            label: { en: 'Background Color Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['backgroundColor']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsBorderColorFormula: {
+            label: { en: 'Border Color Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['borderColor']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsTextColorFormula: {
+            label: { en: 'Text Color Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['textColor']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsContentFormula: {
+            label: { en: 'Content Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['content']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsDataFormula: {
+            label: { en: 'Data Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['data']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
+        },
+        eventsGroupIdFormula: {
+            label: { en: 'Group ID Field' },
+            type: 'Formula',
+            section: 'settings',
+            options: content => ({
+                template: Array.isArray(content.events) && content.events.length > 0 ? content.events[0] : null,
+            }),
+            defaultValue: {
+                type: 'f',
+                code: "context.mapping?.['groupId']",
+            },
+            hidden: (content, sidepanelContent, boundProps) =>
+                !Array.isArray(content.events) || !content.events?.length || !boundProps.events,
         },
 
-        lang: {
+        buttonTextToday: {
+            label: { en: '"Today" button text' },
+            type: 'Text',
             section: 'settings',
-            type: 'TextSelect',
-            label: {
-                en: 'Language',
-            },
-            options: {
-                options: [
-                    { label: 'Arabic', value: 'ar' },
-                    { label: 'English', value: 'en' },
-                    { label: 'Dutch', value: 'nl' },
-                    { label: 'French', value: 'fr' },
-                    { label: 'German', value: 'de' },
-                    { label: 'Italian', value: 'it' },
-                    { label: 'Portuguese Brasilian', value: 'pt-br' },
-                    { label: 'Spanish', value: 'es' },
-                ],
-            },
-            defaultValue: 'en',
+            multilang: true,
             bindable: true,
+            defaultValue: '',
             /* wwEditor:start */
             bindingValidation: {
                 type: 'string',
-                tooltip: `Either the identifier of the language, or a JS object. Example: "en", "fr". See https://antoniandre.github.io/vue-cal/#ex--internationalization for a full list of all supported languages. See https://github.com/antoniandre/vue-cal/blob/main/src/vue-cal/i18n/en.json for providing a JS object.`,
+                tooltip: 'Bind to a string value for the "Today" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextYear: {
+            label: { en: '"Year" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Year" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextMonth: {
+            label: { en: '"Month" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Month" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextWeek: {
+            label: { en: '"Week" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Week" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextDay: {
+            label: { en: '"Day" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "Day" button text',
+            },
+            /* wwEditor:end */
+        },
+        buttonTextList: {
+            label: { en: '"List" button text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the "List" button text',
+            },
+            /* wwEditor:end */
+        },
+        noEventsText: {
+            label: { en: 'No events text' },
+            type: 'Text',
+            section: 'settings',
+            multilang: true,
+            bindable: true,
+            defaultValue: '',
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a string value for the text shown when no events are available',
+            },
+            propertyHelp: {
+                tooltip: 'The text to display when there are no events to show',
+            },
+            /* wwEditor:end */
+        },
+
+        // Adding new property for time grid background
+        timeGridBackgroundColor: {
+            label: { en: 'Background' },
+            type: 'Color',
+            section: 'style',
+            bindable: true,
+            defaultValue: null,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'string',
+                tooltip: 'Bind to a color value for the time grid background',
+            },
+            /* wwEditor:end */
+        },
+        showHeader: {
+            label: { en: 'Header' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            defaultValue: true,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Toggle to show or hide the calendar header/toolbar.',
+            },
+            propertyHelp: {
+                tooltip: 'Controls the visibility of the calendar header/toolbar.',
+            },
+            /* wwEditor:end */
+        },
+        disableInteractions: {
+            label: { en: 'Readonly' },
+            type: 'OnOff',
+            section: 'settings',
+            bindable: true,
+            defaultValue: false,
+            /* wwEditor:start */
+            bindingValidation: {
+                type: 'boolean',
+                tooltip: 'Toggle to disable interactions like event creation and dragging.',
+            },
+            propertyHelp: {
+                tooltip: 'Controls whether users can interact with the calendar to create or modify events.',
             },
             /* wwEditor:end */
         },
     },
+    triggerEvents: [
+        {
+            name: 'eventClick',
+            label: { en: 'On event click' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Sample Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    textColor: '#ffffff',
+                    content: 'This is a sample event'
+                }
+            },
+        },
+        {
+            name: 'viewChange',
+            label: { en: 'On view change' },
+            event: { 
+                value: {
+                    view: 'dayGridMonth',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString(),
+                    title: 'Month View'
+                }
+            },
+        },
+        {
+            name: 'eventCreated',
+            label: { en: 'On event created' },
+            event: { 
+                value: {
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
+        },
+        {
+            name: 'eventUpdated',
+            label: { en: 'On event updated' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Updated Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    backgroundColor: '#3788d8',
+                    borderColor: '#3788d8',
+                    textColor: '#ffffff',
+                    content: 'This event was updated'
+                }
+            },
+        },
+        {
+            name: 'eventDragStart',
+            label: { en: 'On event drag start' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dragging Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
+        },
+        {
+            name: 'eventDragEnd',
+            label: { en: 'On event drag end' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dragged Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
+        },
+        {
+            name: 'eventDrop',
+            label: { en: 'On event drop' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Dropped Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false,
+                    delta: { days: 1, milliseconds: 0 }
+                }
+            },
+        },
+        {
+            name: 'eventResizeStart',
+            label: { en: 'On event resize start' },
+            event: { 
+                value: {
+                    id: 'event1',
+                    title: 'Resizing Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 3600000).toISOString(),
+                    allDay: false
+                }
+            },
+        },
+        {
+            name: 'eventResize',
+            label: { en: 'On event resize' },
+            event: {
+                value: {
+                    id: 'event1',
+                    title: 'Resized Event',
+                    start: new Date().toISOString(),
+                    end: new Date(new Date().getTime() + 7200000).toISOString(),
+                    allDay: false,
+                    startDelta: { days: 0, milliseconds: 0 },
+                    endDelta: { days: 0, milliseconds: 3600000 }
+                }
+            },
+        },
+    ],
+    actions: [
+        {
+            action: 'changeView',
+            label: { en: 'Change view' },
+            args: [
+                {
+                    name: 'viewName',
+                    type: 'select',
+                    options: [
+                        { value: 'multiMonthYear', label: 'multiMonthYear' },
+                        { value: 'dayGridMonth', label: 'dayGridMonth' },
+                        { value: 'timeGridWeek', label: 'timeGridWeek' },
+                        { value: 'timeGridDay', label: 'timeGridDay' },
+                        { value: 'listWeek', label: 'listWeek' },
+                    ],
+                },
+            ],
+        },
+        {
+            action: 'goToDate',
+            label: { en: 'Go to date' },
+            args: [
+                {
+                    name: 'date',
+                    type: 'string',
+                },
+            ],
+        },
+        {
+            action: 'next',
+            label: { en: 'Next period' },
+        },
+        {
+            action: 'prev',
+            label: { en: 'Previous period' },
+        },
+        {
+            action: 'today',
+            label: { en: 'Go to today' },
+        },
+    ],
 };

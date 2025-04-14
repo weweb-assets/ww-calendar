@@ -1,19 +1,26 @@
 {
-  "name": "ww-calendar",
-  "version": "3.3.1",
-  "scripts": {
-    "build": "weweb build",
-    "serve": "weweb serve"
-  },
-  "devDependencies": {
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "@weweb/cli": "latest",
-    "eslint": "^7.7.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-vue": "7.0.0-beta.4",
-    "prettier": "^2.1.2"
-  },
-  "dependencies": {
-    "vue-cal": "4.10.0"
-  }
+    "name": "ww-fullcalendar",
+    "version": "1.2.0",
+    "scripts": {
+        "build": "weweb build",
+        "serve": "weweb serve"
+    },
+    "dependencies": {
+        "@fullcalendar/core": "6.1.17",
+        "@fullcalendar/daygrid": "6.1.17",
+        "@fullcalendar/interaction": "6.1.17",
+        "@fullcalendar/list": "6.1.17",
+        "@fullcalendar/luxon3": "^6.1.17",
+        "@fullcalendar/multimonth": "6.1.17",
+        "@fullcalendar/timegrid": "6.1.17",
+        "@fullcalendar/vue3": "6.1.17"
+    },
+    "devDependencies": {
+        "@vue/eslint-config-prettier": "^6.0.0",
+        "@weweb/cli": "latest",
+        "eslint": "^7.7.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-vue": "7.0.0-beta.4",
+        "prettier": "^2.1.2"
+    }
 }
