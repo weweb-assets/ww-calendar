@@ -100,17 +100,17 @@ export default {
     
             return events.map(event => {
                 // Get values using formulas
-                const id = resolveMappingFormula(props.content?.eventsIdFormula, { mapping: event }) ?? event.id;
-                const title = resolveMappingFormula(props.content?.eventsTitleFormula, { mapping: event }) ?? event.title;
-                const start = resolveMappingFormula(props.content?.eventsStartFormula, { mapping: event }) ?? event.start;
-                const end = resolveMappingFormula(props.content?.eventsEndFormula, { mapping: event }) ?? event.end;
-                const allDay = resolveMappingFormula(props.content?.eventsAllDayFormula, { mapping: event }) ?? event.allDay;
-                const backgroundColor = resolveMappingFormula(props.content?.eventsBackgroundColorFormula, { mapping: event }) ?? event.backgroundColor;
-                const borderColor = resolveMappingFormula(props.content?.eventsBorderColorFormula, { mapping: event }) ?? event.borderColor;
-                const textColor = resolveMappingFormula(props.content?.eventsTextColorFormula, { mapping: event }) ?? event.textColor;
-                const content = resolveMappingFormula(props.content?.eventsContentFormula, { mapping: event }) ?? event.content;
-                const data = resolveMappingFormula(props.content?.eventsDataFormula, { mapping: event }) ?? event.data;
-                const groupId = resolveMappingFormula(props.content?.eventsGroupIdFormula, { mapping: event }) ?? event.groupId;
+                const id = resolveMappingFormula(props.content?.eventsIdFormula, event) ?? event.id;
+                const title = resolveMappingFormula(props.content?.eventsTitleFormula, event) ?? event.title;
+                const start = resolveMappingFormula(props.content?.eventsStartFormula, event) ?? event.start;
+                const end = resolveMappingFormula(props.content?.eventsEndFormula, event) ?? event.end;
+                const allDay = resolveMappingFormula(props.content?.eventsAllDayFormula, event) ?? event.allDay;
+                const backgroundColor = resolveMappingFormula(props.content?.eventsBackgroundColorFormula, event) ?? event.backgroundColor;
+                const borderColor = resolveMappingFormula(props.content?.eventsBorderColorFormula, event) ?? event.borderColor;
+                const textColor = resolveMappingFormula(props.content?.eventsTextColorFormula, event) ?? event.textColor;
+                const content = resolveMappingFormula(props.content?.eventsContentFormula, event) ?? event.content;
+                const data = resolveMappingFormula(props.content?.eventsDataFormula, event) ?? event.data;
+                const groupId = resolveMappingFormula(props.content?.eventsGroupIdFormula, event) ?? event.groupId;
                 return {
                     id: id || wwLib.wwUtils.getUid(),
                     title: title || 'Untitled Event',
