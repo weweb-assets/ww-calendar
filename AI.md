@@ -6,14 +6,34 @@ keywords: calendar, events, scheduling, fullcalendar, date picker, time slots, a
 
 #### FullCalendar Component
 
-Properties:
+***Purpose:***
+A feature-rich calendar component based on FullCalendar library with multiple view types, event management, and extensive customization options
+
+***Features:***
+- Responsive design that adapts to container size
+- Multiple view types (year, month, week, day, list)
+- Event drag-and-drop for rescheduling
+- Event resizing to adjust duration
+- Grouped events that move together
+- Customizable time ranges and day display
+- Internationalization support with multiple locales
+- Extensive style customization for all calendar elements
+- Configurable cell dimensions and spacing
+- Dynamic property mapping for events when binding external data
+
+***Important Build guidelines:***
+- Always put a fixed height on the calendar element
+- Never use flex or min-height directly on the calendar element
+- When creating fake events put them in current year/month/week
+
+***Properties:***
 - `fontFamily`: `string` - Sets the font family for the calendar. Default: `null`
 - `fontSize`: `string` - Sets the font size with unit (e.g., "14px"). Default: `'14px'`
 - `fontWeight`: `string` - Sets the font weight as a string value. Default: `'400'`
 - `showHeader`: `boolean` - Controls the visibility of the calendar header/toolbar. Default: `true`
 - `disableInteractions`: `boolean` - Disables interactions like event creation and dragging. Default: `false`
 
-Style Properties:
+***Style Properties:***
 - `headerBackgroundColor`: `string` - Background color for the calendar header. Default: `null`
 - `headerTextColor`: `string` - Text color for the calendar header. Default: `null`
 - `dayHeaderBackgroundColor`: `string` - Background color for day headers. Default: `null`
@@ -46,7 +66,7 @@ Style Properties:
 - `dayHeaderHeight`: `string` - Height for the day headers. Default: `null`
 - `nowIndicatorColor`: `string` - Color for the current time indicator line. Default: `'red'`
 
-View Settings:
+***View Settings Properties:***
 - `locale`: `string` - Sets the language locale. Default: `'auto'`
 - `timezone`: `string` - Timezone used to display dates and times. Can be 'local' (browser time), 'UTC', or any valid IANA timezone ID. Default: `'local'`
 - `yearView`: `boolean` - Enables year view. Default: `true`
@@ -70,7 +90,7 @@ View Settings:
 - `buttonTextList`: `string` - Custom text for the "List" button. Default: `''` (uses locale default)
 - `noEventsText`: `string` - Custom text when there is no events to display in the list view. Default: `''` 
 
-Event Data:
+***Event Data:***
 - `events`: `array` - Array of event objects with properties:
   - `id`: `string` - Unique identifier for the event
   - `title`: `string` - Event title
@@ -84,7 +104,7 @@ Event Data:
   - `groupId`: `string` - Group identifier for related events
   - `data`: `object` - Additional data for the event
 
-Event Property Mapping:
+***Event Property Mapping:***
 - `eventsIdFormula`: `Formula` - Formula to extract the ID from each event object. Default: `"context.mapping?.['id']"`
 - `eventsTitleFormula`: `Formula` - Formula to extract the title from each event object. Default: `"context.mapping?.['title']"`
 - `eventsStartFormula`: `Formula` - Formula to extract the start date from each event object. Default: `"context.mapping?.['start']"`
@@ -97,41 +117,24 @@ Event Property Mapping:
 - `eventsDataFormula`: `Formula` - Formula to extract additional data from each event object. Default: `"context.mapping?.['data']"`
 - `eventsGroupIdFormula`: `Formula` - Formula to extract the group ID from each event object. Default: `"context.mapping?.['groupId']"`
 
-Events:
-- `eventClick`: {value: eventData} - Triggered when an event is clicked
-- `viewChange`: {value: viewData} - Triggered when the calendar view changes
-- `eventCreated`: {value: eventData} - Triggered when an event is created by selecting a time slot
-- `eventUpdated`: {value: eventData} - Triggered when an event is updated
-- `eventDragStart`: {value: eventData} - Triggered when event dragging starts
-- `eventDragEnd`: {value: eventData} - Triggered when event dragging ends
-- `eventDrop`: {value: eventData} - Triggered when an event is dropped in a new position
-- `eventResizeStart`: {value: eventData} - Triggered when event resizing starts
-- `eventResize`: {value: eventData} - Triggered when an event is resized
+***Events:***
+- `eventClick`: Triggered when an event is clicked. Payload: {value: eventData}
+- `viewChange`: Triggered when the calendar view changes. Payload: {value: viewData}
+- `eventCreated`: Triggered when an event is created by selecting a time slot. Payload: {value: eventData}
+- `eventUpdated`: Triggered when an event is updated. Payload: {value: eventData}
+- `eventDragStart`: Triggered when event dragging starts. Payload: {value: eventData}
+- `eventDragEnd`: Triggered when event dragging ends. Payload: {value: eventData}
+- `eventDrop`: Triggered when an event is dropped in a new position. Payload: {value: eventData}
+- `eventResizeStart`: Triggered when event resizing starts. Payload: {value: eventData}
+- `eventResize`: Triggered when an event is resized. Payload: {value: eventData}
 
-Actions:
+***Exposed Element Actions:***
 - `changeView`: Changes the current calendar view. Args: viewName (string)
 - `goToDate`: Navigates to a specific date. Args: date (string in YYYY-MM-DD format)
 - `next`: Moves to the next time period (day, week, month, etc.)
 - `prev`: Moves to the previous time period (day, week, month, etc.)
 - `today`: Moves to the current date
 
-Variables:
+***Exposed Variables:*** 
 - `currentView`: string - The currently active view type
 - `selectedEvent`: object - The most recently clicked event data
-
-Special features:
-- Responsive design that adapts to container size
-- Multiple view types (year, month, week, day, list)
-- Event drag-and-drop for rescheduling
-- Event resizing to adjust duration
-- Grouped events that move together
-- Customizable time ranges and day display
-- Internationalization support with multiple locales
-- Extensive style customization for all calendar elements
-- Configurable cell dimensions and spacing
-- Dynamic property mapping for events when binding external data
-
-Important Build guidelines:
-- Always put a fixed height on the calendar element
-- Never use flex or min-height directly on the calendar element
-- When creating fake events put them in current year/month/week
