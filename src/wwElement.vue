@@ -101,7 +101,7 @@ export default {
             // allows locale override
             if (this.content.lang && typeof this.content.lang === 'object') return this.content.lang;
             const selectedLocale = locales[this.content.lang];
-            return selectedLocale || locales.en;
+            return selectedLocale ? this.content.lang : 'en';
         },
         customThemeStyle() {
             return {
