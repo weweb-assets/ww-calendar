@@ -1,6 +1,6 @@
 <template>
     <div class="fullcalendar-wrapper modern-buttons" :style="calendarStyles">
-        <FullCalendar ref="fullCalendarRef" :options="calendarOptions"></FullCalendar>
+        <FullCalendar ref="fullCalendarRef" :key="calendarKey" :options="calendarOptions"></FullCalendar>
     </div>
 </template>
 
@@ -12,7 +12,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import multiMonthPlugin from '@fullcalendar/multimonth';
-import luxonPlugin from '@fullcalendar/luxon3'
+import luxonPlugin from '@fullcalendar/luxon3';
 
 export default {
     components: {
@@ -51,6 +51,11 @@ export default {
             name: 'selectedEvent',
             type: 'object',
             defaultValue: null,
+        });
+
+        // Computed key to force remount when defaultView changes
+        const calendarKey = computed(() => {
+            return `calendar-${props.content?.defaultView || 'dayGridMonth'}`;
         });
 
         // Computed properties for styling
@@ -95,9 +100,9 @@ export default {
         // Process events data with property path mapping
         const processedEvents = computed(() => {
             const events = props.content?.events || [];
-            
+
             const { resolveMappingFormula } = wwLib.wwFormula.useFormula();
-    
+
             return events.map(event => {
                 // Get values using formulas
                 const id = resolveMappingFormula(props.content?.eventsIdFormula, event) ?? event.id;
@@ -105,9 +110,12 @@ export default {
                 const start = resolveMappingFormula(props.content?.eventsStartFormula, event) ?? event.start;
                 const end = resolveMappingFormula(props.content?.eventsEndFormula, event) ?? event.end;
                 const allDay = resolveMappingFormula(props.content?.eventsAllDayFormula, event) ?? event.allDay;
-                const backgroundColor = resolveMappingFormula(props.content?.eventsBackgroundColorFormula, event) ?? event.backgroundColor;
-                const borderColor = resolveMappingFormula(props.content?.eventsBorderColorFormula, event) ?? event.borderColor;
-                const textColor = resolveMappingFormula(props.content?.eventsTextColorFormula, event) ?? event.textColor;
+                const backgroundColor =
+                    resolveMappingFormula(props.content?.eventsBackgroundColorFormula, event) ?? event.backgroundColor;
+                const borderColor =
+                    resolveMappingFormula(props.content?.eventsBorderColorFormula, event) ?? event.borderColor;
+                const textColor =
+                    resolveMappingFormula(props.content?.eventsTextColorFormula, event) ?? event.textColor;
                 const content = resolveMappingFormula(props.content?.eventsContentFormula, event) ?? event.content;
                 const data = resolveMappingFormula(props.content?.eventsDataFormula, event) ?? event.data;
                 const groupId = resolveMappingFormula(props.content?.eventsGroupIdFormula, event) ?? event.groupId;
@@ -120,7 +128,7 @@ export default {
                     backgroundColor: backgroundColor || props.content?.defaultEventBackgroundColor || '#3788d8',
                     borderColor: borderColor || props.content?.defaultEventBorderColor || '#3788d8',
                     textColor: textColor || props.content?.defaultEventTextColor || '#ffffff',
-                    ...(groupId ? {groupId: groupId || undefined} : {}),
+                    ...(groupId ? { groupId: groupId || undefined } : {}),
                     extendedProps: {
                         content: content || '',
                         data: data || {},
@@ -174,8 +182,8 @@ export default {
             }
 
             // Ensure at least one day is visible (prevent hiding all days)
-            if ([0,1,2,3,4,5,6].every(day => hidden.includes(day))) {
-                return []
+            if ([0, 1, 2, 3, 4, 5, 6].every(day => hidden.includes(day))) {
+                return [];
             }
 
             return hidden;
@@ -185,18 +193,14 @@ export default {
         const calendarOptions = computed(() => {
             const firstDay = props.content?.startWeekOnSunday ? 0 : 1;
             const locale = props.content?.locale === 'auto' ? wwLib.wwLang.lang : props.content?.locale || 'en';
-            
-            // Validate default view
-            let initialView = currentView;
-            const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
-            if (!validViews.includes(initialView)) {
-                initialView = 'dayGridMonth';
-            }
-            
+
+            // Use the default view or fallback
+            const initialView = props.content?.defaultView || 'dayGridMonth';
+
             // Validate time start and end
             let slotMinTime = '00:00:00';
             let slotMaxTime = '24:00:00';
-            
+
             if (props.content?.timeStart) {
                 // Simple validation for time format (HH:MM:SS)
                 const timeStartRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
@@ -204,7 +208,7 @@ export default {
                     slotMinTime = props.content.timeStart;
                 }
             }
-            
+
             if (props.content?.timeEnd) {
                 // Simple validation for time format (HH:MM:SS)
                 const timeEndRegex = /^([01]?[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
@@ -212,21 +216,21 @@ export default {
                     slotMaxTime = props.content.timeEnd;
                 }
             }
-            
+
             // Handle height and contentHeight settings
             let height = props.content?.height || '600px';
             let contentHeight = props.content?.contentHeight || 'auto';
-            
+
             // If height is 'auto', set it to null to let FullCalendar handle it
             if (height === 'auto') {
                 height = null;
             }
-            
+
             // If contentHeight is 'auto', set it to null to let FullCalendar handle it
             if (contentHeight === 'auto') {
                 contentHeight = null;
             }
-            
+
             // Custom button text
             const buttonText = {};
             if (props.content?.buttonTextToday) buttonText.today = wwLib.wwLang.getText(props.content.buttonTextToday);
@@ -239,11 +243,13 @@ export default {
             return {
                 plugins: [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, multiMonthPlugin, luxonPlugin],
                 initialView: initialView,
-                headerToolbar: props.content?.showHeader ? {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: Object.keys(availableViews.value).join(','),
-                } : false,
+                headerToolbar: props.content?.showHeader
+                    ? {
+                          left: 'prev,next today',
+                          center: 'title',
+                          right: Object.keys(availableViews.value).join(','),
+                      }
+                    : false,
                 views: availableViews.value,
                 events: processedEvents.value,
                 editable: !props.content?.disableInteractions && !isEditing.value,
@@ -262,7 +268,9 @@ export default {
                 height: 'auto',
                 contentHeight: 'auto',
                 stickyHeaderDates: true,
-                noEventsContent: props.content?.noEventsText ? wwLib.wwLang.getText(props.content.noEventsText) : undefined,
+                noEventsContent: props.content?.noEventsText
+                    ? wwLib.wwLang.getText(props.content.noEventsText)
+                    : undefined,
                 buttonText: Object.keys(buttonText).length > 0 ? buttonText : undefined,
                 // Add all event handlers directly to the options object
                 eventClick: info => {
@@ -426,22 +434,6 @@ export default {
 
         // Watch for changes in content properties
         watch(
-            () => props.content?.defaultView,
-            newVal => {
-                let viewMode = newVal
-                const validViews = ['multiMonthYear', 'dayGridMonth', 'timeGridWeek', 'timeGridDay', 'listWeek'];
-                if (!validViews.includes(newVal)) {
-                    viewMode = 'dayGridMonth';
-                }
-                if (viewMode && fullCalendarRef.value) {
-                    const calendarApi = fullCalendarRef.value.getApi();
-                    calendarApi.changeView(viewMode);
-                    setCurrentView(viewMode);
-                }
-            }
-        );
-
-        watch(
             () => props.content?.timezone,
             () => {
                 if (fullCalendarRef.value) {
@@ -504,6 +496,7 @@ export default {
             fullCalendarRef,
             calendarOptions,
             calendarStyles,
+            calendarKey,
             currentView,
             selectedEvent,
             // Actions
@@ -619,7 +612,7 @@ export default {
         .fc-col-header-cell {
             height: var(--fc-day-header-height);
             background-color: var(--fc-day-header-bg-color) !important;
-            
+
             .fc-col-header-cell-cushion {
                 display: flex;
                 align-items: center;
@@ -639,7 +632,7 @@ export default {
         .fc-day-today {
             background-color: var(--fc-today-bg-color) !important;
         }
-        
+
         // Fix for cell backgrounds and text colors
         .fc-daygrid-day {
             background-color: var(--fc-cell-bg-color) !important;
@@ -649,7 +642,7 @@ export default {
         // Fix for other month cells
         .fc-day-other {
             background-color: var(--fc-other-month-bg-color) !important;
-            
+
             .fc-daygrid-day-top,
             .fc-daygrid-day-number {
                 color: var(--fc-other-month-text-color) !important;
@@ -657,7 +650,8 @@ export default {
         }
 
         // Weekend text color
-        .fc-day-sat, .fc-day-sun {
+        .fc-day-sat,
+        .fc-day-sun {
             .fc-daygrid-day-top,
             .fc-daygrid-day-number,
             .fc-col-header-cell-cushion {
@@ -666,8 +660,8 @@ export default {
         }
 
         // Fix for time grid background
-        .fc-timegrid-cols, 
-        .fc-timegrid-col, 
+        .fc-timegrid-cols,
+        .fc-timegrid-col,
         .fc-timegrid-body {
             background-color: var(--fc-time-grid-bg-color) !important;
         }
@@ -685,7 +679,7 @@ export default {
                 color: var(--fc-today-button-hover-text-color, var(--fc-button-hover-text-color));
             }
         }
-        
+
         // Fix for today highlighting in all views
         .fc-day.fc-day-today,
         .fc-daygrid-day.fc-day-today,
@@ -693,7 +687,7 @@ export default {
         .fc-list-day.fc-day-today {
             background-color: var(--fc-today-bg-color) !important;
         }
-        
+
         // Additional styles for multimonth view (year view)
         .fc-multimonth-daygrid-table {
             .fc-day-today {
