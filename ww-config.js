@@ -6,12 +6,26 @@ export default {
         icon: 'calendar',
         customSettingsPropertiesOrder: [
             'disableInteractions',
-            'viewSettingsTitle',
-            ['locale', 'timezone', 'defaultView'],
-            ['yearView', 'monthView', 'weekView', 'dayView', 'listView'],
-            ['allDaySlot', 'timeStart', 'timeEnd'],
-            ['hideWeekends', 'startWeekOnSunday', 'hideDaysOfWeek'],
-            'eventsTitle',
+            'showHeader',
+            {
+                label: "View settings",
+                isCollapsible: true,
+                properties: [
+                    'locale',
+                    'timezone',
+                    'defaultView',
+                    'yearView',
+                    'monthView',
+                    'weekView',
+                    'dayView',
+                    'listView',
+                    'allDaySlot',
+                    'timeStart',
+                    'timeEnd',
+                    'hideWeekends',
+                    'startWeekOnSunday',
+                    'hideDaysOfWeek']
+            },
             ['events',
             'eventsIdFormula',
             'eventsTitleFormula',
@@ -28,128 +42,75 @@ export default {
             ['buttonTextToday', 'buttonTextYear', 'buttonTextMonth', 'buttonTextWeek', 'buttonTextDay', 'buttonTextList', 'noEventsText']
         ],
         customStylePropertiesOrder: [
-            'generalStyleTitle',
-            ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
-            'headerStyleTitle',
-            ['showHeader', 'headerBackgroundColor', 'headerTextColor', 'headerHeight'],
-            'dayHeaderStyleTitle',
-            [
-                'dayHeaderBackgroundColor',
-                'dayHeaderTextColor',
-                'dayHeaderHeight',
-                'dayHeaderFontSize',
-                'dayHeaderFontWeight',
-                'weekendTextColor',
-            ],
-            'cellStyleTitle',
-            ['todayBackgroundColor', 'cellBackgroundColor', 'cellTextColor'],
-            ['otherMonthBackgroundColor', 'otherMonthTextColor'],
-            'timeGridStyleTitle',
-            ['timeGridBackgroundColor'],
-            'buttonStyleTitle',
-            [
-                'buttonBackgroundColor',
-                'buttonTextColor',
-                'buttonHoverBackgroundColor',
-                'buttonHoverTextColor',
-                'buttonActiveBackgroundColor',
-                'buttonActiveTextColor',
-                'buttonBorderRadius',
-                'todayButtonBackgroundColor',
-                'todayButtonTextColor',
-                'todayButtonHoverBackgroundColor',
-                'todayButtonHoverTextColor',
-            ],
-            'borderStyleTitle',
-            ['borderColor'],
-            'eventStyleTitle',
-            ['defaultEventBackgroundColor', 'defaultEventBorderColor', 'defaultEventTextColor'],
+            {
+                label: "General",
+                isCollapsible: true,
+                properties: ['fontFamily', 'fontSize', 'fontWeight', 'nowIndicatorColor'],
+
+            },
+            {
+                label: "Header",
+                isCollapsible: true,
+                properties: ['headerBackgroundColor', 'headerTextColor', 'headerHeight'],
+
+            },
+            {
+                label: "Day header",
+                isCollapsible: true,
+                properties: [
+                    'dayHeaderBackgroundColor',
+                    'dayHeaderTextColor',
+                    'dayHeaderHeight',
+                    'dayHeaderFontSize',
+                    'dayHeaderFontWeight',
+                    'weekendTextColor',
+                ],
+            },
+            {
+                label: "Cells",
+                isCollapsible: true,
+                properties: [
+                    'todayBackgroundColor',
+                    'cellBackgroundColor',
+                    'cellTextColor',
+                    'otherMonthBackgroundColor',
+                    'otherMonthTextColor']
+            },
+            {
+                label: "Time grid",
+                isCollapsible: true,
+                properties: ['timeGridBackgroundColor'],
+            },
+            {
+                label: "Buttons",
+                isCollapsible: true,
+                properties: [
+                    'buttonBackgroundColor',
+                    'buttonTextColor',
+                    'buttonHoverBackgroundColor',
+                    'buttonHoverTextColor',
+                    'buttonActiveBackgroundColor',
+                    'buttonActiveTextColor',
+                    'buttonBorderRadius',
+                    'todayButtonBackgroundColor',
+                    'todayButtonTextColor',
+                    'todayButtonHoverBackgroundColor',
+                    'todayButtonHoverTextColor',
+                ],
+            },
+            {
+                label: "Borders",
+                isCollapsible: true,
+                properties: ['borderColor'],
+            },
+            {
+                label: "Events",
+                isCollapsible: true,
+                properties: ['defaultEventBackgroundColor', 'defaultEventBorderColor', 'defaultEventTextColor'],
+            },
         ],
     },
     properties: {
-        // Title properties for Settings
-        viewSettingsTitle: {
-            section: 'settings',
-            type: 'Title',
-            label: {
-                en: 'View Settings',
-            },
-            editorOnly: true,
-        },
-        eventsTitle: {
-            section: 'settings',
-            type: 'Title',
-            label: {
-                en: 'Events',
-            },
-            editorOnly: true,
-        },
-
-        // Title properties for Style
-        generalStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'General',
-            },
-            editorOnly: true,
-        },
-        headerStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Header',
-            },
-            editorOnly: true,
-        },
-        dayHeaderStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Day header',
-            },
-            editorOnly: true,
-        },
-        cellStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Cells',
-            },
-            editorOnly: true,
-        },
-        buttonStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Buttons',
-            },
-            editorOnly: true,
-        },
-        borderStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Borders',
-            },
-            editorOnly: true,
-        },
-        eventStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Events',
-            },
-            editorOnly: true,
-        },
-        timeGridStyleTitle: {
-            section: 'style',
-            type: 'Title',
-            label: {
-                en: 'Time Grid',
-            },
-            editorOnly: true,
-        },
         // Appearance - Style Tab
         fontFamily: {
             label: { en: 'Font family' },
@@ -1487,3 +1448,4 @@ export default {
         },
     ],
 };
+
