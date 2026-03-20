@@ -1296,6 +1296,7 @@ export default {
                     content: 'This is a sample event'
                 }
             },
+            description: "Run when a calendar event is clicked.",
         },
         {
             name: 'viewChange',
@@ -1308,6 +1309,7 @@ export default {
                     title: 'Month View'
                 }
             },
+            description: "Run when the calendar view changes.",
         },
         {
             name: 'eventCreated',
@@ -1319,6 +1321,7 @@ export default {
                     allDay: false
                 }
             },
+            description: "Run when a calendar event is created.",
         },
         {
             name: 'eventUpdated',
@@ -1336,6 +1339,7 @@ export default {
                     content: 'This event was updated'
                 }
             },
+            description: "Run when a calendar event is updated.",
         },
         {
             name: 'eventDragStart',
@@ -1349,6 +1353,7 @@ export default {
                     allDay: false
                 }
             },
+            description: "Run when event dragging starts.",
         },
         {
             name: 'eventDragEnd',
@@ -1362,6 +1367,7 @@ export default {
                     allDay: false
                 }
             },
+            description: "Run when event dragging ends.",
         },
         {
             name: 'eventDrop',
@@ -1376,6 +1382,7 @@ export default {
                     delta: { days: 1, milliseconds: 0 }
                 }
             },
+            description: "Run when a dragged event is dropped.",
         },
         {
             name: 'eventResizeStart',
@@ -1389,6 +1396,7 @@ export default {
                     allDay: false
                 }
             },
+            description: "Run when event resizing starts.",
         },
         {
             name: 'eventResize',
@@ -1404,6 +1412,7 @@ export default {
                     endDelta: { days: 0, milliseconds: 3600000 }
                 }
             },
+            description: "Run when an event is resized.",
         },
     ],
     actions: [
