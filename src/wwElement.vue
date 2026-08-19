@@ -1,11 +1,11 @@
 <template>
-    <div class="fullcalendar-wrapper modern-buttons" :style="calendarStyles">
+    <div ref="calendarWrapperRef" class="fullcalendar-wrapper modern-buttons" :style="calendarStyles">
         <FullCalendar ref="fullCalendarRef" :key="calendarKey" :options="calendarOptions"></FullCalendar>
     </div>
 </template>
 
 <script>
-import { useTemplateRef, computed, watch } from 'vue';
+import { useTemplateRef, computed, onMounted, watch } from 'vue';
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -13,6 +13,9 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import multiMonthPlugin from '@fullcalendar/multimonth';
 import luxonPlugin from '@fullcalendar/luxon3';
+import { layerFullCalendarStyles } from './fullCalendarStyleLayer';
+
+layerFullCalendarStyles();
 
 export default {
     components: {
@@ -28,6 +31,12 @@ export default {
     emits: ['trigger-event'],
     setup(props, { emit }) {
         const fullCalendarRef = useTemplateRef(null);
+        const calendarWrapperRef = useTemplateRef('calendarWrapperRef');
+
+        onMounted(() => {
+            if (!calendarWrapperRef.value) return;
+            layerFullCalendarStyles(calendarWrapperRef.value.getRootNode());
+        });
 
         // Editor state
         const isEditing = computed(() => {
